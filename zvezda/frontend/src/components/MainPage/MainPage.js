@@ -1,6 +1,7 @@
 import React from 'react';
 
-import MainBanner from './MainBanner';
+import MainBanner from './MainBody/MainBanner';
+import MainBody from './MainBody/MainBody.js';
 
 const MainPage = (props) => {
     return (
@@ -8,6 +9,7 @@ const MainPage = (props) => {
             <div className='banner_wrapper'>
                 <MainBanner />
             </div>
+            <MainBody />
         </div>
     )
 }

@@ -2,3 +2,14 @@
     width: 100%;
     aspect-ratio: 16 / 9;
 }
+
+.slider_container {
+    position: relative;
+}
+
+.slider_container__text {
+    margin-left: 100px;
+    font-size: 30px;
+    color: white;
+    position: fixed;
+}

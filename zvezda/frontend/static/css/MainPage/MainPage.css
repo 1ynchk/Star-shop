@@ -6,3 +6,65 @@
     border-radius: 12px;
     overflow: hidden;
 }
+
+/* MAINBODY */
+
+.mainbody {
+    max-width: 1150px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 80px;
+}
+
+.mainbody_section__title {
+    font-size: 30px;
+    margin-bottom: 30px;
+}
+
+.mainbody_section {
+    margin-top: 50px;
+}
+
+/* SALESHITS */
+
+.product_card {
+    max-width: 200px;
+}
+
+.product_card__img_container {
+    width: 100%;
+}
+
+.product_card__img {
+    width: 100%;
+}
+
+.product_card__title {
+    font-size: 18px;
+    height: 37px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Укажите нужное количество строк */
+    -webkit-box-orient: vertical;
+    overflow-wrap: break-word;
+    margin-top: 15px;
+}
+
+.product_card__price {
+    margin-top: 15px;
+    font-weight: 600;
+}
+
+.product_card__btn_container {
+    margin-right: 10px;
+    margin-top: 15px;
+    display: flex;
+    justify-content: end;
+}
+
+.product_card__btn {
+    border-radius: 10px;
+    width: fit-content;
+    background-color: orange;
+    padding: 10px 15px;
+}

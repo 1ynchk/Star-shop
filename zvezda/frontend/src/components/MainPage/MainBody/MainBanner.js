@@ -1,12 +1,11 @@
-import Banner_1 from './../../../static/images/BannerImages/banner_1.jpg'
-import Banner_2 from './../../../static/images/BannerImages/banner_2.jpg'
-import Banner_3 from './../../../static/images/BannerImages/banner_3.jpg'
-import Banner_4 from './../../../static/images/BannerImages/banner_4.jpg'
+import Banner_1 from '../../../../static/images/BannerImages/banner_1.jpg'
+import Banner_2 from '../../../../static/images/BannerImages/banner_2.jpg'
+import Banner_3 from '../../../../static/images/BannerImages/banner_3.jpg'
+import Banner_4 from '../../../../static/images/BannerImages/banner_4.jpg'
 
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.css';
-
 import { Navigation, Pagination } from 'swiper/modules';
 
 function MainBanner(props) {
@@ -17,8 +16,6 @@ function MainBanner(props) {
             loop={true}
             navigation
             pagination
-            onSlideChange={() => {console.log('slide change')}}
-            onSwiper={(swiper) => console.log(swiper)}
         >
             
                 <SwiperSlide className='slider_container'>
