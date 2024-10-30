@@ -16,6 +16,7 @@ function MainBanner(props) {
             loop={true}
             navigation
             pagination
+            autoplay={10}
         >
             
                 <SwiperSlide className='slider_container'>

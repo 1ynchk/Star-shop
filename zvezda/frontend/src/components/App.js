@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 
 import { Header } from './Header';
 import MainPage from './MainPage/MainPage';
+import ProductsPage from './ProductsPage/ProductsPage.js';
 import store from '../store/store.js';
 
 export default class App extends Component {
@@ -21,8 +22,10 @@ export default class App extends Component {
                         <Header />
 
                         <Routes>
-                            <Route path='/' element={<MainPage />} />
-
+                            <Route exact path='/' element={<MainPage />} />
+                            <Route path='/products' >
+                                <Route path=':id' element={<ProductsPage />} />
+                            </Route>
                         </Routes>
 
                     </div>
