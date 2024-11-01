@@ -6,7 +6,7 @@ import profileImg from '../../static/images/profile_img.png';
 import cartImg from '../../static/images/cart_img.png';
 import findImg from '../../static/images/find_img.png';
 
-export const Header = (props) => {
+const Header = (props) => {
     return (
         <div className="header">
             <div className='header__above'>
@@ -53,3 +53,5 @@ export const Header = (props) => {
         </div>
     )
 }
+
+export default Header;

@@ -7,9 +7,7 @@ const productSlice = createSlice({
         products: []
     },
     reducers: {
-        getProduct(state, action) {
-
-        }
+        
     },
     extraReducers: (builder) => {
         builder 

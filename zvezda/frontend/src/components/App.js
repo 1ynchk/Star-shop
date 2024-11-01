@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { createRoot } from 'react-dom/client';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
 import { Provider } from 'react-redux';
 
 
-import { Header } from './Header';
+import Header from './Header';
 import MainPage from './MainPage/MainPage';
 import ProductsPage from './ProductsPage/ProductsPage.js';
+import Footer from './Footer.js';
 import store from '../store/store.js';
 
 export default class App extends Component {
@@ -27,8 +28,8 @@ export default class App extends Component {
                                 <Route path=':id' element={<ProductsPage />} />
                             </Route>
                         </Routes>
-
                     </div>
+                    <Footer />
                 </BrowserRouter>
             </Provider> 
             

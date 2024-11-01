@@ -1,7 +1,7 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from 'axios';
 
-export const fetchProducts = createAsyncThunk('products/fetchProducts', async (param) => {
+export const fetchExactProduct = createAsyncThunk('products/fetchExactProduct', async (param) => {
     const apiProducts = axios.create({
         baseURL: 'http://127.0.0.1:8000/api/products/',
         headers: {

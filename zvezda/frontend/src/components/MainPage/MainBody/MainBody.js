@@ -1,6 +1,8 @@
 import React from 'react';
+
 import SalesHits from './SalesHits.js';
 import Sale from './Sale.js';
+import Wholesale from './Wholesale.js';
 
 import { useDispatch } from 'react-redux';
 import { fetchProducts } from '../../../store/queries/Product.js';
@@ -23,6 +25,9 @@ const MainBody = (props) => {
             <div className='mainbody_section'>
                 <div className='mainbody_section__title'>Акции</div>
                 <Sale />
+            </div>
+            <div className='mainbody_section'>
+                <Wholesale />
             </div>
         </div>
     )
