@@ -1,0 +1,131 @@
+
+@keyframes main_menu_swiper_animation {
+    0%{
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.main_menu_swiper {
+    animation: main_menu_swiper_animation 0.5s ease forwards;
+}
+
+.banner_wrapper {
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 30px;
+    max-width: 1100px;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+/* MAINBODY */
+
+.mainbody {
+    max-width: 1150px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 80px;
+}
+
+.mainbody_section__title {
+    font-size: 30px;
+    margin-bottom: 30px;
+}
+
+.mainbody_section {
+    margin-top: 50px;
+}
+
+/* SALESHITS */
+
+.product_card {
+    max-width: 200px;
+    transform: scale(1.0);
+    transition: 0.5s;
+}
+
+.product_card:hover {
+    transform: scale(1.03);
+}
+
+.product_card__img_container {
+    width: 100%;
+}
+
+.product_card__img {
+    width: 100%;
+}
+
+.product_card__title {
+    font-size: 18px;
+    height: 37px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Укажите нужное количество строк */
+    -webkit-box-orient: vertical;
+    overflow-wrap: break-word;
+    margin-top: 15px;
+    transition-duration: 0.5s;
+}
+
+.product_card__title:hover {
+    color: orange;
+}
+
+.product_card__price_container {
+    max-width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.product_card__price {
+    margin-top: 15px;
+    font-weight: 600;
+}
+
+.product_card__price.crossed {
+    text-decoration: line-through;
+    font-size: 11px;
+    text-decoration-color: red;
+}
+
+.product_card__btn_container {
+    margin-right: 10px;
+    margin-top: 15px;
+    display: flex;
+    justify-content: end;
+}
+
+.product_card__btn {
+    border-radius: 10px;
+    width: fit-content;
+    background-color: orange;
+    padding: 10px 15px;
+    transition-duration: 0.5s;
+}
+
+.product_card__btn:hover {
+    background-color: rgba(255, 166, 0, 0.5);
+}
+
+/* WHOLESALE */
+
+.announcement_section {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.announcment {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+    overflow: hidden;
+    border-radius: 15px;
+}

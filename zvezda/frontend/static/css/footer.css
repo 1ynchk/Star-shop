@@ -1,0 +1,53 @@
+.footer {
+    padding: 30px 0;
+    margin-top: 50px;
+    background-color: rgba(196, 196, 196, 0.708);
+    min-height: 150px;
+}
+
+.footer__container {
+    max-width: 1200px;
+    margin-right: auto;
+    margin-left: auto;
+    display: flex;
+    justify-content: space-around;
+}
+
+.footer__subcontainer {
+    width: 600px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.footer__section_title {
+    font-size: 20px;
+    font-weight: 450;
+}
+
+.footer__section_number {
+    font-size: 25px;
+}
+
+.footer__section_info {
+    margin-top: 15px;
+}
+
+.footer__section_info div {
+    margin-top: 15px;
+}
+
+.footer__section_buttons {
+    display: flex;
+    justify-content: space-around;
+}
+
+.footer__section_button_img {
+    filter: grayscale(100%);
+    width: 35px;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.285);
+}
+
+.footer__section_text {
+    display: block;
+}

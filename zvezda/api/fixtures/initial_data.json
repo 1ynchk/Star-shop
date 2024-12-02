@@ -1,0 +1,403 @@
+[
+    {
+        "model": "api.Products",
+        "pk": 1,
+        "fields": {
+            "name": "Ластик",
+            "description": "Белый, 2 СМ",
+            "price": 10.00,
+            "amount": 2,
+            "articul": "123123123",
+            "img_url": "https://cdn-icons-png.flaticon.com/512/2175/2175188.png",
+            "date_add": "2024-10-24"
+        }
+    },
+    {
+        "model": "api.Products",
+        "pk": 2,
+        "fields": {
+            "name": "Клей ПВА, Человек-паук",
+            "description": "45г",
+            "price": 45.00,
+            "amount": 3,
+            "articul": "9508714",
+            "img_url": "https://cdn-icons-png.flaticon.com/512/2175/2175188.png",
+            "date_add": "2024-10-24"
+        }
+    },
+    {
+        "model": "api.Products",
+        "pk": 3,
+        "fields": {
+            "name": "Блокнот А7, Человек-паук",
+            "description": "64 листа, в твёрдой обложке",
+            "price": 200.00,
+            "amount": 5,
+            "articul": "9350844",
+            "img_url": "https://cdn-icons-png.flaticon.com/512/2175/2175188.png",
+            "date_add": "2024-10-24"
+        }
+    },
+    {
+        "model": "api.Products",
+        "pk": 4,
+        "fields": {
+            "name": "Ножницы детские Человек-паук",
+            "description": "13 см, с защитным колпачком",
+            "price": 120.00,
+            "amount": 5,
+            "articul": "7774575",
+            "img_url": "https://cdn-icons-png.flaticon.com/512/2175/2175188.png",
+            "date_add": "2024-10-24"
+        }
+    },
+    {
+        "model": "api.Products",
+        "pk": 5,
+        "fields": {
+            "name": "Тетрадь 48 листов в клетку Человек-паук",
+            "description": "Картонная обложка",
+            "price": 60.00,
+            "amount": 5,
+            "articul": "5798437",
+            "img_url": "https://cdn-icons-png.flaticon.com/512/2175/2175188.png",
+            "date_add": "2024-10-24"
+        }
+    },
+    {
+        "model": "api.Products",
+        "pk": 6,
+        "fields": {
+            "name": "Бумага цветная, А4 18 листов Человек-паук",
+            "description": "10 цветов, Немелованная, односторонняя, на скрепке",
+            "price": 70.00,
+            "amount": 5,
+            "articul": "5525688",
+            "img_url": "https://cdn-icons-png.flaticon.com/512/2175/2175188.png",
+            "date_add": "2024-10-24"
+        }
+    },
+    {
+        "model": "api.Products",
+        "pk": 7,
+        "fields": {
+            "name": "Пенал мягкий Человек-паук",
+            "description": "1 отделение, 95х205 мм",
+            "price": 250.00,
+            "amount": 5,
+            "articul": "5044952",
+            "img_url": "https://cdn-icons-png.flaticon.com/512/2175/2175188.png",
+            "date_add": "2024-10-24"
+        }
+    },
+    {
+        "model": "api.Products",
+        "pk": 8,
+        "fields": {
+            "name": "Бумага цветная, А4, 16 листов Принцессы",
+            "description": "8 цветов, немелованная, односторонняя, на скрепке, 48 г/м²",
+            "price": 100.00,
+            "amount": 5,
+            "articul": "4719017",
+            "img_url": "https://cdn-icons-png.flaticon.com/512/2175/2175188.png",
+            "date_add": "2024-10-24"
+        }
+    },
+    {
+        "model": "api.Products",
+        "pk": 9,
+        "fields": {
+            "name": "Спортивный рюкзак TEXTURA",
+            "description": "наружный карман, цвет чёрный/хаки",
+            "price": 600.00,
+            "amount": 2,
+            "articul": "9917054",
+            "img_url": "https://cdn-icons-png.flaticon.com/512/2175/2175188.png",
+            "date_add": "2024-10-24"
+        }
+    },
+    {
+        "model": "api.Products",
+        "pk": 10,
+        "fields": {
+            "name": "Рюкзак школьный на молнии бордовый",
+            "description": "наружный карман, цвет бордовый",
+            "price": 2000.00,
+            "amount": 6,
+            "articul": "9875302",
+            "img_url": "https://cdn-icons-png.flaticon.com/512/2175/2175188.png",
+            "date_add": "2024-10-24"
+        }
+    },
+    {
+        "model": "api.Products",
+        "pk": 11,
+        "fields": {
+            "name": "Корректор-лента",
+            "description": "5 м х 5 мм, корпус МИКС",
+            "price": 39.00,
+            "amount": 3,
+            "articul": "711072",
+            "img_url": "https://cdn-icons-png.flaticon.com/512/2175/2175188.png",
+            "date_add": "2024-10-24"
+        }
+    },
+    {
+        "model": "api.Products",
+        "pk": 12,
+        "fields": {
+            "name": "Степлер",
+            "description": "до 7 листов, МИНИ, МИКС",
+            "price": 160.00,
+            "amount": 5,
+            "articul": "711070",
+            "img_url": "https://cdn-icons-png.flaticon.com/512/2175/2175188.png",
+            "date_add": "2024-10-24"
+        }
+    },
+    {
+        "model": "api.Products",
+        "pk": 13,
+        "fields": {
+            "name": "Стакан-непроливайка Calligrata",
+            "description": "210 мл МИКС",
+            "price": 150.00,
+            "amount": 2,
+            "articul": "6255761",
+            "img_url": "https://cdn-icons-png.flaticon.com/512/2175/2175188.png",
+            "date_add": "2024-10-24"
+        }
+    },
+    {
+        "model": "api.Products",
+        "pk": 14,
+        "fields": {
+            "name": "Кисть для рисования набор 6 шт.",
+            "description": "белка Jan Vermeer",
+            "price": 90.00,
+            "amount": 5,
+            "articul": "6116515",
+            "img_url": "https://cdn-icons-png.flaticon.com/512/2175/2175188.png",
+            "date_add": "2024-10-24"
+        }
+    },
+    {
+        "model": "api.Products",
+        "pk": 15,
+        "fields": {
+            "name": "Нож канцелярский МИКС",
+            "description": "лезвие 18 мм, корпус пластик, фиксатор, блистер",
+            "price": 60.00,
+            "amount": 6,
+            "articul": "550228",
+            "img_url": "https://cdn-icons-png.flaticon.com/512/2175/2175188.png",
+            "date_add": "2024-10-24"
+        }
+    },
+    {
+        "model": "api.Products",
+        "pk": 16,
+        "fields": {
+            "name": "Тетрадь на спирали, 80 листов в клетку, ErichKraus",
+            "description": "пластиковая обложка, блок офсет 100% белизна, с принтом",
+            "price": 300.00,
+            "amount": 5,
+            "articul": "5433498",
+            "img_url": "https://cdn-icons-png.flaticon.com/512/2175/2175188.png",
+            "date_add": "2024-10-24"
+        }
+    },
+    {
+        "model": "api.Products",
+        "pk": 17,
+        "fields": {
+            "name": "Ручка шариковая, автоматическая",
+            "description": "0.5 мм, стержень синий, корпус прозрачный с резиновым держателем",
+            "price": 20.00,
+            "amount": 20,
+            "articul": "2687405",
+            "img_url": "https://cdn-icons-png.flaticon.com/512/2175/2175188.png",
+            "date_add": "2024-10-24"
+        }
+    },
+    {
+        "model": "api.Products",
+        "pk": 18,
+        "fields": {
+            "name": "Тетрадь 12 листов в косую лин. \"Зелёная обложка\"",
+            "description": "бумажная обложка, блок №2 КПК, белизна 75% (серые листы), плотность 58-63 г/м2",
+            "price": 25.00,
+            "amount": 15,
+            "articul": "2677087",
+            "img_url": "https://cdn-icons-png.flaticon.com/512/2175/2175188.png",
+            "date_add": "2024-10-24"
+        }
+    },
+    {
+        "model": "api.Products",
+        "pk": 19,
+        "fields": {
+            "name": "Ножницы канцелярские 13 см МИКС",
+            "description": "травмобезопасные, пластиковые ручки, закруглённые концы, МИКС",
+            "price": 60.00,
+            "amount": 6,
+            "articul": "1935424",
+            "img_url": "https://cdn-icons-png.flaticon.com/512/2175/2175188.png",
+            "date_add": "2024-10-24"
+        }
+    },
+    {
+        "model": "api.Products",
+        "pk": 20,
+        "fields": {
+            "name": "Пенал школьный на молнии Calligrata \"Аниме\"",
+            "description": "2 отделения, розовый",
+            "price": 250.00,
+            "amount": 5,
+            "articul": "10185925",
+            "img_url": "https://cdn-icons-png.flaticon.com/512/2175/2175188.png",
+            "date_add": "2024-10-24"
+        }
+    },
+    {
+        "model": "api.ProductRate",
+        "pk": 1,
+        "fields": {
+            "product": 1
+        }
+    },
+    {
+        "model": "api.ProductRate",
+        "pk": 2,
+        "fields": {
+            "product": 2
+        }
+    },
+    {
+        "model": "api.ProductRate",
+        "pk": 3,
+        "fields": {
+            "product": 3
+        }
+    },
+    {
+        "model": "api.ProductRate",
+        "pk": 4,
+        "fields": {
+            "product": 4
+        }
+    },
+    {
+        "model": "api.ProductRate",
+        "pk": 5,
+        "fields": {
+            "product": 5
+        }
+    },
+    {
+        "model": "api.ProductRate",
+        "pk": 6,
+        "fields": {
+            "product": 6
+        }
+    },
+    {
+        "model": "api.ProductRate",
+        "pk": 7,
+        "fields": {
+            "product": 7
+        }
+    },
+    {
+        "model": "api.ProductRate",
+        "pk": 8,
+        "fields": {
+            "product": 8
+        }
+    },
+    {
+        "model": "api.ProductRate",
+        "pk": 9,
+        "fields": {
+            "product": 9
+        }
+    },
+    {
+        "model": "api.ProductRate",
+        "pk": 10,
+        "fields": {
+            "product": 10
+        }
+    },
+    {
+        "model": "api.ProductRate",
+        "pk": 11,
+        "fields": {
+            "product": 11
+        }
+    },
+    {
+        "model": "api.ProductRate",
+        "pk": 12,
+        "fields": {
+            "product": 12
+        }
+    },
+    {
+        "model": "api.ProductRate",
+        "pk": 13,
+        "fields": {
+            "product": 13
+        }
+    },
+    {
+        "model": "api.ProductRate",
+        "pk": 14,
+        "fields": {
+            "product": 14
+        }
+    },
+    {
+        "model": "api.ProductRate",
+        "pk": 15,
+        "fields": {
+            "product": 15
+        }
+    },
+    {
+        "model": "api.ProductRate",
+        "pk": 16,
+        "fields": {
+            "product": 16
+        }
+    },
+    {
+        "model": "api.ProductRate",
+        "pk": 17,
+        "fields": {
+            "product": 17
+        }
+    },
+    {
+        "model": "api.ProductRate",
+        "pk": 18,
+        "fields": {
+            "product": 18
+        }
+    },
+    {
+        "model": "api.ProductRate",
+        "pk": 19,
+        "fields": {
+            "product": 19
+        }
+    },
+    {
+        "model": "api.ProductRate",
+        "pk": 20,
+        "fields": {
+            "product": 20
+        }
+    }
+]
+

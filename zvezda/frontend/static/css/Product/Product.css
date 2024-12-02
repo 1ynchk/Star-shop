@@ -1,0 +1,197 @@
+.product {
+    padding: 30px;
+}
+
+.product__title {
+    font-size: 30px;
+    font-weight: 450;
+}
+
+.product__info {
+    padding: 0px 20px;
+    margin-top: 50px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.product__photo_container {
+    min-width: 300px;
+    max-width: 300px;
+}
+
+.product__photo {
+    max-width: 100%;
+}
+
+.product__description_section {
+    height: 300px;
+    width: 400px;
+}
+
+.product__description_section > div {
+    min-height: 100px;
+}
+
+.product__description_title {
+    font-size: 22px;
+    font-weight: 450px;
+    margin-bottom: 15px;
+}
+
+.product__rate > div {
+    margin-bottom: 20px;
+}
+
+.rate_buttons_section {
+    max-width: 60px;
+    display: flex;
+    min-width: 50px;
+    justify-content: space-between;
+}
+
+.rate_buttons_section > button  {
+    border: 1px solid rgba(50, 50, 50, 0.447);
+    width: 25px;
+    border-radius: 5px;
+}
+
+.rate_img {
+    width: 100%;
+}
+
+
+
+.rate {
+    width: fit-content;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.rate_value {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 130px;
+}
+
+.rate_circle {
+    height: 40px;
+    width: 40px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+}
+
+.rate_circle.grey {
+    background-color: grey;
+}
+
+.rate_circle.green {
+    background-color: rgb(76, 167, 76);
+}
+
+.availability_img {
+    width: 20px;
+}
+
+.product__buying_section {
+    display: flex;
+    flex-direction: column;
+    width: 170px;
+}
+
+.product__buying_section > div {
+    margin-bottom: 15px;
+}
+
+.product__price {
+    display: flex;
+    gap: 5px;
+    font-size: 30px;
+}
+
+.product__status {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.product__add_to_cart_container {
+    width: 100%;
+}
+
+.product__add_to_cart {
+    background-color: orange;
+    padding: 5px 15px;
+    border-radius: 10px;
+}
+
+@keyframes dislike_animation_active {
+    0% {
+        transform: scale(1.0);
+    }
+
+    50% {
+        transform: scale(1.2);
+        background-color: transparent;
+    }
+
+    100% {
+        transform: scale(1.0);
+        background-color: red;
+    }
+}
+
+@keyframes like_animation_active {
+    0% {
+        transform: scale(1.0);
+    }
+
+    50% {
+        transform: scale(1.2);
+        background-color: transparent;
+    }
+
+    100% {
+        transform: scale(1.0);
+        background-color: green;
+    }
+}
+
+.rate_img.dislike.active {
+    animation: dislike_animation_active 0.5s ease forwards;
+}
+
+.rate_img.like.active {
+    animation: like_animation_active 0.5s ease forwards;
+}
+
+@keyframes dislike_animation_disactive {
+    0% {
+        background-color: red;
+    }
+
+    100% {
+        background-color: transparent
+    }
+}
+
+@keyframes like_animation_disactive {
+    0% {
+        background-color: green;
+    }
+
+    100% {
+        background-color: transparent
+    }
+}
+
+.rate_img.dislike {
+    animation: dislike_animation_disactive 0.5s ease forwards;
+}
+
+.rate_img.like {
+    animation: like_animation_disactive 1s ease forwards;
+}
