@@ -1,0 +1,35 @@
+
+.sidebar {
+    width: 300px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: 500px;
+    border: 1px solid rgb(50, 50, 50, 0.1);
+    box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.03);
+    padding: 30px 0;
+    border-radius: 5px;
+}
+
+.sidebar > * {
+    width: 150px;
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.sidebar__title {
+    font-size: 22px;
+    font-weight: 400;
+}
+
+.sidebar__element {
+    transition: .2s ease;
+}
+
+.sidebar__element:hover {
+    color: orange;
+}
+
+.sidebar__element.active {
+    color: orange;
+}

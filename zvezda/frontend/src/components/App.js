@@ -7,6 +7,7 @@ import MainPage from './MainPage/MainPage';
 import ProductsPage from './ProductsPage/ProductsPage.js';
 import Footer from './Footer.js';
 import Popup from './User/authentication/Popup.js';
+import Profile from './User/profile/profile.js';
 
 import { fetchIsUserLoginned } from '../store/queries/IsUserLoginned.js';
 import { setIsLogin } from '../store/slices/UsersSlice.js';
@@ -34,6 +35,7 @@ export const App = () => {
                             <Route path='/products' >
                                 <Route path=':id' element={<ProductsPage />} />
                             </Route>
+                            <Route path='/profile/settings' element={<Profile />} />
                     </Routes>
                     </div>
                 </div>

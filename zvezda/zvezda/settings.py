@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'frontend',
     "rest_framework",
     'django_extensions',
+    'storages'
     # 'corsheaders'
 ]
 
@@ -140,6 +141,12 @@ STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
+
+AWS_ACCES_KEY_ID = os.getenv('S3_ACCESS_KEY')
+AWS_SECRET_ACCESS_KEY = os.getenv('S3_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = os.getenv('S3_BUCKET_NAME')
+AWS_S3_REGION_NAME = 'ru-1' 
+AWS_S3_CUSTOM_DOMAIN = 'https://s3.timeweb.cloud'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 

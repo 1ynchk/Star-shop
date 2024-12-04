@@ -8,7 +8,10 @@ from .models import Products, Users, UsersRate, ProductRate
 from .serializer import (
     ProductsSerializer, 
     ExactProductSerializer,
-    UsersRateSerializer)
+    UsersRateSerializer,
+    GetUsersProfileInfo, 
+    PostUsersProfileInfo
+    )
 
 # Create your views here.
 class ProductsView(APIView):
@@ -93,7 +96,6 @@ class UsersAuthorizationView(APIView):
         if request.headers['type-post'] == 'login':
             email = request.data.get('email')         
             password = request.data.get('password')
-            print(email, password)
             user = authenticate(request=request, email=email, password=password)
             if user is not None:
                 login(request, user)
@@ -108,5 +110,28 @@ class UsersAuthorizationView(APIView):
 
 class UserInfoView(APIView):
 
+    def post(self, request):
+        pk = request.user.id
+        
+        try:
+            instance = Users.objects.get(id=pk)
+        except Exception:
+            return Response({'status': 'error', 'comment': 'there is not such a user'}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            serializer = PostUsersProfileInfo(data=request.data, instance=instance)
+            if not serializer.is_valid():
+                return Response({'status': 'error', 'comment': 'incorrect data'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+            else:
+                serializer.save()
+                return Response({'status': 'ok'})
+            
     def get(self, request):
-        pass
+        pk = request.user.id
+        try:
+            obj = Users.objects.get(id=pk)
+        except Exception:
+            return Response({'status': 'error', 'comment': 'there is not such a user'}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            serializer = GetUsersProfileInfo(obj)
+            print(serializer.data)
+            return Response({'status': 'ok', 'data': serializer.data})
