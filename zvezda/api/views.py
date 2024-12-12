@@ -9,8 +9,7 @@ from .serializer import (
     ProductsSerializer, 
     ExactProductSerializer,
     UsersRateSerializer,
-    GetUsersProfileInfo, 
-    PostUsersProfileInfo
+    GetUsersProfileInfo
     )
 
 # Create your views here.
@@ -112,13 +111,12 @@ class UserInfoView(APIView):
 
     def post(self, request):
         pk = request.user.id
-        
         try:
             instance = Users.objects.get(id=pk)
         except Exception:
             return Response({'status': 'error', 'comment': 'there is not such a user'}, status=status.HTTP_400_BAD_REQUEST)
         else:
-            serializer = PostUsersProfileInfo(data=request.data, instance=instance)
+            serializer = GetUsersProfileInfo(data=request.data, instance=instance)
             if not serializer.is_valid():
                 return Response({'status': 'error', 'comment': 'incorrect data'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
             else:

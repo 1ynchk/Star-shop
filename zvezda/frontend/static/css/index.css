@@ -25,6 +25,10 @@ img{vertical-align: top;}
     min-height: 90vh;
 }
 
+html, body {
+    overflow-x: hidden;
+}
+
 .main_area {
     flex: 1;
 }

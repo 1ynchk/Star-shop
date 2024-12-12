@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchProfileInfo } from "../queries/User/getProfileInfo";
+import { fetchProfileInfoGet } from "../queries/User/getProfileInfo";
+import { fetchProfileInfoPost } from "../queries/User/postProfileInfo";
 
 const ProfileSlice = createSlice(
     {
@@ -9,7 +10,9 @@ const ProfileSlice = createSlice(
             name: '',
             surname: '',
             email: '',
-            error: false 
+            isChanged: false,
+            error: false,
+            notification: false
         },
 
         reducers: {
@@ -17,25 +20,35 @@ const ProfileSlice = createSlice(
                 state.name = ''
                 state.surname = ''
                 state.email = ''
+            },
+            setIsChange(state, action) {
+                state.isChanged = action.payload
             }
         },
 
         extraReducers: (builder) => {
             builder 
                 .addCase(
-                    fetchProfileInfo.fulfilled, (state, action) => {
-                        state.name = action.payload.data.name
-                        state.surname = action.payload.data.surname
+                    fetchProfileInfoGet.fulfilled, (state, action) => {
+                        state.name = action.payload.data.first_name
+                        state.surname = action.payload.data.last_name
                         state.email = action.payload.data.email
                     }
                 )
                 .addCase(
-                    fetchProfileInfo.rejected, (state, action) => {
+                    fetchProfileInfoGet.rejected, (state, action) => {
                         state.error = true
+                    }
+                )
+                .addCase(
+                    fetchProfileInfoPost.fulfilled, (state, action) => {
+                        state.isChanged = false
                     }
                 )
         }
     }
 )
+
+export const { setIsChange } = ProfileSlice.actions
 
 export default ProfileSlice.reducer

@@ -44,26 +44,27 @@ class UsersRateSerializer(serializers.ModelSerializer):
         model = UsersRate
         fields = '__all__'
 
-class PostUsersProfileInfo(serializers.ModelSerializer):
-    last_name = serializers.CharField()
-    first_name = serializers.CharField()
-    password = serializers.CharField()
-    email = serializers.CharField()
-
-    def update(self, instance, validated_data):
-        instance.last_name = validated_data.get('last_name', instance.last_name)
-        instance.first_name = validated_data.get('first_name', instance.first_name)
-        instance.password = validated_data.get ('password', instance.password)  
-        instance.email = validated_data.get ('email', instance.email)
-        instance.save()
-        return instance
 
 class GetUsersProfileInfo(serializers.ModelSerializer):
 
     class Meta: 
         model = Users
-        fields = ['last_name', 'first_name', 'email']
+        fields = ['last_name', 'first_name', 'email', 'password']
+        extra_kwargs = {
+            'password': {'write_only': True, 'required': False},
+            'last_name': {'required': False},
+            'first_name': {'required': False},
+            'email': {'required': False},
+        }
 
+    def update(self, instance, validated_data):
+        password = validated_data.get('password', None)
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+        if password:
+            instance.set_password(password)
+        instance.save()
+        return instance
 
 class UsersAuthorizationSerializer(serializers.ModelSerializer):
 

@@ -2,23 +2,31 @@ import React, { useEffect, useState } from 'react'
 
 import password from '../../../../static/images/password.png'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchProfileInfo } from '../../../store/queries/User/getProfileInfo'
+import { fetchProfileInfoGet } from '../../../store/queries/User/getProfileInfo'
+import { fetchProfileInfoPost } from '../../../store/queries/User/postProfileInfo'
 import { checkPassword, checkName, checkSurname, correlateEmail } from '../../../../bll/Profile/ProfileSettings'
-import User from '../../../../bll/users/UserAuthorization'
+import { setIsChange } from '../../../store/slices/ProfileSlice'
+
+import confirmed_arrow from '../../../../static/images/arrow_confirmed.png'
 
 const Settings = () => {
-    const [isChanged, setIsChange] = useState(false)
     const dispatch = useDispatch()
+    const isChanged = useSelector(state => state.profile.isChanged)
 
     let name = useSelector(state => state.profile.name)
+    name == undefined ? name = '' : name = name
     let surname = useSelector(state => state.profile.surname)
+    surname == undefined ? surname = '' : surname = surname
     const email = useSelector(state => state.profile.email)
     const password_1 = ''
     const password_2 = ''
     const error_ = useSelector(state => state.profile.error)
 
     useEffect(() => {
-        dispatch(fetchProfileInfo())
+        dispatch(fetchProfileInfoGet())
+        const settings__notification = document.getElementById('settings__notification')
+        settings__notification.classList.add('active')
+
     }, [])
 
     useEffect(() => {
@@ -44,6 +52,22 @@ const Settings = () => {
         email_field.value = email
     }, [name, surname, email])
 
+    const fetchData = () => {
+        const name_field = document.getElementById('settings__name').value
+        const surname_field = document.getElementById('settings__surname').value
+        const email_field = document.getElementById('settings__email').value
+        const password_field = document.getElementById('settings__password_1').value
+
+        var data = {}
+
+        name_field === name ? '' : data.first_name = name_field
+        surname_field === surname ? '' : data.last_name = surname_field
+        email_field === email ? '' : data.email = email_field
+        password_field.length === 0 ? '' : data.password = password_field
+
+        dispatch(fetchProfileInfoPost(data))
+    }
+
     const showPassword = () => {
         const allPasswords = document.querySelectorAll('.settings__input.password')
 
@@ -56,48 +80,39 @@ const Settings = () => {
         })
     }
 
-    const fetchData = () => {
-        const name = document.getElementById('settings__name')
-        const surname = document.getElementById('settings__surname')
-        const email = document.getElementById('settings__email')
-        const password = document.getElementById('settings__password_1')
-    }
-
-    const formChangesPassword = (e) => {
+    const formChangesPassword = () => {
         
         if (checkPassword(password_1, password_2)) {
-                setIsChange(true)
+                dispatch(setIsChange(true))
         } else {
-            setIsChange(false)
+            dispatch(setIsChange(false))
         }
     }
 
     const formChangesName = () => {
-        name == undefined ? name = '' : name = name
 
         if (checkName(name)) {
-            setIsChange(true)
+            dispatch(setIsChange(true))
         } else {
-            setIsChange(false)
+            dispatch(setIsChange(false))
         }
     }
 
     const formChangesSurname = () => {
-        surname == undefined ? surname = '' : surname = surname
 
         if (checkSurname(surname)) {
-            setIsChange(true)
+            dispatch(setIsChange(true))
         } else {
-            setIsChange(false)
+            dispatch(setIsChange(false))
         }
     }
 
     const formChangesEmail = () => {
 
         if (correlateEmail(email)) {
-            setIsChange(true)
+            dispatch(setIsChange(true))
         } else {
-            setIsChange(false)
+            dispatch(setIsChange(false))
         }
     }
     
@@ -197,7 +212,10 @@ const Settings = () => {
                     Сохранить изменения
                 </button>
             </div>
-            
+            <div id='settings__notification' className='settings__notification'>
+                <img src={confirmed_arrow} alt='confirmed' className='notification__img'/>
+                <div className='settings__notification_title'>Изменения применены успешно!</div>
+            </div>
         </div>
     )
 }

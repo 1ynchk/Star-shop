@@ -1,4 +1,5 @@
 .settings {
+    position: relative;
     max-width: 510px;
     margin-left: 50px;
 }
@@ -136,4 +137,36 @@
     z-index: -1;
 }
 
+.settings__notification {
+    opacity: 0;
+    position: absolute;
+    right: -700px;
+    top: 0;
+    width: 320px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: orange;
+    color: white;
+    border-radius: 5px;
+}
 
+.notification__img {
+    width: 40px;
+    filter: brightness(0) saturate(100%) invert(100%) sepia(100%) saturate(2%) hue-rotate(211deg) brightness(104%) contrast(101%);
+}
+
+@keyframes notification_anim {
+    0% {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(-400px);
+    }
+}
+
+.settings__notification.active {
+    animation: notification_anim .5s ease forwards;
+}
