@@ -3,7 +3,8 @@ import React, { useEffect, useState } from 'react'
 import password from '../../../../static/images/password.png'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchProfileInfo } from '../../../store/queries/User/getProfileInfo'
-import { checkPassword } from '../../../../bll/Profile/ProfileSettings'
+import { checkPassword, checkName, checkSurname, correlateEmail } from '../../../../bll/Profile/ProfileSettings'
+import User from '../../../../bll/users/UserAuthorization'
 
 const Settings = () => {
     const [isChanged, setIsChange] = useState(false)
@@ -24,6 +25,7 @@ const Settings = () => {
         const button = document.getElementById('settings__button')
         if (isChanged) {
             button.classList.add('active')
+
         } else {
             button.classList.remove('active')
         }
@@ -51,7 +53,7 @@ const Settings = () => {
             } else {
                 element.type = 'password'
             }
-        });
+        })
     }
 
     const fetchData = () => {
@@ -61,58 +63,96 @@ const Settings = () => {
         const password = document.getElementById('settings__password_1')
     }
 
-    const formChanges = () => {
-        const name_field = document.getElementById('settings__name').value
-        const surname_field = document.getElementById('settings__surname').value
-        const email_field = document.getElementById('settings__email').value
-        const password_1_field = document.getElementById('settings__password_1').value
-        const password_2_field = document.getElementById('settings__password_2').value
+    const formChangesPassword = (e) => {
+        
+        if (checkPassword(password_1, password_2)) {
+                setIsChange(true)
+        } else {
+            setIsChange(false)
+        }
+    }
 
+    const formChangesName = () => {
         name == undefined ? name = '' : name = name
+
+        if (checkName(name)) {
+            setIsChange(true)
+        } else {
+            setIsChange(false)
+        }
+    }
+
+    const formChangesSurname = () => {
         surname == undefined ? surname = '' : surname = surname
 
-        console.log('hello')
-        
-        if (
-            checkPassword() && (String(name) != name_field || String(surname) != surname_field || 
-            email != email_field || password_1 != password_1_field || password_2 != password_2_field)) {
-                setIsChange(true)
+        if (checkSurname(surname)) {
+            setIsChange(true)
+        } else {
+            setIsChange(false)
+        }
+    }
+
+    const formChangesEmail = () => {
+
+        if (correlateEmail(email)) {
+            setIsChange(true)
         } else {
             setIsChange(false)
         }
     }
     
     return (
-        <div className='settings'>
-
+        <div id='settings' className='settings'>
             <div className='settings__title'>Личные данные</div>
-
             <div className='settings__subtitle'>Основная информация</div>
             <div className='settings__first_section'>
-                <div className='settings__input_container'>
-                    <label className='settings__label'>Фамилия</label>
+                <div 
+                    id='container_surname'
+                    className='settings__input_container'>
+                    <label className='settings__label'>Фамилия  
+                        <span className='settings__span'> *</span></label>
                     <input 
-                    onChange={() => formChanges()} 
+                    onChange={() => formChangesSurname()} 
                     id='settings__surname' 
-                    className='settings__input' 
+                    className='settings__input surname' 
                     type='text' />
+                    <div id='warning_empty_surname' className='settings__warning surname empty'>
+                        Поле "Фамилия" не должно быть пустым
+                    </div>
+                    <div id='warning_length_surname' className='settings__warning surname length'>
+                        Поле "Фамилия" должно быть длинее 2 символов
+                    </div>
                 </div>
-                <div className='settings__input_container'>
-                    <label className='settings__label'>Имя</label>
+                <div id='container_name' className='settings__input_container'>
+                    <label className='settings__label'>Имя
+                        <span className='settings__span'> *</span>
+                    </label>
                     <input 
-                    onChange={() => formChanges()} 
+                    onChange={() => formChangesName()} 
                     id='settings__name' 
-                    className='settings__input' 
+                    className='settings__input name' 
                     type='text' />
+                    <div id='warning_empty_name' className='settings__warning name empty'>
+                        Поле "Имя" не должно быть пустым
+                    </div>
+                    <div id='warning_length_name' className='settings__warning name length'>
+                        Поле "Имя" должно быть длинее 2 символов
+                    </div>
                 </div>
                 
                 <div className='settings__input_container'>
                     <label className='settings__label'>Почта</label>
                     <input 
-                    onChange={() => formChanges()} 
+                    onChange={() => formChangesEmail()} 
                     id='settings__email' 
-                    className='settings__input' 
+                    className='settings__input email' 
                     type='text' />
+                    <div id='warning_empty_email' className='settings__warning email empty'>
+                        Поле "Почта" не должно быть пустым
+                    </div>
+                    <div id='warning_incorrect_email' className='settings__warning email incorrect'>
+                        Поле "Почта" должно быть корректным
+                    </div>
                 </div>
             </div>
 
@@ -123,7 +163,7 @@ const Settings = () => {
                     <input 
                         id='settings__password_1'
                         className='settings__input password' 
-                        type='password' onChange={() => formChanges()} />
+                        type='password' onChange={() => formChangesPassword()} />
                     <img 
                         onClick={() => {showPassword()}} 
                         src={password} 
@@ -131,17 +171,23 @@ const Settings = () => {
                         alt='show password'/>
                 </div>
                 
-                <div className='settings__input_container'>
+                <div id='container_password' className='settings__input_container'>
                     <label className='settings__label'>Подтверждение пароля</label>
                     <input 
                         id='settings__password_2'
                         className='settings__input password' 
-                        type='password' onChange={() => formChanges()} />
+                        type='password' onChange={() => formChangesPassword()} />
                     <img 
                         onClick={() => {showPassword()}} 
                         src={password} 
                         className='password__hide' 
                         alt='show password'/>
+                    <div id='warning_incorrect_password' className='settings__warning password incorrect'>
+                        Пароли должны совпадать
+                    </div>
+                    <div id='warning_length_password' className='settings__warning password length'>
+                        Пароль должен быть длинее 10 символов
+                    </div>
                 </div>
                 <button 
                     id='settings__button'

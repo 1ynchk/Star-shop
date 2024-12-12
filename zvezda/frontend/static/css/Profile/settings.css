@@ -22,7 +22,22 @@
     height: fit-content;
 }
 
+@keyframes input_container_anim_active {
+    0% {
+        height: auto;
+    }
+
+    100% {
+        height: 110px;
+    }
+}
+
+.settings__input_container.active_warning {
+    animation: input_container_anim_active .3s ease forwards;
+}
+
 .settings__input_container {
+    width: 250px;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -76,3 +91,49 @@
     border: 1px solid rgba(243, 0, 0, 0.5);
     background-color: rgba(243, 0, 0, 0.2);
 }
+
+.settings__span {
+    color: red;
+}
+
+.settings__input.name.warning,
+.settings__input.email.warning,
+.settings__input.surname.warning{
+    border: 1px solid rgba(243, 0, 0, 0.5);
+    background-color: rgba(243, 0, 0, 0.2);
+}
+
+.settings__warning {
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+    margin-top: 7px;
+    width: 100%; 
+    color: red;
+}
+
+@keyframes warning_animation {
+    0% {
+        top: 0px;
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+        top: 62px;
+    }
+}
+
+.settings__warning.name.empty.active_warning,
+.settings__warning.name.length.active_warning,
+.settings__warning.email.empty.active_warning,
+.settings__warning.email.incorrect.active_warning,
+.settings__warning.surname.empty.active_warning,
+.settings__warning.surname.length.active_warning,
+.settings__warning.password.incorrect.active_warning,
+.settings__warning.password.length.active_warning {
+    animation: warning_animation .3s ease forwards;
+    z-index: -1;
+}
+
+
