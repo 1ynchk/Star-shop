@@ -23,6 +23,9 @@ const ProfileSlice = createSlice(
             },
             setIsChange(state, action) {
                 state.isChanged = action.payload
+            },
+            setFalseNotification(state, action) {
+                state.notification = false
             }
         },
 
@@ -43,12 +46,16 @@ const ProfileSlice = createSlice(
                 .addCase(
                     fetchProfileInfoPost.fulfilled, (state, action) => {
                         state.isChanged = false
+                        state.notification = true
+                        state.name = action.payload.data.first_name
+                        state.surname = action.payload.data.last_name
+                        state.email = action.payload.data.email
                     }
                 )
         }
     }
 )
 
-export const { setIsChange } = ProfileSlice.actions
+export const { setIsChange, setFalseNotification } = ProfileSlice.actions
 
 export default ProfileSlice.reducer

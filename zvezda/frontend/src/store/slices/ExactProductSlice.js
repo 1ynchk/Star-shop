@@ -12,7 +12,8 @@ const exactProductSlice = createSlice(
             exactProduct: "",
             isLike: false,
             isDislike: false,
-            rate: 0
+            rate: 0,
+            reviewPopUp: false
         },
 
         reducers: {
@@ -39,6 +40,13 @@ const exactProductSlice = createSlice(
                     state.isDislike = true
                 } 
             },
+            setReviewPopUp(state, action) {
+                if (state.reviewPopUp) {
+                    state.reviewPopUp = false
+                } else {
+                    state.reviewPopUp = true
+                }
+            }
         },
 
         extraReducers: (builder) => {
@@ -66,6 +74,11 @@ const exactProductSlice = createSlice(
     }
 )
 
-export const { cleareExactProduct, setDislike, setLike, clearAssessment } = exactProductSlice.actions;
+export const { 
+    cleareExactProduct, 
+    setDislike, 
+    setLike, 
+    clearAssessment, 
+    setReviewPopUp } = exactProductSlice.actions;
 
 export default exactProductSlice.reducer;

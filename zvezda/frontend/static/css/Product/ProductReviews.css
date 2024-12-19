@@ -1,0 +1,169 @@
+.productReview {
+    margin-top: 80px;
+}
+
+.productReview__title {
+    font-size: 26px;
+    font-weight: 500;
+}   
+
+.productReview__write_container {
+    margin-top: 30px;
+    background-color: rgba(235, 159, 19, 0.363);
+    height: 130px;
+    width: 70%;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    overflow: hidden;
+}
+
+.productReview__write_subcontainer {
+    height: 50%;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.productReview__button {
+    background-color: orange;
+    width: fit-content;
+    font-size: 15px;
+    padding: 10px;
+    font-weight: 300;
+}
+
+.productReview__button:active {
+    transform: scale(0.9);
+}
+
+.productReview__subtitle {
+    font-size: 19px;
+}
+
+.productReview__image_container {
+    background-color: rgba(255, 255, 255, 0.534);
+    border-radius: 100px;
+}
+
+.productReview__image {
+    width: 220px;
+    height: auto;
+}
+
+/* Review Add */
+
+
+.reviewAdd__overlay {
+    cursor: pointer;
+    background-color: rgb(50, 50, 50, 0.5);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+.reviewAdd__container {
+
+    padding: 30px;
+    position: absolute;
+    background-color: white;
+    height: 500px;
+    width: 800px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.1);
+}
+
+.reviewAdd__title {
+    font-size: 26px;
+    font-weight: 500;
+}
+
+.reviewAdd__cross {
+    position: absolute;
+    right: 32px;
+    top: 32px;
+    cursor: pointer;
+}
+
+.reviewAdd__sections {
+    margin-top: 20px;
+    border: 1px solid rgba(50, 50, 50, 0.1);
+    padding: 10px;
+}
+
+.reviewAdd__product_section {
+    width: 70%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.reviewAdd__name {
+    font-size: 19px;
+}
+
+.reviewAdd__image {
+    width: 50px;
+}
+
+.reviewAdd__review {
+    margin-top: 35px;
+}
+
+.reviewAdd__review_title {
+    color: rgb(50, 50, 50, 0.5);
+}
+
+.reviewAdd__input {
+    margin-top: 15px;
+    padding: 10px;
+    border: 1px solid rgba(50, 50, 50, 0.3);
+    width: 100%;
+    height: 150px;
+    resize: none;
+}
+
+.reviewAdd__button {
+    cursor: default;
+    margin-top: 30px;
+    background-color: grey;
+    font-size: 20px;
+    width: fit-content;
+    padding: 10px;
+    font-weight: 300;
+}
+
+.reviewAdd__button.active {
+    background-color: orange;
+    cursor: pointer;
+}
+
+/* ReviewPopUp */
+
+.reviewPopUp-enter {
+    opacity: 0;
+}
+
+.reviewPopUp-enter-active {
+    opacity: 1;
+    transition: opacity ease 300ms;
+}
+
+.reviewPopUp-exit {
+    opacity: 1;
+}
+
+.reviewPopUp-exit-active {
+    opacity: 0;
+    transition: opacity ease 300ms;
+}
+

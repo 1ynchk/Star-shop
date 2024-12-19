@@ -138,9 +138,8 @@
 }
 
 .settings__notification {
-    opacity: 0;
     position: absolute;
-    right: -700px;
+    right: 0;
     top: 0;
     width: 320px;
     display: flex;
@@ -149,6 +148,7 @@
     background-color: orange;
     color: white;
     border-radius: 5px;
+    transform: translateX(600px);
 }
 
 .notification__img {
@@ -167,6 +167,30 @@
     }
 }
 
-.settings__notification.active {
-    animation: notification_anim .5s ease forwards;
+.notification-enter {
+    opacity: 0;
+    transform: translateX(600px);
+}
+
+.notification-enter-done {
+    opacity: 1;
+    transform: translateX(350px);
+    transition: transform ease 300ms, opacity ease 300ms;
+}
+
+.notification-exit {
+    opacity: 1;
+    transform: translateX(350px);
+}
+
+.notification-exit-active {
+    opacity: 0;
+    transform: translateX(600px);
+    transition: opacity 300ms, transform 300ms;
+}
+
+.notification-exit-done {
+    opacity: 0;
+    transform: translateX(600px);
+    transition: transform ease 300ms, opacity ease 300ms;
 }

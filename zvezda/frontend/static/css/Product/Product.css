@@ -1,6 +1,3 @@
-.product {
-    padding: 30px;
-}
 
 .product__title {
     font-size: 30px;
@@ -8,10 +5,15 @@
 }
 
 .product__info {
-    padding: 0px 20px;
     margin-top: 50px;
+    padding: 0px 20px;
+    
     display: flex;
     justify-content: space-between;
+}
+
+.productPage {
+    padding: 0 30px;
 }
 
 .product__photo_container {
@@ -26,6 +28,13 @@
 .product__description_section {
     height: 300px;
     width: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.product__description {
+    margin-bottom: 10px;
 }
 
 .product__description_section > div {
@@ -33,13 +42,13 @@
 }
 
 .product__description_title {
-    font-size: 22px;
-    font-weight: 450px;
+    font-size: 26px;
+    font-weight: 500;
     margin-bottom: 15px;
 }
 
 .product__rate > div {
-    margin-bottom: 20px;
+    margin-bottom: 12px;
 }
 
 .rate_buttons_section {
@@ -59,7 +68,9 @@
     width: 100%;
 }
 
-
+.product__description_values {
+    font-size: 19px;
+}
 
 .rate {
     width: fit-content;
@@ -71,17 +82,17 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 130px;
+    width: 120px;
 }
 
 .rate_circle {
-    height: 40px;
-    width: 40px;
+    height: 32px;
+    width: 32px;
     border-radius: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 25px;
+    font-size: 16px;
 }
 
 .rate_circle.grey {
@@ -92,6 +103,14 @@
     background-color: rgb(76, 167, 76);
 }
 
+.rate_circle.yellow {
+    background-color: rgb(255, 255, 144);
+}
+
+.rate_circle.red {
+    background-color: red;
+}
+
 .availability_img {
     width: 20px;
 }
@@ -99,11 +118,9 @@
 .product__buying_section {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     width: 170px;
-}
-
-.product__buying_section > div {
-    margin-bottom: 15px;
+    height: 150px;
 }
 
 .product__price {
@@ -125,8 +142,13 @@
 .product__add_to_cart {
     background-color: orange;
     padding: 5px 15px;
-    border-radius: 10px;
+    /* border-radius: 10px; */
 }
+
+.product__add_to_cart:active {
+    transform: scale(0.9);
+}
+
 
 @keyframes dislike_animation_active {
     0% {
@@ -195,3 +217,4 @@
 .rate_img.like {
     animation: like_animation_disactive 1s ease forwards;
 }
+

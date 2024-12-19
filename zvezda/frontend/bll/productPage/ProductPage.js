@@ -11,14 +11,14 @@ export class ProductBBL {
             <div key="rating_count" className='rating_count'>Нет оценок</div>]
     
         } else {
-            const rate = (good_rates / (good_rates + bad_rates)) * 5;
-            if (4.0 < rate < 5.0) {
+            let rate = (good_rates / (good_rates + bad_rates)) * 5
+            if (4.0 < rate) {
                 return [<div key="rate_circle" className='rate_circle green'>{rate}</div>, 
                     <div key="rating_count" className='rating_count'>Оценок: {bad_rates+good_rates}</div>]
-            } else if (3.0 < rate < 4.0) {
+            } else if (3.0 < rate) {
                 return [<div key="rate_circle" className='rate_circle yellow'>{rate}</div>, 
                     <div key="rating_count" className='rating_count'>Оценок: {bad_rates+good_rates}</div>]
-            } else if (0.0 < rate < 3.0) {
+            } else if (0.0 < rate) {
                 return [<div key="rate_circle" className='rate_circle red'>{rate}</div>, 
                     <div key="rating_count" className='rating_count'>Оценок: {bad_rates+good_rates}</div>]
             }

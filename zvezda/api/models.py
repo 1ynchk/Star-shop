@@ -59,6 +59,7 @@ class Products(models.Model):
     amount = models.IntegerField(default=0)
     date_add = models.DateField(auto_now_add=True)
     img_url = models.CharField(max_length=255, null=False, default='https://cdn-icons-png.flaticon.com/512/2175/2175188.png')
+    second_image = models.FileField(upload_to='media/', blank=True, null=True)
     rate = models.OneToOneField('ProductRate', on_delete=models.SET_NULL, null=True, blank=True)
     category = models.ForeignKey('Category', on_delete=models.SET_NULL, null=True, blank=True)
     discount = models.ForeignKey('Discount', on_delete=models.SET_NULL, null=True, blank=True)

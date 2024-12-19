@@ -121,7 +121,7 @@ class UserInfoView(APIView):
                 return Response({'status': 'error', 'comment': 'incorrect data'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
             else:
                 serializer.save()
-                return Response({'status': 'ok'})
+                return Response({'status': 'ok', 'data': serializer.data})
             
     def get(self, request):
         pk = request.user.id
@@ -131,5 +131,4 @@ class UserInfoView(APIView):
             return Response({'status': 'error', 'comment': 'there is not such a user'}, status=status.HTTP_400_BAD_REQUEST)
         else:
             serializer = GetUsersProfileInfo(obj)
-            print(serializer.data)
             return Response({'status': 'ok', 'data': serializer.data})
