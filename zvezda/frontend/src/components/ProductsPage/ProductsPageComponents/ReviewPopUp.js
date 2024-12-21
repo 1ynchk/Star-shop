@@ -6,6 +6,7 @@ import { setReviewPopUp } from '../../../store/slices/ExactProductSlice'
 const ReviewPopUp = ({product}) => {
 
     const [isFilled, setIsFilled] = useState(false)
+    const [symbolsCount, setSymbolsCount] = useState(0)
     const dispatch = useDispatch()
 
     const showReviewPopUp = () => {
@@ -15,6 +16,8 @@ const ReviewPopUp = ({product}) => {
     const onChangeInput = () => {
         const reviewValue = document.getElementById('reviewAddInput')
         const button = document.getElementById('reviewAdd_button')
+
+        setSymbolsCount(reviewValue.value.length)
 
         if (reviewValue.value.length < 300) {
             button.classList.remove('active')
@@ -42,12 +45,16 @@ const ReviewPopUp = ({product}) => {
                     </div>
 
                 <div className='reviewAdd__review'>
+                    <div className='reviewAdd__review_container'>
                         <div className='reviewAdd__review_title'>Впечатление от продукта:</div>
-                        <textarea 
-                            id='reviewAddInput'
-                            type='text' 
-                            className='reviewAdd__input'
-                            onChange={() => onChangeInput()}/>
+                        <div className='reviewAdd__count_words'>{symbolsCount}/300 символов</div>
+                    </div>
+                    
+                    <textarea 
+                        id='reviewAddInput'
+                        type='text' 
+                        className='reviewAdd__input'
+                        onChange={() => onChangeInput()}/>
                 </div>
 
                 <button 

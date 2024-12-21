@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status 
+from rest_framework.pagination import PageNumberPagination
 
 from .models import Products, Users, UsersRate, ProductRate
 from .serializer import (
@@ -12,6 +13,11 @@ from .serializer import (
     GetUsersProfileInfo
     )
 
+class ExactProductReviewsPagination(PageNumberPagination):
+    page_size = 3 
+    page_size_query_param = 'page_size'
+    max_page_size = 10000
+
 # Create your views here.
 class ProductsView(APIView):
 
@@ -20,7 +26,6 @@ class ProductsView(APIView):
         if request.headers['type-query-product'] == 'exact':
             articul = request.headers['articul']
             obj = Products.objects.get(articul=articul)
-
             response = Response({'data': ExactProductSerializer(obj).data})
             response['Cache-Control'] = 'no-store'
 

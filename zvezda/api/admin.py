@@ -1,14 +1,16 @@
 from django.contrib import admin
 from django.contrib.auth.forms import  UserChangeForm
 
-from .models import Products, Category, Discount, Users, UsersRate, ProductRate
+from .models import Products, Category, Discount, Users, UsersRate, ProductRate, UserReview
 
 # Register your models here.
 @admin.register(Products)
 class AdminProducts(admin.ModelAdmin):
     pass
 
-
+@admin.register(UserReview)
+class AdminUserReview(admin.ModelAdmin):
+    pass
 
 @admin.register(Category)
 class AdminCategory(admin.ModelAdmin):

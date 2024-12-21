@@ -51,4 +51,7 @@ export class ProductBBL {
             return <div className='product_card__price'>{el.price}</div>
         }
     }
+    static defineDate(date) {
+        
+    }
 }

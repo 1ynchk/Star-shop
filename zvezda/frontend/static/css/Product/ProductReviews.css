@@ -1,5 +1,6 @@
 .productReview {
     margin-top: 80px;
+    width: 70%;
 }
 
 .productReview__title {
@@ -11,7 +12,7 @@
     margin-top: 30px;
     background-color: rgba(235, 159, 19, 0.363);
     height: 130px;
-    width: 70%;
+    width: 100%;
     padding: 0 20px;
     display: flex;
     align-items: center;
@@ -51,6 +52,46 @@
 .productReview__image {
     width: 220px;
     height: auto;
+}
+
+.productReview__container {
+    margin-top: 30px;
+    width: 100%;
+    height: auto;
+}
+
+.productReview__container > div {
+    margin-bottom: 25px;
+}
+
+.userReview {
+    width: 100%;
+    height: auto;
+    display: flex;
+}
+
+.userReview__image {
+    width: 60px;
+    height: 60px;
+    border-radius: 60px;
+    border: 1px solid rgb(50, 50, 50);
+}
+
+.userReview__name {
+    font-weight: 500;
+}
+
+.userReview__section {
+    margin-left: 15px;
+}
+
+.userReview__value {
+    margin-top: 15px;
+}
+
+.userReview__info {
+    margin-top: 15px;
+    font-weight: 500;
 }
 
 /* Review Add */
@@ -145,6 +186,15 @@
 .reviewAdd__button.active {
     background-color: orange;
     cursor: pointer;
+}
+
+.reviewAdd__review_container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.reviewAdd__count_words {
+    color: rgb(50, 50, 50, 0.5);
 }
 
 /* ReviewPopUp */

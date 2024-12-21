@@ -51,6 +51,14 @@ class UsersRate(models.Model):
     def __str__(self):
         return f'User: {self.user} | Product: {self.product}'
 
+class UserReview(models.Model):
+    user_id = models.ForeignKey('Users', on_delete=models.CASCADE)
+    value = models.CharField(max_length=2000, blank=False)
+    date_publish = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return self.user_id.email
+
 class Products(models.Model):
     name = models.CharField(max_length=50, null=False)
     description = models.CharField(max_length=255, null=False)
@@ -63,6 +71,7 @@ class Products(models.Model):
     rate = models.OneToOneField('ProductRate', on_delete=models.SET_NULL, null=True, blank=True)
     category = models.ForeignKey('Category', on_delete=models.SET_NULL, null=True, blank=True)
     discount = models.ForeignKey('Discount', on_delete=models.SET_NULL, null=True, blank=True)
+    reviews = models.ManyToManyField(UserReview)
 
     def save(self, *args, **kwargs):
         is_new = self.pk is None 
@@ -77,7 +86,7 @@ class Products(models.Model):
 
     def __str__(self):
         return self.name
-    
+
 # * USERS
 
 class Users(AbstractUser):

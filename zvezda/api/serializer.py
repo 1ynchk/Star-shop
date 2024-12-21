@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Products, Discount, ProductRate, Users, UsersRate
+from .models import Products, Discount, ProductRate, Users, UsersRate, UserReview
 
 class DiscountSerializer(serializers.ModelSerializer):
     class Meta:
@@ -19,15 +19,41 @@ class ProductRate(serializers.ModelSerializer):
         model = ProductRate
         fields = '__all__'
 
-class ExactProductSerializer(serializers.ModelSerializer):
+class UserInfoForReviews(serializers.ModelSerializer):
+
+    class Meta:
+        model = Users
+        fields = ('avatar', 'last_name', 'first_name')
+
+class UserReviewSerializer(serializers.ModelSerializer):
+
+    user_id = UserInfoForReviews()
     
+    class Meta:
+        model = UserReview
+        fields = ('id', 'value', 'user_id', 'date_publish')
+
+class ExactProductSerializer(serializers.ModelSerializer):
+    reviews = serializers.SerializerMethodField()
     discount = DiscountSerializer()
     rate = ProductRate()
 
     class Meta:
         model = Products
-        fields = ('id', 'name', 'description', 'price', 'articul', 'img_url', 'discount', 'rate', 'amount')
-
+        fields = ('id', 
+                  'name', 
+                  'description', 
+                  'price', 
+                  'articul', 
+                  'img_url', 
+                  'discount', 
+                  'rate', 
+                  'amount', 
+                  'reviews')
+        
+    def get_reviews(self, obj):
+        return UserReviewSerializer(obj.reviews.all()[:3], many=True).data
+        
 class UsersRateSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
@@ -44,9 +70,7 @@ class UsersRateSerializer(serializers.ModelSerializer):
         model = UsersRate
         fields = '__all__'
 
-
 class GetUsersProfileInfo(serializers.ModelSerializer):
-
     class Meta: 
         model = Users
         fields = ['last_name', 'first_name', 'email', 'password']
