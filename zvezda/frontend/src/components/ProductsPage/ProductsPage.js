@@ -24,7 +24,7 @@ const ProductsPage = (props) => {
     console.log(product)
 
     useEffect(() => {
-        dispatch(fetchExactProduct(id))
+        dispatch(fetchExactProduct({ 'id': id, 'isLogined': isLogined }))
     }, [id]);
 
     useEffect(() => {
@@ -59,6 +59,7 @@ const ProductsPage = (props) => {
                 />
                 <ProductReviews
                     id={product.id}
+                    assessments={product.assessments}
                     reviews={product.reviews}
                 />
                 <CSSTransition

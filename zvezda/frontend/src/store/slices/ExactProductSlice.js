@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { fetchExactProduct } from "../queries/PreciseProduct";
 import { fetchAssessment } from "../queries/Assessment";
 import { fetchProductInfo } from "../queries/ProductInfo";
+import { fetchReviewsRates } from "../queries/GetReviewsRates";
 
 const exactProductSlice = createSlice(
     {
@@ -68,6 +69,11 @@ const exactProductSlice = createSlice(
                         } else if (action.payload.data === false) {
                             state.isDislike = true
                         }
+                    }
+                )
+                .addCase(
+                    fetchReviewsRates.fulfilled, (state, action) => {
+                        console.log('slice!')
                     }
                 )
         }

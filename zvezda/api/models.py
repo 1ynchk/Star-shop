@@ -10,7 +10,6 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
-
 class Discount(models.Model):
     name = models.CharField(null=False)
     value = models.DecimalField(max_digits=3, decimal_places=2, null=False)
@@ -58,6 +57,12 @@ class UserReview(models.Model):
 
     def __str__(self):
         return self.user_id.email
+
+class ReviewRate(models.Model):
+    review = models.ForeignKey(UserReview, on_delete=models.CASCADE)
+    user = models.ForeignKey('Users', on_delete=models.CASCADE)
+    product = models.ForeignKey('Products', on_delete=models.CASCADE) 
+    assessment = models.BooleanField(null=True)
 
 class Products(models.Model):
     name = models.CharField(max_length=50, null=False)

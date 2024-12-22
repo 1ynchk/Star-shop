@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import axios from 'axios';
 
 import like from '../../../../static/images/like.png'
 import dislike from '../../../../static/images/dislike.png'
@@ -9,9 +8,6 @@ import { ProductBBL } from '../../../../bll/productPage/ProductPage';
 import { setIsLogin, setIsOpen } from '../../../store/slices/PopupSlice';
 import { setDislike, setLike } from '../../../store/slices/ExactProductSlice';
 import { fetchAssessment } from '../../../store/queries/Assessment';
-import { fetchProductInfo } from '../../../store/queries/ProductInfo';
-import { clearAssessment } from '../../../store/slices/ExactProductSlice';
-
 
 const ProductInfo = ({product, name, img_url, description, price, good_rates, bad_rates, amount}) => {
     const dispatch = useDispatch()

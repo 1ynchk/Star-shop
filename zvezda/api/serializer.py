@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Products, Discount, ProductRate, Users, UsersRate, UserReview
+from .models import Products, Discount, ProductRate, Users, UsersRate, UserReview, ReviewRate
 
 class DiscountSerializer(serializers.ModelSerializer):
     class Meta:
@@ -32,6 +32,7 @@ class UserReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserReview
         fields = ('id', 'value', 'user_id', 'date_publish')
+        ordering = ('date_publish',)
 
 class ExactProductSerializer(serializers.ModelSerializer):
     reviews = serializers.SerializerMethodField()
@@ -53,7 +54,64 @@ class ExactProductSerializer(serializers.ModelSerializer):
         
     def get_reviews(self, obj):
         return UserReviewSerializer(obj.reviews.all()[:3], many=True).data
+
+class ReviewRateSerializerLoggined(serializers.ModelSerializer):
+
+    class Meta:
+        model = ReviewRate
+        fields = ('assessment', 'review',)
+
+class UserReviewSerializerLoggined(serializers.ModelSerializer):
+
+    user_id = UserInfoForReviews()
+    assessments = serializers.SerializerMethodField()
+
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs['context']['user_id']
+        self.product = kwargs['context']['product_id']
+        super().__init__(*args, **kwargs)
+    
+    class Meta:
+        model = UserReview
+        fields = ('id', 'value', 'user_id', 'date_publish', 'assessments')
+        ordering = ('date_publish',)
+
+    def get_assessments(self, obj):
+        return ReviewRateSerializerLoggined(ReviewRate.objects.get(
+            review=obj.id, 
+            user=self.user,
+            product=self.product)).data
+
+class ExactProductSerializerLoggined(serializers.ModelSerializer):
+    reviews = serializers.SerializerMethodField()
+    discount = DiscountSerializer()
+    rate = ProductRate()
+
+    class Meta:
+        model = Products
+        fields = ('id', 
+                  'name', 
+                  'description', 
+                  'price', 
+                  'articul', 
+                  'img_url', 
+                  'discount', 
+                  'rate', 
+                  'amount', 
+                  'reviews',
+                  )
         
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs['context']['user_id']
+        super().__init__(*args, **kwargs)
+
+    def get_reviews(self, obj):
+        return UserReviewSerializerLoggined(obj.reviews.all()[:3], many=True, 
+                                            context={
+                                                'user_id': self.user,
+                                                'product_id': obj.id
+                                                }).data
+
 class UsersRateSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
@@ -69,6 +127,24 @@ class UsersRateSerializer(serializers.ModelSerializer):
     class Meta:
         model = UsersRate
         fields = '__all__'
+
+class ReviewRateSerializer(serializers.ModelSerializer):
+
+    def create(self, validated_data):
+        print(validated_data)
+        return ReviewRate.objects.create(**validated_data)
+    
+    def update(self, instance, validated_data):
+        instance.assessment = validated_data.get('assessment', instance.assessment)
+        instance.product = validated_data.get('product', instance.product)
+        instance.review = validated_data.get('review', instance.review)
+        instance.user = validated_data.get('user', instance.user)
+        instance.save()
+        return instance
+
+    class Meta:
+        model = ReviewRate
+        fields = ('assessment', 'review', 'user', 'product')
 
 class GetUsersProfileInfo(serializers.ModelSerializer):
     class Meta: 

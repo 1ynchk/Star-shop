@@ -55,13 +55,13 @@
 }
 
 .productReview__container {
-    margin-top: 30px;
+    margin-top: 50px;
     width: 100%;
     height: auto;
 }
 
 .productReview__container > div {
-    margin-bottom: 25px;
+    margin-bottom: 40px;
 }
 
 .userReview {
@@ -86,13 +86,47 @@
 }
 
 .userReview__value {
+    line-height: 22px;
     margin-top: 15px;
 }
 
 .userReview__info {
-    margin-top: 15px;
-    font-weight: 500;
+    margin-top: 10px;
+    color: grey;
+    display: flex;
+    align-items: center;
 }
+
+.userReview__delimiter {
+    width: 5px;
+    height: 5px;
+    border-radius: 50px;
+    background-color: grey;
+    margin-right: 10px;
+}
+
+.userReview__date {
+    color: grey;
+}
+
+.rate_buttons_section_review {
+    margin-right: 10px;
+    width: 60px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.rate_buttons_section_review > button  {
+    border: 1px solid grey;
+    width: 25px;
+    border-radius: 5px;
+}
+
+/* .rate_buttons_section_review > button > img {
+    filter: brightness(0) saturate(100%) invert(51%) sepia(6%) saturate(6%) hue-rotate(314deg) brightness(98%) contrast(88%);
+} */
+
+
 
 /* Review Add */
 
