@@ -17,6 +17,10 @@ from .serializer import (
     UserReviewSerializer
     )
 
+from django.db import connection
+
+
+
 class ExactProductReviewsPagination(PageNumberPagination):
     page_size = 3 
     page_size_query_param = 'page_size'
@@ -28,13 +32,17 @@ class ProductsView(APIView):
     def get(self, request):
         
         if request.headers['type-query-product'] == 'exact':
+            connection.queries.clear()
             articul = request.headers['articul']
             user_id = request.user.id
-            obj = Products.objects.get(articul=articul)
+            obj = Products.objects.select_related('rate', 'category', 'discount').prefetch_related('reviews').get(articul=articul)
+            
             if user_id is not None:
                 response = Response({'data': ExactProductSerializerLoggined(obj, context={'user_id': user_id}).data}) 
             else:
                 response = Response({'data': ExactProductSerializer(obj).data})
+            print(len(connection.queries))
+
             response['Cache-Control'] = 'no-store'
             return response
         
@@ -125,7 +133,7 @@ class UsersAuthorizationView(APIView):
     def get(self, request):
         if request.user.is_authenticated:
             user = Users.objects.get(id=request.user.id)
-            return Response({'authenticated': True, 'avatar': user.avatar})
+            return Response({'authenticated': True, 'avatar': user.avatar, 'user_id': user.id})
         else:
             return Response({'authenticated': False})
             

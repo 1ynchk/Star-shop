@@ -9,6 +9,8 @@ import { fetchReviewsRates } from '../../../store/queries/GetReviewsRates'
 
 import like from '../../../../static/images/like.png'
 import dislike from '../../../../static/images/dislike.png'
+import pencil from '../../../../static/images/pencil.png'
+import junkBucket from '../../../../static/images/junkBucket.png'
 
 const UserReview = ({ assessment, id, product_id, date_publish, avatar, last_name, first_name, value }) => {
 
@@ -104,7 +106,6 @@ const UserReview = ({ assessment, id, product_id, date_publish, avatar, last_nam
                 <img src={avatar} alt='user' className='userReview__image' />
 
             <div className='userReview__section'>
-                
                 <div className='userReview__name'>{first_name + " " + last_name}</div>
                 
                 <div className='userReview__review'>
@@ -141,18 +142,24 @@ const UserReview = ({ assessment, id, product_id, date_publish, avatar, last_nam
                                 : () => dispatch(setIsOpen())}/>
                         </button>
                         <button className='rate__increase' title='Нравится'>
-                            <img 
-                            alt='rate img' 
-                            src={like} 
-                            className='rate_img like'
-                            id={'like_btn_review_' + id}
-                            onClick={isLogined ? () => {
-                                changeLike()
-                                setChange(true)} : () => dispatch(setIsOpen())}/>
+                                <img 
+                                alt='rate img' 
+                                src={like} 
+                                className='rate_img like'
+                                id={'like_btn_review_' + id}
+                                onClick={isLogined ? () => {
+                                    changeLike()
+                                    setChange(true)} : () => dispatch(setIsOpen())}/>
                         </button>
                         </div>
                     <div className='userReview__delimiter'></div>
                     {ProductBBL.defineDate(date_publish)}
+                    <div className='userReview__delimiter'></div>
+                    <div></div>
+                    <div className='userReview__edit_section'>
+                        <img className='userReview__edit' src={pencil} alt='edit'/>
+                        <img className='userReview__edit' src={junkBucket} alt='delete'/>
+                    </div>
                 </div>
             </div>
         </div>

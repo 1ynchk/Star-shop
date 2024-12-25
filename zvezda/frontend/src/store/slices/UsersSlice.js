@@ -12,7 +12,6 @@ const UsersSlice = createSlice(
             statusRegistred: '',
             statusLogin: '',
             isLogin: false,
-            avatar: ''
         },
 
         reducers: {
@@ -37,11 +36,10 @@ const UsersSlice = createSlice(
                         if (action.payload.authenticated) {
                             localStorage.setItem('isAuthenticated', 'true')
                             localStorage.setItem('avatar', action.payload.avatar)
-                            state.avatar = action.payload.avatar
+                            localStorage.setItem('user_id', action.payload.user_id)
                             state.isLogin = true
                         } else {
-                            localStorage.removeItem('isAuthenticated')
-                            localStorage.removeItem('avatar')
+                            localStorage.clear()
                         }
                     }
                 )
@@ -89,9 +87,7 @@ const UsersSlice = createSlice(
                 .addCase(
                     fetchLogOut.fulfilled, (state, action) => {
                         state.isLogin = false
-                        localStorage.removeItem('isAuthenticated')
-                        localStorage.removeItem('avatar')
-                        state.avatar = ''
+                        localStorage.clear()
                         location.reload()
                     }
                 )

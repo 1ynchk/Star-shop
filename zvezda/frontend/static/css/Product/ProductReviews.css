@@ -129,10 +129,20 @@
     border-radius: 50px;
     background-color: grey;
     margin-right: 10px;
+    margin-left: 10px;
 }
 
 .userReview__date {
     color: grey;
+}
+
+.likesvg {
+    width: 25px;
+    height: 25px;
+}
+
+svg path {
+    fill: green;
 }
 
 .rate_buttons_section_review {
@@ -143,9 +153,12 @@
 }
 
 .rate_buttons_section_review > button  {
-    border: 1px solid grey;
     width: 25px;
     border-radius: 5px;
+}
+
+.rate_buttons_section_review > button > object {
+    width: 25px;
 }
 
 .openArrow-enter {
@@ -166,12 +179,29 @@
     transition: transform .2s ease;
 }
 
-/* .rate_buttons_section_review   {
-    filter: brightness(0) saturate(100%) invert(51%) sepia(6%) saturate(6%) hue-rotate(314deg) brightness(98%) contrast(88%);
-} */
+.userReview__edit {
+    width: 25px;
+    transition: .3s ease;
+}
+
+.userReview__edit:hover {
+    transform: scale(1.1);
+}
+
+.userReview__edit_section {
+    width: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.userReview__edit_section > img {
+    border: 1px solid grey;
+    border-radius: 5px;
+}
+
 
 /* Review Add */
-
 
 .reviewAdd__overlay {
     cursor: pointer;

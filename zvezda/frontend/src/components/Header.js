@@ -24,7 +24,7 @@ const JustProfile = () => {
 }
 
 const LoginedUserProfile = () => {
-    const avatar = useSelector(state => state.users.avatar)
+    const avatar = localStorage.getItem('avatar')
     const dispatch = useDispatch()
 
     const LogOutFunc = () => {
@@ -48,8 +48,6 @@ const LoginedUserProfile = () => {
             </div>
             
         </div>
-        
-        
     )
 }
 

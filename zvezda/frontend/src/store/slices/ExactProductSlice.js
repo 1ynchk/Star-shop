@@ -58,6 +58,7 @@ const exactProductSlice = createSlice(
                     fetchExactProduct.fulfilled, (state, action) => {
                         state.exactProduct = action.payload.data
                         state.reviews = action.payload.data.reviews
+                        console.log(state.exactProduct)
                     }
                 )
                 .addCase(

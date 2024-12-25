@@ -162,7 +162,7 @@
 
     100% {
         transform: scale(1.0);
-        background-color: red;
+        filter: brightness(0) saturate(100%) invert(13%) sepia(94%) saturate(5942%) hue-rotate(4deg) brightness(103%) contrast(119%);
     }
 }
 
@@ -178,7 +178,7 @@
 
     100% {
         transform: scale(1.0);
-        background-color: green;
+        filter: brightness(0) saturate(100%) invert(22%) sepia(99%) saturate(1979%) hue-rotate(98deg) brightness(99%) contrast(105%);
     }
 }
 
@@ -192,7 +192,7 @@
 
 @keyframes dislike_animation_disactive {
     0% {
-        background-color: red;
+        filter: brightness(0) saturate(100%) invert(13%) sepia(94%) saturate(5942%) hue-rotate(4deg) brightness(103%) contrast(119%);
     }
 
     100% {
@@ -202,7 +202,7 @@
 
 @keyframes like_animation_disactive {
     0% {
-        background-color: green;
+        filter: brightness(0) saturate(100%) invert(22%) sepia(99%) saturate(1979%) hue-rotate(98deg) brightness(99%) contrast(105%);
     }
 
     100% {
