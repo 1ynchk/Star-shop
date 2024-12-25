@@ -21,8 +21,6 @@ const ProductsPage = (props) => {
     const product = useSelector(state => state.exactProduct.exactProduct)
     const reviewPopUp = useSelector(state => state.exactProduct.reviewPopUp)
 
-    console.log(product)
-
     useEffect(() => {
         dispatch(fetchExactProduct({ 'id': id, 'isLogined': isLogined }))
     }, [id]);
@@ -59,8 +57,6 @@ const ProductsPage = (props) => {
                 />
                 <ProductReviews
                     id={product.id}
-                    assessments={product.assessments}
-                    reviews={product.reviews}
                 />
                 <CSSTransition
                     in={reviewPopUp}

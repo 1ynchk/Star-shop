@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 
 import { setReviewPopUp } from '../../../store/slices/ExactProductSlice'
+import { fetchPostUserReview } from '../../../store/queries/PostUserReview'
 
 const ReviewPopUp = ({product}) => {
 
@@ -11,6 +12,13 @@ const ReviewPopUp = ({product}) => {
 
     const showReviewPopUp = () => {
         dispatch(setReviewPopUp())
+    }
+
+    const fetchReview = () => {
+        const value = document.getElementById('reviewAddInput').value
+
+        dispatch(fetchPostUserReview({'product_id': product.id, 'value': value}))
+        showReviewPopUp()
     }
 
     const onChangeInput = () => {
@@ -60,7 +68,9 @@ const ReviewPopUp = ({product}) => {
                 <button 
                     id='reviewAdd_button'
                     disabled={!isFilled}
-                    className='reviewAdd__button'>
+                    className='reviewAdd__button'
+                    onClick={() => fetchReview()}
+                    >
                     Отправить отзыв
                 </button>
 

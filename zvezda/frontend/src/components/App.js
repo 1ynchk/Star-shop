@@ -8,6 +8,7 @@ import ProductsPage from './ProductsPage/ProductsPage.js';
 import Footer from './Footer.js';
 import Popup from './User/authentication/Popup.js';
 import Profile from './User/profile/profile.js';
+import Notification from './Notification.js';
 
 import { fetchIsUserLoginned } from '../store/queries/IsUserLoginned.js';
 import { setIsLogin } from '../store/slices/UsersSlice.js';
@@ -39,6 +40,7 @@ export const App = () => {
                     </Routes>
                     </div>
                 </div>
+                <Notification />
                 <Footer />
             </BrowserRouter>
     )

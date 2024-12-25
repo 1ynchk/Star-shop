@@ -14,7 +14,7 @@ export const fetchReviewsRates = createAsyncThunk('products/fetchReviewsRates', 
         }
     )
 
-    const data = await apiAssessment.post('http://127.0.0.1:8000/api/products/reviews/', {
+    const data = await apiAssessment.post('http://127.0.0.1:8000/api/products/reviews/assessment/', {
         'id_review': id, 
         'assessment': assessment,
         'id_product': id_product

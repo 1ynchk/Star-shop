@@ -4,6 +4,7 @@ import { fetchExactProduct } from "../queries/PreciseProduct";
 import { fetchAssessment } from "../queries/Assessment";
 import { fetchProductInfo } from "../queries/ProductInfo";
 import { fetchReviewsRates } from "../queries/GetReviewsRates";
+import { fetchPostUserReview } from "../queries/PostUserReview"; 
 
 const exactProductSlice = createSlice(
     {
@@ -11,6 +12,7 @@ const exactProductSlice = createSlice(
 
         initialState: {
             exactProduct: "",
+            reviews: [],
             isLike: false,
             isDislike: false,
             rate: 0,
@@ -55,6 +57,7 @@ const exactProductSlice = createSlice(
                 .addCase(
                     fetchExactProduct.fulfilled, (state, action) => {
                         state.exactProduct = action.payload.data
+                        state.reviews = action.payload.data.reviews
                     }
                 )
                 .addCase(
@@ -74,6 +77,11 @@ const exactProductSlice = createSlice(
                 .addCase(
                     fetchReviewsRates.fulfilled, (state, action) => {
                         console.log('slice!')
+                    }
+                )
+                .addCase(
+                    fetchPostUserReview.fulfilled, (state, action) => {
+                        state.reviews = [action.payload.data, ...state.reviews]
                     }
                 )
         }

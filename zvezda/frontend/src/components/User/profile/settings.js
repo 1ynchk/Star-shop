@@ -7,15 +7,12 @@ import { fetchProfileInfoPost } from '../../../store/queries/User/postProfileInf
 import { checkPassword, checkName, checkSurname, correlateEmail } from '../../../../bll/Profile/ProfileSettings'
 import { setIsChange } from '../../../store/slices/ProfileSlice'
 
-import {CSSTransition} from 'react-transition-group';
-import { setFalseNotification } from '../../../store/slices/ProfileSlice'
 
 import confirmed_arrow from '../../../../static/images/arrow_confirmed.png'
 
 const Settings = () => {
     const dispatch = useDispatch()
     const isChanged = useSelector(state => state.profile.isChanged)
-    const notification = useSelector(state => state.profile.notification)
 
     let name = useSelector(state => state.profile.name)
     name == undefined ? name = '' : name = name
@@ -52,12 +49,6 @@ const Settings = () => {
         surname_field.value = surname
         email_field.value = email
     }, [name, surname, email])
-
-    useEffect(() => {
-        setTimeout(() => {
-            dispatch(setFalseNotification())
-        }, 5000)
-    }, [notification])
 
     const fetchData = () => {
         const name_field = document.getElementById('settings__name').value
@@ -219,18 +210,6 @@ const Settings = () => {
                     Сохранить изменения
                 </button>
             </div>
-            <CSSTransition
-                in={notification}
-                timeout={300}
-                classNames='notification'
-                unmountOnExit
-            >
-                <div id='settings__notification' className='settings__notification'>
-                    <img src={confirmed_arrow} alt='confirmed' className='notification__img'/>
-                    <div className='settings__notification_title'>Изменения применены успешно!</div>
-                </div>
-            </CSSTransition>
-            
         </div>
     )
 }

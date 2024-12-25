@@ -18,7 +18,7 @@ export class ProductBBL {
             } else if (3.0 < rate) {
                 return [<div key="rate_circle" className='rate_circle yellow'>{rate}</div>, 
                     <div key="rating_count" className='rating_count'>Оценок: {bad_rates+good_rates}</div>]
-            } else if (0.0 < rate) {
+            } else if (0.0 <= rate) {
                 return [<div key="rate_circle" className='rate_circle red'>{rate}</div>, 
                     <div key="rating_count" className='rating_count'>Оценок: {bad_rates+good_rates}</div>]
             }

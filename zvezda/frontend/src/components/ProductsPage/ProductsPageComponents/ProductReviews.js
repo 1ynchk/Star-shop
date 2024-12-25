@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { setReviewPopUp } from '../../../store/slices/ExactProductSlice'
 import { useDispatch, useSelector } from 'react-redux'
+import { CSSTransition } from 'react-transition-group';
 
 import photo from '../../../../static/images/reviewsWrite.png'
 import { ProductBBL } from '../../../../bll/productPage/ProductPage'
@@ -9,14 +10,27 @@ import { fetchReviewsRates } from '../../../store/queries/GetReviewsRates'
 import like from '../../../../static/images/like.png'
 import dislike from '../../../../static/images/dislike.png'
 
-const UserReview = ({ id, product_id, date_publish, avatar, last_name, first_name, value }) => {
+const UserReview = ({ assessment, id, product_id, date_publish, avatar, last_name, first_name, value }) => {
 
-    // const [isBigReview, setIsBigReview] = useState(false)
+    const [isOpennedReviews, setOpennedReview] = useState(false)
     const dispatch = useDispatch()
     const isLogined = useSelector(state => state.users.isLogin)
     const [isLike, setLike] = useState(false)
     const [isDislike, setDislike] = useState(false)
     const [isChanged, setChange] = useState(false)
+
+    useEffect(() => {
+        if (assessment != null) {
+            switch (true) {
+                case assessment.assessment === true:
+                    setLike(true)
+                    break
+                case assessment.assessment === false:
+                    setDislike(true)
+                    break
+            }
+        }
+    }, [assessment])
 
     useEffect(() => {
         const btn_dislike_id = 'dislike_btn_review_' + id
@@ -61,6 +75,30 @@ const UserReview = ({ id, product_id, date_publish, avatar, last_name, first_nam
         }
     }
 
+    const openReview = () => {
+        const reviewOpenId = 'userReview__open_review_' + id
+        const reviewOpen = document.getElementById(reviewOpenId)
+
+        if (isOpennedReviews) {
+            setOpennedReview(false)
+            reviewOpen.textContent = 'Раскрыть отзыв'
+        } else {
+            setOpennedReview(true)
+            reviewOpen.textContent = 'Свернуть отзыв'
+        }
+    }
+
+    useEffect(() => {
+        const reviewContentId = 'userReview__value_' + id 
+        const reviewContent = document.getElementById(reviewContentId)
+        
+        if (isOpennedReviews) {
+            reviewContent.classList.add('open')
+        } else {
+            reviewContent.classList.remove('open')
+        }
+    }, [isOpennedReviews])
+
     return (
         <div className='userReview'>
                 <img src={avatar} alt='user' className='userReview__image' />
@@ -70,7 +108,23 @@ const UserReview = ({ id, product_id, date_publish, avatar, last_name, first_nam
                 <div className='userReview__name'>{first_name + " " + last_name}</div>
                 
                 <div className='userReview__review'>
-                    <div className='userReview__value'>{value}</div>
+                    <div id={'userReview__value_' + id} className='userReview__value'>{value}</div>
+                    {value.length > 350 ? 
+                        <div onClick={() => openReview()} className='userReview__open_container'>
+                        <div id={'userReview__open_review_' + id} className='userReview__open_review'>Раскрыть отзыв</div>
+                            <CSSTransition
+                            in={isOpennedReviews}
+                            classNames='openArrow'
+                            timeout={200}
+                            >
+                                <div className='userReview__open_arrow'>&darr;</div>
+                            </CSSTransition>
+                        
+                        </div>  
+                        :
+                        ''
+                    }
+                    
                 </div>
                 
                 <div className='userReview__info'>
@@ -79,7 +133,7 @@ const UserReview = ({ id, product_id, date_publish, avatar, last_name, first_nam
                             <img 
                             alt='rate img' 
                             src={dislike} 
-                            className='rate_img dislike' 
+                            className='rate_img dislike review' 
                             id={'dislike_btn_review_' + id}
                             onClick={isLogined? () => {
                                 changeDislike()
@@ -105,10 +159,9 @@ const UserReview = ({ id, product_id, date_publish, avatar, last_name, first_nam
     )
 }
 
-const ProductReviews = ({ id, reviews, assessments }) => {
+const ProductReviews = ({ id }) => {
     const dispatch = useDispatch()
-
-    console.log(reviews, assessments)
+    const reviews = useSelector(state => state.exactProduct.reviews)
 
     const showReviewPopUp = () => {
         dispatch(setReviewPopUp())
@@ -131,7 +184,9 @@ const ProductReviews = ({ id, reviews, assessments }) => {
                 </div>
             </div>
             <div className='productReview__container'>
-                {reviews.map(el => {return <UserReview 
+                {reviews.map(el => {
+                    return <UserReview 
+                    assessment={el.assessments}
                     product_id={id}
                     key={el.id}
                     id={el.id}

@@ -5,14 +5,16 @@ from rest_framework.response import Response
 from rest_framework import status 
 from rest_framework.pagination import PageNumberPagination
 
-from .models import Products, Users, UsersRate, ProductRate, ReviewRate
+from .models import Products, Users, UsersRate, ProductRate, ReviewRate, UserReview
 from .serializer import (
     ProductsSerializer, 
     ExactProductSerializer,
     UsersRateSerializer,
     GetUsersProfileInfo,
     ReviewRateSerializer,
-    ExactProductSerializerLoggined
+    ExactProductSerializerLoggined,
+    UserReviewCreate,
+    UserReviewSerializer
     )
 
 class ExactProductReviewsPagination(PageNumberPagination):
@@ -33,7 +35,6 @@ class ProductsView(APIView):
                 response = Response({'data': ExactProductSerializerLoggined(obj, context={'user_id': user_id}).data}) 
             else:
                 response = Response({'data': ExactProductSerializer(obj).data})
-            print(ExactProductSerializerLoggined(obj, context={'user_id': user_id}).data)
             response['Cache-Control'] = 'no-store'
             return response
         
@@ -79,17 +80,13 @@ class ProductsView(APIView):
                 response['Cache-Control'] = 'no-store'
                 return response
 
-class ReviewView(APIView):
-
-    def get(self, request):
-        return Response({'status': 'ok'})
+class ReviewRateView(APIView):
 
     def post(self, request):
         id_user = request.user.id
         id_review = request.data.get('id_review')
         id_product = request.data.get('id_product')
         assessment = request.data.get('assessment')
-        print(assessment)
         data = {'assessment': assessment, 'product': id_product, 'review': id_review, 'user': id_user}
         try:
             instance = ReviewRate.objects.get(user_id=id_user, product_id=id_product, review_id=id_review)
@@ -102,6 +99,26 @@ class ReviewView(APIView):
             return Response({'status': 'ok'})
         else:
             return Response({'status': 'error', 'comment': 'incorrect data'}, status=status.HTTP_400_BAD_REQUEST)
+
+class ReviewView(APIView):
+
+
+    def post(self, request):
+        value = request.data.get('value')
+        product_id = request.data.get('product_id')
+        user = request.user
+        try:
+            obj = Products.objects.get(id=product_id)
+        except Exception:
+            return Response({'status': 'error', 'comment': 'there is not such a product'}, status=status.HTTP_404_NOT_FOUND)
+        else:
+            serializer = UserReviewCreate(data={'user_id': user.id, 'value': value}) 
+            if serializer.is_valid():
+                instance = UserReview.objects.create(user_id=user, value=value)
+                obj.reviews.add(instance)
+                return Response({'status': 'ok', 'data': UserReviewSerializer(instance).data})
+            else:
+                return Response({'status': 'error', 'comment': 'incorrect data'}, status=status.HTTP_400_BAD_REQUEST)
         
 class UsersAuthorizationView(APIView):
 

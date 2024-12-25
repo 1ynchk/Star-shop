@@ -57,6 +57,7 @@
 .productReview__container {
     margin-top: 50px;
     width: 100%;
+    min-width: 300px;
     height: auto;
 }
 
@@ -88,6 +89,31 @@
 .userReview__value {
     line-height: 22px;
     margin-top: 15px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    max-height: 110px;
+    transition: max-height 0.3s ease;
+}
+
+.userReview__value.open {
+    max-height: 500px;
+}
+
+.userReview__open_container {
+    margin-top: 10px;
+    display: flex; 
+    font-weight: 500;
+    justify-content: space-between;
+    width: 130px;
+    align-items: center;
+    cursor: pointer;
+    transition: .3s ease;
+    font-size: 15px;
+}
+
+.userReview__open_container:hover {
+    color: orange;
 }
 
 .userReview__info {
@@ -122,11 +148,27 @@
     border-radius: 5px;
 }
 
-/* .rate_buttons_section_review > button > img {
+.openArrow-enter {
+    transform: rotate(0deg);
+}
+
+.openArrow-enter-done {
+    transform: rotate(-180deg);
+    transition: transform .2s ease;
+}
+
+.openArrow-exit {
+    transform: rotate(-180deg);
+}
+
+.openArrow-exit-done {
+    transform: rotate(0deg);
+    transition: transform .2s ease;
+}
+
+/* .rate_buttons_section_review   {
     filter: brightness(0) saturate(100%) invert(51%) sepia(6%) saturate(6%) hue-rotate(314deg) brightness(98%) contrast(88%);
 } */
-
-
 
 /* Review Add */
 
@@ -231,6 +273,12 @@
     color: rgb(50, 50, 50, 0.5);
 }
 
+@media (max-width: 500px) {
+    .userReview__image {
+        width: 30px;
+        height: 30px;
+    }
+}
 /* ReviewPopUp */
 
 .reviewPopUp-enter {
@@ -250,4 +298,3 @@
     opacity: 0;
     transition: opacity ease 300ms;
 }
-
