@@ -14,7 +14,9 @@ from .serializer import (
     ReviewRateSerializer,
     ExactProductSerializerLoggined,
     UserReviewCreate,
-    UserReviewSerializer
+    UserReviewSerializer,
+    RefactoredExactProduct,
+    RefactoredExactProductReviews
     )
 
 from django.db import connection
@@ -35,11 +37,29 @@ class ProductsView(APIView):
             connection.queries.clear()
             articul = request.headers['articul']
             user_id = request.user.id
+            # user_id = 2
+            user = Users.objects.get(id=user_id)
+            connection.queries.clear()
+
             obj = Products.objects.select_related('rate', 'category', 'discount').prefetch_related('reviews').get(articul=articul)
-            
+            # obj = Products.objects.select_related('rate', 'category', 'discount').get(articul=articul)
+            # reviews = obj.reviews.select_related('user_id').all()
+
             if user_id is not None:
                 response = Response({'data': ExactProductSerializerLoggined(obj, context={'user_id': user_id}).data}) 
+                # response = Response({
+                #     'data': RefactoredExactProduct(obj).data, 
+                #     'reviews': RefactoredExactProductReviews(reviews, many=True, context={
+                #         'user_id': user_id,
+                #         'product_id': obj.id
+                #         }).data
+                # },)
             else:
+                # response = Response({
+                #     'data': RefactoredExactProduct(obj).data, 
+                #     'reviews': RefactoredExactProductReviews(reviews, many=True).data
+                # },)
+
                 response = Response({'data': ExactProductSerializer(obj).data})
             print(len(connection.queries))
 
@@ -127,6 +147,22 @@ class ReviewView(APIView):
                 return Response({'status': 'ok', 'data': UserReviewSerializer(instance).data})
             else:
                 return Response({'status': 'error', 'comment': 'incorrect data'}, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request): 
+        user = request.user
+        product_id = request.data.get('product_id')
+        review_id = request.data.get('review_id')
+        print(request.data)
+        try:
+            obj = Products.objects.get(id=product_id)
+            review = obj.reviews.get(id=review_id)
+            print(review)
+        except Exception:
+            return Response({'status': 'error', 'comment': 'there is not such a row'}, status=status.HTTP_404_NOT_FOUND)
+        else:
+            data = UserReviewCreate(review).data
+            review.delete()
+            return Response({'status': 'ok', 'data': data})
         
 class UsersAuthorizationView(APIView):
 

@@ -91,13 +91,16 @@
     margin-top: 15px;
     overflow: hidden;
     display: -webkit-box;
-    -webkit-line-clamp: 5;
-    max-height: 110px;
+    -webkit-line-clamp: 3;
     transition: max-height 0.3s ease;
 }
 
+.userReview__value.strict {
+    max-height: 66px;
+}
+
 .userReview__value.open {
-    max-height: 500px;
+    max-height: 1000px;
 }
 
 .userReview__open_container {
@@ -188,18 +191,186 @@ svg path {
     transform: scale(1.1);
 }
 
+.emptyReview__image_container {
+    transform: rotate(-25deg);
+    background-color: rgba(255, 255, 255, 0.534);
+    border-radius: 100px;
+    width: 150px;
+    
+}
+
 .userReview__edit_section {
-    width: 60px;
+    position: relative;
+}
+
+.userReview__subsection {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    cursor: pointer;
 }
 
-.userReview__edit_section > img {
-    border: 1px solid grey;
+.userReview__subsection:hover  {
+    filter: brightness(0) saturate(100%) invert(69%) sepia(90%) saturate(2341%) hue-rotate(358deg) brightness(100%) contrast(105%);
+}
+
+.userReview__text {
+    margin-left: 10px;
+}
+
+.userReview__edit_popup {
+    background-color: white;
+    width: 150px;
+    position: absolute;
+    top: -110px;
+    left: -65px;
+    z-index: 1;
+    box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.28);
+}
+
+.userReview__edit_popup_container {
+    height: 80px;
+
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.popupDelete-enter {
+    opacity: 0;
+}
+
+.popupDelete-enter-done {
+    opacity: 1; 
+    transition: opacity ease .2s;
+} 
+
+.popupDelete-exit {
+    opacity: 1;
+}
+
+.popupDelete-exit-active {
+    opacity: 0;
+    transition: opacity ease .2s;
+}
+
+.transition-wrapper {
+    position: absolute;
+}
+
+.popupChangeDeleteReview-enter {
+    width: 150px;
+}
+
+.popupChangeDeleteReview-enter-done {
+    width: 300px; 
+    transition: width ease .2s;
+} 
+
+.popupChangeDeleteReview-exit {
+    opacity: 1;
+    width: 300px;
+}
+
+.popupChangeDeleteReview-exit-done {
+    opacity: 0;
+    width: 150px;
+    transition: width ease .2s, opacity ease .2s;
+}
+
+.userReview__delete_container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.userReview__delete_btn {
+    border: 1px solid orange;
+    padding: 5px 40px;
     border-radius: 5px;
+    transition: .2s ease;
 }
 
+.userReview__delete_btn:hover {
+    transform: scale(1.1);
+}
+
+.userReview__delete_btn.yes {
+    background-color: rgba(235, 159, 19, 0.363);
+}
+
+.userReview__edit_triangle {
+    position: absolute;
+    bottom: -10px;
+    left: 65px;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+  
+    border-bottom: 10px solid white;
+    transform: rotate(-180deg);
+}
+
+.emptyReview {
+    overflow: hidden;
+    position: relative;
+    padding: 10px 0;
+    background-color: rgba(235, 159, 19, 0.363);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+
+.emptyReview__image {
+    width: 100%;
+}
+
+.emptyReview__title {
+    font-size: 19px;
+}
+
+.emptyReview__circle { 
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.534);
+    border-radius: 130px;
+}
+
+.emptyReview__circle.first {
+    top: -35px;
+    right: -40px;
+    width: 100px;
+    height: 100px;
+}
+
+.emptyReview__circle.second {
+    top: 120px;
+    width: 250px;
+    height: 250px;
+    background-color: rgba(255, 255, 255, 0.534);
+}
+
+.userReview__threeDots {
+    transform: rotate(-90deg);
+    width: 20px;
+    cursor: pointer;
+}
+
+.changeReview-enter {
+    transform: scale(0);
+}
+
+.changeReview-enter-active {
+    transform: scale(1);
+    transition: transform ease .2s;
+}
+
+.changeReview-exit {
+    transform: scale(1);
+}
+
+.changeReview-exit-active {
+    transform: scale(0);
+    transition: transform ease .2s;
+}
 
 /* Review Add */
 

@@ -12,13 +12,13 @@ class UserReviewCreate(serializers.ModelSerializer):
     
     class Meta:
         model=UserReview
-        fields=('user_id', 'value', 'date_publish')
+        fields=('id', 'user_id', 'value', 'date_publish')
 
 class UserInfoForReviews(serializers.ModelSerializer):
 
     class Meta:
         model = Users
-        fields = ('avatar', 'last_name', 'first_name')
+        fields = ('id', 'avatar', 'last_name', 'first_name')
 
 class UserReviewSerializer(serializers.ModelSerializer):
 
@@ -76,6 +76,7 @@ class ReviewRateSerializer(serializers.ModelSerializer):
     class Meta:
         model = ReviewRate
         fields = ('assessment', 'review', 'user', 'product')
+
 
 # PRODUCT #
 
@@ -146,7 +147,33 @@ class ExactProductSerializerLoggined(serializers.ModelSerializer):
                                                 'user_id': self.user,
                                                 'product_id': obj.id
                                                 }).data
-                                            
+
+class RefactoredExactProduct(serializers.ModelSerializer):
+
+    discount = DiscountSerializer()
+    rate = ProductRate()
+
+    class Meta:
+        model = Products
+        fields = ('id', 
+                  'name', 
+                  'description', 
+                  'price', 
+                  'articul', 
+                  'img_url', 
+                  'discount', 
+                  'rate', 
+                  'amount', 
+                  )
+        
+class RefactoredExactProductReviews(serializers.ModelSerializer):
+    user_id = UserInfoForReviews()
+
+    class Meta:
+        model = UserReview
+        fields = ('id', 'value', 'user_id', 'date_publish')
+        ordering = ('date_publish',)
+
 # USERS #
 
 class UsersRateSerializer(serializers.ModelSerializer):

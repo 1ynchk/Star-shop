@@ -5,6 +5,7 @@ import { fetchAssessment } from "../queries/Assessment";
 import { fetchProductInfo } from "../queries/ProductInfo";
 import { fetchReviewsRates } from "../queries/GetReviewsRates";
 import { fetchPostUserReview } from "../queries/PostUserReview"; 
+import { fetchDeleteReview } from "../queries/DeleteReview";
 
 const exactProductSlice = createSlice(
     {
@@ -58,7 +59,6 @@ const exactProductSlice = createSlice(
                     fetchExactProduct.fulfilled, (state, action) => {
                         state.exactProduct = action.payload.data
                         state.reviews = action.payload.data.reviews
-                        console.log(state.exactProduct)
                     }
                 )
                 .addCase(
@@ -83,6 +83,11 @@ const exactProductSlice = createSlice(
                 .addCase(
                     fetchPostUserReview.fulfilled, (state, action) => {
                         state.reviews = [action.payload.data, ...state.reviews]
+                    }
+                )
+                .addCase(
+                    fetchDeleteReview.fulfilled, (state, action) => {
+                        state.reviews = state.reviews.filter(el => el.id != action.payload.data.id)
                     }
                 )
         }

@@ -28,6 +28,7 @@ export const App = () => {
     return (
             <BrowserRouter>
             <Popup />
+                
                 <div className='container'>
                     <Header />
                     <div className='main_area'>
