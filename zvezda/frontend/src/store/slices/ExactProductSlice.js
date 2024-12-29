@@ -56,9 +56,18 @@ const exactProductSlice = createSlice(
         extraReducers: (builder) => {
             builder 
                 .addCase(
-                    fetchExactProduct.fulfilled, (state, action) => {
+                    fetchExactProduct.fulfilled, (state, action) => { 
+
+                        for (const j in action.payload.reviews) {
+                            for (const i in action.payload.assessments) {
+                                if (action.payload.reviews[j].id == action.payload.assessments[i].review) {
+                                    action.payload.reviews[j].assessments = action.payload.assessments[i]
+                                }
+                            }
+                        }
+                        
                         state.exactProduct = action.payload.data
-                        state.reviews = action.payload.data.reviews
+                        state.reviews = action.payload.reviews
                     }
                 )
                 .addCase(
@@ -77,7 +86,7 @@ const exactProductSlice = createSlice(
                 )
                 .addCase(
                     fetchReviewsRates.fulfilled, (state, action) => {
-                        console.log('slice!')
+
                     }
                 )
                 .addCase(

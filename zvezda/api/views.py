@@ -8,15 +8,14 @@ from rest_framework.pagination import PageNumberPagination
 from .models import Products, Users, UsersRate, ProductRate, ReviewRate, UserReview
 from .serializer import (
     ProductsSerializer, 
-    ExactProductSerializer,
     UsersRateSerializer,
     GetUsersProfileInfo,
     ReviewRateSerializer,
-    ExactProductSerializerLoggined,
     UserReviewCreate,
     UserReviewSerializer,
     RefactoredExactProduct,
-    RefactoredExactProductReviews
+    RefactoredExactProductReviews,
+    
     )
 
 from django.db import connection
@@ -28,46 +27,42 @@ class ExactProductReviewsPagination(PageNumberPagination):
     page_size_query_param = 'page_size'
     max_page_size = 10000
 
-# Create your views here.
 class ProductsView(APIView):
 
     def get(self, request):
         
         if request.headers['type-query-product'] == 'exact':
-            connection.queries.clear()
             articul = request.headers['articul']
             user_id = request.user.id
-            # user_id = 2
-            user = Users.objects.get(id=user_id)
-            connection.queries.clear()
 
-            obj = Products.objects.select_related('rate', 'category', 'discount').prefetch_related('reviews').get(articul=articul)
-            # obj = Products.objects.select_related('rate', 'category', 'discount').get(articul=articul)
-            # reviews = obj.reviews.select_related('user_id').all()
+            obj = Products.objects.select_related('rate', 'category', 'discount').get(articul=articul)
+            reviews = obj.reviews.select_related('user_id').all()
 
             if user_id is not None:
-                response = Response({'data': ExactProductSerializerLoggined(obj, context={'user_id': user_id}).data}) 
-                # response = Response({
-                #     'data': RefactoredExactProduct(obj).data, 
-                #     'reviews': RefactoredExactProductReviews(reviews, many=True, context={
-                #         'user_id': user_id,
-                #         'product_id': obj.id
-                #         }).data
-                # },)
-            else:
-                # response = Response({
-                #     'data': RefactoredExactProduct(obj).data, 
-                #     'reviews': RefactoredExactProductReviews(reviews, many=True).data
-                # },)
 
-                response = Response({'data': ExactProductSerializer(obj).data})
-            print(len(connection.queries))
+                assessments = ReviewRate.objects.filter(product=obj.id, user=user_id)
+
+                if assessments:
+                    assessments = ReviewRateSerializer(assessments, many=True).data
+
+                response = Response({
+                    'data': RefactoredExactProduct(obj).data, 
+                    'reviews': RefactoredExactProductReviews(reviews, many=True).data,
+                    'assessments': assessments
+                },)
+
+            else:
+                response = Response({
+                    'data': RefactoredExactProduct(obj).data, 
+                    'reviews': RefactoredExactProductReviews(reviews, many=True).data,
+                },)
+
 
             response['Cache-Control'] = 'no-store'
             return response
         
         if request.headers['type-query-product'] == 'main-page':
-            query_set = Products.objects.all()
+            query_set = Products.objects.select_related('discount').all()
 
             response = Response({"data": ProductsSerializer(query_set, many=True).data})
             response['Cache-Control'] = 'no-store'

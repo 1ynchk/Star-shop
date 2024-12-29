@@ -13,7 +13,7 @@ import pencil from '../../../../static/images/pencil.png'
 import junkBucket from '../../../../static/images/junkBucket.png'
 import threeDots from '../../../../static/images/threeDots.png'
 
-const UserReview = ({ assessment, id, product_id, date_publish, avatar, last_name, first_name, value }) => {
+const UserReview = ({ review_user_id, assessment, id, product_id, date_publish, avatar, last_name, first_name, value }) => {
 
     const [isChangeReview, setChangeReview] = useState(false)
     const [isOpennedReviews, setOpennedReview] = useState(false)
@@ -23,6 +23,8 @@ const UserReview = ({ assessment, id, product_id, date_publish, avatar, last_nam
     const [isLike, setLike] = useState(false)
     const [isDislike, setDislike] = useState(false)
     const [isChanged, setChange] = useState(false)
+
+    console.log(assessment)
 
     useEffect(() => {
         if (assessment != null) {
@@ -146,7 +148,7 @@ const UserReview = ({ assessment, id, product_id, date_publish, avatar, last_nam
                             <CSSTransition
                             in={isOpennedReviews}
                             classNames='openArrow'
-                            timeout={200}
+                            timeout={0}
                             >
                                 <div className='userReview__open_arrow'>&darr;</div>
                             </CSSTransition>
@@ -185,6 +187,8 @@ const UserReview = ({ assessment, id, product_id, date_publish, avatar, last_nam
                     {ProductBBL.defineDate(date_publish)}
                     <div className='userReview__delimiter'></div>
 
+                    {}
+
                     <div className='userReview__edit_section'>
                         <img 
                             onClick={() => changeReview()} 
@@ -202,6 +206,7 @@ const UserReview = ({ assessment, id, product_id, date_publish, avatar, last_nam
                             <CSSTransition
                                 in={!isDelete}
                                 classNames='popupDelete'
+                                timeout={0}
                                 unmountOnExit
                             >
                                 <div id={'userReview__edit_popup_' + id} className='userReview__edit_popup'>
@@ -225,6 +230,7 @@ const UserReview = ({ assessment, id, product_id, date_publish, avatar, last_nam
 
                             <CSSTransition
                                 in={isDelete}
+                                timeout={0}
                                 classNames='popupChangeDeleteReview'
                                 unmountOnExit
                             >

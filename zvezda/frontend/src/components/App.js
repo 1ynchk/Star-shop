@@ -27,21 +27,23 @@ export const App = () => {
     
     return (
             <BrowserRouter>
-            <Popup />
-                
-                <div className='container'>
-                    <Header />
-                    <div className='main_area'>
-                    <Routes>
-                            <Route exact path='/' element={<MainPage />} />
-                            <Route path='/products' >
-                                <Route path=':id' element={<ProductsPage />} />
-                            </Route>
-                            <Route path='/profile/settings' element={<Profile />} />
-                    </Routes>
+                <Popup />
+                    <div className='main_wrapper'>
+                    <div className='container'>
+                        <Header />
+                        <div className='main_area'>
+                        <Routes>
+                                <Route exact path='/' element={<MainPage />} />
+                                <Route path='/products' >
+                                    <Route path=':id' element={<ProductsPage />} />
+                                </Route>
+                                <Route path='/profile/settings' element={<Profile />} />
+                        </Routes>
+                        </div>
                     </div>
-                </div>
-                <Notification />
+                    </div>
+                    {/* <Notification /> */}
+
                 <Footer />
             </BrowserRouter>
     )

@@ -16,21 +16,40 @@ a:hover{text-decoration: none;}
 ul li {list-style: none;}
 img{vertical-align: top;}
 
+* {
+    box-sizing: border-box;
+}
+
 .container {
     display: flex;
     flex-direction: column;
     margin-right: auto;
     margin-left: auto;
-    max-width: 1200px;
-    min-height: 84vh;
+    max-width: 1250px;
+}
+
+.main_wrapper {
+    flex-wrap: 1;
+    margin-bottom: 50px;
+}
+
+
+#app {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+#main {
+    height: 100%;
+    flex: 1; 
+    display: flex;
+    flex-direction: column;
 }
 
 html, body {
     overflow-x: hidden;
-}
-
-.main_area {
-    flex: 1;
+    height: 100%;
 }
 
 @keyframes loading {

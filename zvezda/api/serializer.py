@@ -29,37 +29,6 @@ class UserReviewSerializer(serializers.ModelSerializer):
         fields = ('id', 'value', 'user_id', 'date_publish')
         ordering = ('date_publish',)
 
-class ReviewRateSerializerLoggined(serializers.ModelSerializer):
-
-    class Meta:
-        model = ReviewRate
-        fields = ('assessment', 'review',)
-
-class UserReviewSerializerLoggined(serializers.ModelSerializer):  
-
-    user_id = UserInfoForReviews()
-    assessments = serializers.SerializerMethodField()
-
-    def __init__(self, *args, **kwargs):
-        self.user = kwargs['context']['user_id']
-        self.product = kwargs['context']['product_id']
-        super().__init__(*args, **kwargs)
-    
-    class Meta:
-        model = UserReview
-        fields = ('id', 'value', 'user_id', 'date_publish', 'assessments')
-        ordering = ('date_publish',)
-
-    def get_assessments(self, obj):
-        try:
-            serializer = ReviewRateSerializerLoggined(ReviewRate.objects.get(
-                review=obj.id, 
-                user=self.user,
-                product=self.product)).data
-        except Exception:
-            serializer = None
-        return serializer
-    
 class ReviewRateSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
@@ -96,57 +65,6 @@ class ProductRate(serializers.ModelSerializer):
     class Meta:
         model = ProductRate
         fields = '__all__'
-
-class ExactProductSerializer(serializers.ModelSerializer):
-    reviews = serializers.SerializerMethodField()
-    discount = DiscountSerializer()
-    rate = ProductRate()
-
-    class Meta:
-        model = Products
-        fields = ('id', 
-                  'name', 
-                  'description', 
-                  'price', 
-                  'articul', 
-                  'img_url', 
-                  'discount', 
-                  'rate', 
-                  'amount', 
-                  'reviews')
-        
-    def get_reviews(self, obj):
-        return UserReviewSerializer(obj.reviews.all().order_by('-date_publish')[:3], many=True).data
-
-class ExactProductSerializerLoggined(serializers.ModelSerializer):
-    reviews = serializers.SerializerMethodField()
-    discount = DiscountSerializer()
-    rate = ProductRate()
-
-    class Meta:
-        model = Products
-        fields = ('id', 
-                  'name', 
-                  'description', 
-                  'price', 
-                  'articul', 
-                  'img_url', 
-                  'discount', 
-                  'rate', 
-                  'amount', 
-                  'reviews',
-                  )
-        
-    def __init__(self, *args, **kwargs):
-        self.user = kwargs['context']['user_id']
-        super().__init__(*args, **kwargs)
-
-    def get_reviews(self, obj):
-        return UserReviewSerializerLoggined(obj.reviews.all().order_by('-date_publish')[:3], many=True, 
-                                            context={
-                                                'user_id': self.user,
-                                                'product_id': obj.id
-                                                }).data
 
 class RefactoredExactProduct(serializers.ModelSerializer):
 

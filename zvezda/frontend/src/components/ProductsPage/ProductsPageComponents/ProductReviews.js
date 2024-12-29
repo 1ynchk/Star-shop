@@ -24,6 +24,8 @@ const ProductReviews = ({ id }) => {
     const dispatch = useDispatch()
     const reviews = useSelector(state => state.exactProduct.reviews)
 
+    console.log(reviews)
+
     const showReviewPopUp = () => {
         dispatch(setReviewPopUp())
     }
@@ -31,6 +33,7 @@ const ProductReviews = ({ id }) => {
     return (
         <div className='productReview'>
             <div className='productReview__write_section'>
+            
                 <div className='productReview__title'>Отзывы:</div>
                 <div className='productReview__write_container'>
                     <div className='productReview__write_subcontainer'>
@@ -54,6 +57,7 @@ const ProductReviews = ({ id }) => {
                     product_id={id}
                     key={el.id}
                     id={el.id}
+                    review_user_id={el.user_id.id}
                     value={el.value}
                     avatar={el.user_id.avatar}
                     first_name={el.user_id.first_name}
