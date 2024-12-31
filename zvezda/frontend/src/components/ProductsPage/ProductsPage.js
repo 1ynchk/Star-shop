@@ -22,7 +22,6 @@ const ProductsPage = (props) => {
     const reviewPopUp = useSelector(state => state.exactProduct.reviewPopUp)
 
     useEffect(() => {
-        console.log('hello')
         dispatch(fetchExactProduct({ 'id': id, 'isLogined': isLogined }))
     }, [id]);
 

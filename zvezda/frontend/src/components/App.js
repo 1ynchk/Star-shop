@@ -30,19 +30,23 @@ export const App = () => {
                 <Popup />
                     <div className='main_wrapper'>
                     <div className='container'>
+                        <Notification />
                         <Header />
                         <div className='main_area'>
+
                         <Routes>
                                 <Route exact path='/' element={<MainPage />} />
                                 <Route path='/products' >
                                     <Route path=':id' element={<ProductsPage />} />
                                 </Route>
                                 <Route path='/profile/settings' element={<Profile />} />
+
                         </Routes>
                         </div>
                     </div>
+
                     </div>
-                    {/* <Notification /> */}
+
 
                 <Footer />
             </BrowserRouter>

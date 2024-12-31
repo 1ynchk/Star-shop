@@ -15,12 +15,9 @@ from .serializer import (
     UserReviewSerializer,
     RefactoredExactProduct,
     RefactoredExactProductReviews,
-    
     )
 
 from django.db import connection
-
-
 
 class ExactProductReviewsPagination(PageNumberPagination):
     page_size = 3 
@@ -39,9 +36,7 @@ class ProductsView(APIView):
             reviews = obj.reviews.select_related('user_id').all()
 
             if user_id is not None:
-
                 assessments = ReviewRate.objects.filter(product=obj.id, user=user_id)
-
                 if assessments:
                     assessments = ReviewRateSerializer(assessments, many=True).data
 
@@ -56,8 +51,6 @@ class ProductsView(APIView):
                     'data': RefactoredExactProduct(obj).data, 
                     'reviews': RefactoredExactProductReviews(reviews, many=True).data,
                 },)
-
-
             response['Cache-Control'] = 'no-store'
             return response
         
@@ -112,8 +105,8 @@ class ReviewRateView(APIView):
         assessment = request.data.get('assessment')
         data = {'assessment': assessment, 'product': id_product, 'review': id_review, 'user': id_user}
         try:
-            instance = ReviewRate.objects.get(user_id=id_user, product_id=id_product, review_id=id_review)
-            serializer = ReviewRateSerializer(data=data, instance=instance)
+            obj = ReviewRate.objects.get(user_id=id_user, product_id=id_product, review_id=id_review)
+            serializer = ReviewRateSerializer(data=data, instance=obj)
         except Exception:
             serializer = ReviewRateSerializer(data=data)
 
@@ -122,36 +115,36 @@ class ReviewRateView(APIView):
             return Response({'status': 'ok'})
         else:
             return Response({'status': 'error', 'comment': 'incorrect data'}, status=status.HTTP_400_BAD_REQUEST)
-
+    
 class ReviewView(APIView):
 
-
     def post(self, request):
+        
         value = request.data.get('value')
         product_id = request.data.get('product_id')
         user = request.user
+
         try:
             obj = Products.objects.get(id=product_id)
         except Exception:
             return Response({'status': 'error', 'comment': 'there is not such a product'}, status=status.HTTP_404_NOT_FOUND)
         else:
-            serializer = UserReviewCreate(data={'user_id': user.id, 'value': value}) 
-            if serializer.is_valid():
+            instance = obj.reviews.select_related('user_id').filter(user_id_id=user, products=obj.id)
+            if instance:
+                return Response({'status': 'error', 
+                                 'comment': 'there is already a review from this user'}, status=status.HTTP_406_NOT_ACCEPTABLE)
+            else:
                 instance = UserReview.objects.create(user_id=user, value=value)
                 obj.reviews.add(instance)
                 return Response({'status': 'ok', 'data': UserReviewSerializer(instance).data})
-            else:
-                return Response({'status': 'error', 'comment': 'incorrect data'}, status=status.HTTP_400_BAD_REQUEST)
-
+                
     def delete(self, request): 
         user = request.user
         product_id = request.data.get('product_id')
         review_id = request.data.get('review_id')
-        print(request.data)
         try:
             obj = Products.objects.get(id=product_id)
             review = obj.reviews.get(id=review_id)
-            print(review)
         except Exception:
             return Response({'status': 'error', 'comment': 'there is not such a row'}, status=status.HTTP_404_NOT_FOUND)
         else:

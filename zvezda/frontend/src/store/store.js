@@ -5,6 +5,7 @@ import exactProductReducer from './slices/ExactProductSlice.js'
 import popupReducer from './slices/PopupSlice.js'
 import usersReducer from './slices/UsersSlice.js'
 import profileReducer from './slices/ProfileSlice.js'
+import notificationReducer from './slices/Notification.js'
 
 const reducers = combineReducers(
     {
@@ -12,7 +13,8 @@ const reducers = combineReducers(
         exactProduct: exactProductReducer,
         popup: popupReducer,
         users: usersReducer,
-        profile: profileReducer
+        profile: profileReducer,
+        notification: notificationReducer
     }
 )
 

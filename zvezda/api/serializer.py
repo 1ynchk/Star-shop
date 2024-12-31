@@ -6,10 +6,6 @@ from .models import Products, Discount, ProductRate, Users, UsersRate, UserRevie
 
 class UserReviewCreate(serializers.ModelSerializer):
 
-    def create(self, validated_data):
-        print(validated_data)
-        return UserReview.objects.create(**validated_data)
-    
     class Meta:
         model=UserReview
         fields=('id', 'user_id', 'value', 'date_publish')
@@ -45,7 +41,6 @@ class ReviewRateSerializer(serializers.ModelSerializer):
     class Meta:
         model = ReviewRate
         fields = ('assessment', 'review', 'user', 'product')
-
 
 # PRODUCT #
 

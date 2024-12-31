@@ -18,13 +18,12 @@ const UserReview = ({ review_user_id, assessment, id, product_id, date_publish, 
     const [isChangeReview, setChangeReview] = useState(false)
     const [isOpennedReviews, setOpennedReview] = useState(false)
     const [isDelete, setIsDelete] = useState(false)
+    const [isChangeCorrect, setChangeCorrect] = useState(false)
     const dispatch = useDispatch()
     const isLogined = useSelector(state => state.users.isLogin)
     const [isLike, setLike] = useState(false)
     const [isDislike, setDislike] = useState(false)
     const [isChanged, setChange] = useState(false)
-
-    console.log(assessment)
 
     useEffect(() => {
         if (assessment != null) {
@@ -66,35 +65,6 @@ const UserReview = ({ review_user_id, assessment, id, product_id, date_publish, 
        
     }, [isDislike, isLike])
 
-    const changeDislike = () => {
-        if (isDislike) {
-            setDislike(false)
-        } else {
-            setDislike(true)
-        }
-    }
-
-    const changeLike = () => {
-        if (isLike) {
-            setLike(false)
-        } else {
-            setLike(true)
-        }
-    }
-
-    const openReview = () => {
-        const reviewOpenId = 'userReview__open_review_' + id
-        const reviewOpen = document.getElementById(reviewOpenId)
-
-        if (isOpennedReviews) {
-            setOpennedReview(false)
-            reviewOpen.textContent = 'Раскрыть отзыв'
-        } else {
-            setOpennedReview(true)
-            reviewOpen.textContent = 'Свернуть отзыв'
-        }
-    }
-
     useEffect(() => {
         const reviewContentId = 'userReview__value_' + id 
         const reviewContent = document.getElementById(reviewContentId)
@@ -126,6 +96,43 @@ const UserReview = ({ review_user_id, assessment, id, product_id, date_publish, 
             setIsDelete(false)
         } else {
             setIsDelete(true)
+        }
+    }
+
+    const changeCorrectReview = () => {
+        if (isChangeCorrect) {
+            setChangeCorrect(false)
+        } else {
+            setChangeCorrect(true)
+        }
+    }
+
+    const changeDislike = () => {
+        if (isDislike) {
+            setDislike(false)
+        } else {
+            setDislike(true)
+        }
+    }
+
+    const changeLike = () => {
+        if (isLike) {
+            setLike(false)
+        } else {
+            setLike(true)
+        }
+    }
+
+    const openReview = () => {
+        const reviewOpenId = 'userReview__open_review_' + id
+        const reviewOpen = document.getElementById(reviewOpenId)
+
+        if (isOpennedReviews) {
+            setOpennedReview(false)
+            reviewOpen.textContent = 'Раскрыть отзыв'
+        } else {
+            setOpennedReview(true)
+            reviewOpen.textContent = 'Свернуть отзыв'
         }
     }
 
@@ -187,8 +194,6 @@ const UserReview = ({ review_user_id, assessment, id, product_id, date_publish, 
                     {ProductBBL.defineDate(date_publish)}
                     <div className='userReview__delimiter'></div>
 
-                    {}
-
                     <div className='userReview__edit_section'>
                         <img 
                             onClick={() => changeReview()} 
@@ -215,9 +220,13 @@ const UserReview = ({ review_user_id, assessment, id, product_id, date_publish, 
 
                                         <div className='userReview__subsection'>
                                             <img className='userReview__edit' src={pencil} alt='edit'/>
-                                            <div className='userReview__text'>Изменить</div>
+                                            <div 
+                                            onClick={() => changeCorrectReview()} 
+                                            className='userReview__text'>Изменить</div>
                                         </div>
-                                        <div onClick={() => changeDeleteReview()} className='userReview__subsection'>
+                                        <div 
+                                        onClick={() => changeDeleteReview()} 
+                                        className='userReview__subsection'>
                                             <img className='userReview__edit' src={junkBucket} alt='delete'/>
                                             <div className='userReview__text'>Удалить</div>
                                         </div>

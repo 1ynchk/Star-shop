@@ -91,9 +91,11 @@ const exactProductSlice = createSlice(
                 )
                 .addCase(
                     fetchPostUserReview.fulfilled, (state, action) => {
+
                         state.reviews = [action.payload.data, ...state.reviews]
                     }
                 )
+                
                 .addCase(
                     fetchDeleteReview.fulfilled, (state, action) => {
                         state.reviews = state.reviews.filter(el => el.id != action.payload.data.id)
