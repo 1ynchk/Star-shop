@@ -13,12 +13,15 @@ export class ProductBBL {
         } else {
             let rate = (good_rates / (good_rates + bad_rates)) * 5
             if (4.0 < rate) {
+                rate = String(rate).slice(0, 3)
                 return [<div key="rate_circle" className='rate_circle green'>{rate}</div>, 
                     <div key="rating_count" className='rating_count'>Оценок: {bad_rates+good_rates}</div>]
             } else if (3.0 < rate) {
+                rate = String(rate).slice(0, 3)
                 return [<div key="rate_circle" className='rate_circle yellow'>{rate}</div>, 
                     <div key="rating_count" className='rating_count'>Оценок: {bad_rates+good_rates}</div>]
             } else if (0.0 <= rate) {
+                rate = String(rate).slice(0, 3)
                 return [<div key="rate_circle" className='rate_circle red'>{rate}</div>, 
                     <div key="rating_count" className='rating_count'>Оценок: {bad_rates+good_rates}</div>]
             }

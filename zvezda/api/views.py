@@ -135,8 +135,9 @@ class ReviewView(APIView):
                                  'comment': 'there is already a review from this user'}, status=status.HTTP_406_NOT_ACCEPTABLE)
             else:
                 instance = UserReview.objects.create(user_id=user, value=value)
+                data = UserReviewSerializer(instance).data
                 obj.reviews.add(instance)
-                return Response({'status': 'ok', 'data': UserReviewSerializer(instance).data})
+                return Response({'status': 'ok', 'data': data})
                 
     def delete(self, request): 
         user = request.user
@@ -157,7 +158,13 @@ class UsersAuthorizationView(APIView):
     def get(self, request):
         if request.user.is_authenticated:
             user = Users.objects.get(id=request.user.id)
-            return Response({'authenticated': True, 'avatar': user.avatar, 'user_id': user.id})
+            response = Response({'authenticated': True, 'avatar': user.avatar})
+            response.set_cookie(
+                key='UID',
+                value=user.id,
+                samesite='strict'
+            )
+            return response
         else:
             return Response({'authenticated': False})
             
@@ -166,11 +173,18 @@ class UsersAuthorizationView(APIView):
         if request.headers['type-post'] == 'register':
             email = request.data.get('email')
             password = request.data.get('password')
+            
             try:
                 obj = Users.objects.get(email=email)
             except Exception:
+
+                name = request.data.get('name')
+                surname = request.data.get('surname')
+                
                 user = Users(email=email)
                 user.set_password(password)
+                user.last_name = surname
+                user.first_name = name
                 user.save()
                 return Response({'status': 'ok'}, status=status.HTTP_202_ACCEPTED)
             if obj is not None:
@@ -189,7 +203,9 @@ class UsersAuthorizationView(APIView):
 
         if request.headers['type-post'] == 'logout':
             logout(request)
-            return Response({'status': 'ok'})
+            response = Response({'status': 'ok'})
+            response.delete_cookie('UID')
+            return response
 
 class UserInfoView(APIView):
 

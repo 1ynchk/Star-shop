@@ -13,12 +13,127 @@ import pencil from '../../../../static/images/pencil.png'
 import junkBucket from '../../../../static/images/junkBucket.png'
 import threeDots from '../../../../static/images/threeDots.png'
 
+import { GetUID } from '../../../../bll/GetUID';
+
+const LogicReview = ({id, product_id}) => {
+    const dispatch = useDispatch()
+    const [isDelete, setIsDelete] = useState(false)
+    const [isChangeReview, setChangeReview] = useState(false)
+    const [isChangeCorrect, setChangeCorrect] = useState(false)
+
+    const deleteReview = () => {
+        dispatch(fetchDeleteReview({'product_id': product_id, 'review_id': id}))
+    }
+
+    const changeCorrectReview = () => {
+        if (isChangeCorrect) {
+            setChangeCorrect(false)
+        } else {
+            setChangeCorrect(true)
+        }
+    }
+
+    const changeReview = () => {
+        if (isChangeReview) {
+            setChangeReview(false)
+            setTimeout(() => {
+                setIsDelete(false)
+            }, [500])
+            
+        } else {
+            setChangeReview(true)
+        }
+    }
+
+    const changeDeleteReview = () => {
+        if (isDelete) {
+            setIsDelete(false)
+        } else {
+            setIsDelete(true)
+        }
+    }
+
+    
+    return (
+        <div className='userReview__logic_wrapper'>
+            <div className='userReview__delimiter'></div>
+        <div className='userReview__edit_section'>
+            <img 
+                onClick={() => changeReview()} 
+                src={threeDots} 
+                alt='edit' 
+                className='userReview__threeDots' />
+            <CSSTransition
+                in={isChangeReview}
+                unmountOnExit
+                timeout={200}
+                classNames='changeReview'
+            >      
+            <div className='transition-wrapper'>
+                                
+            <CSSTransition
+                in={!isDelete}
+                classNames='popupDelete'
+                timeout={0}
+                unmountOnExit
+            >
+                <div id={'userReview__edit_popup_' + id} className='userReview__edit_popup'>
+                    
+                    <div className='userReview__edit_popup_container'>
+                        <div className='userReview__subsection'>
+                            <img className='userReview__edit' src={pencil} alt='edit'/>
+                            <div 
+                            onClick={() => changeCorrectReview()} 
+                            className='userReview__text'>Изменить</div>
+                        </div>
+                        <div 
+                        onClick={() => changeDeleteReview()} 
+                        className='userReview__subsection'>
+                            <img className='userReview__edit' src={junkBucket} alt='delete'/>
+                            <div className='userReview__text'>Удалить</div>
+                        </div>
+                </div>
+
+                        <div className='userReview__edit_triangle'></div>
+                    </div>
+                </CSSTransition>
+
+                <CSSTransition
+                    in={isDelete}
+                    timeout={0}
+                    classNames='popupChangeDeleteReview'
+                    unmountOnExit
+                >
+                    <div id={'userReview__edit_popup_' + id} className='userReview__edit_popup'>
+                        
+                            <div className='userReview__edit_popup_container'>
+                                <div className='userReview__delete_title'>Удалить отзыв?</div>
+                                <div className='userReview__delete_container'>
+                                    <button 
+                                        onClick={() => changeDeleteReview()} 
+                                        className='userReview__delete_btn'>Нет</button>
+                                    <button
+                                        onClick={() => deleteReview()}
+                                        className='userReview__delete_btn yes'>Да</button>
+                                </div>
+                            </div>
+
+                                <div className='userReview__edit_triangle'></div>
+                            </div>
+                        </CSSTransition>
+                        </div> 
+                            
+                    </CSSTransition>    
+                </div>
+        </div>
+        
+    )
+        
+}
+
 const UserReview = ({ review_user_id, assessment, id, product_id, date_publish, avatar, last_name, first_name, value }) => {
 
-    const [isChangeReview, setChangeReview] = useState(false)
     const [isOpennedReviews, setOpennedReview] = useState(false)
-    const [isDelete, setIsDelete] = useState(false)
-    const [isChangeCorrect, setChangeCorrect] = useState(false)
     const dispatch = useDispatch()
     const isLogined = useSelector(state => state.users.isLogin)
     const [isLike, setLike] = useState(false)
@@ -79,34 +194,6 @@ const UserReview = ({ review_user_id, assessment, id, product_id, date_publish, 
         }
     }, [isOpennedReviews])
 
-    const changeReview = () => {
-        if (isChangeReview) {
-            setChangeReview(false)
-            setTimeout(() => {
-                setIsDelete(false)
-            }, [500])
-            
-        } else {
-            setChangeReview(true)
-        }
-    }
-
-    const changeDeleteReview = () => {
-        if (isDelete) {
-            setIsDelete(false)
-        } else {
-            setIsDelete(true)
-        }
-    }
-
-    const changeCorrectReview = () => {
-        if (isChangeCorrect) {
-            setChangeCorrect(false)
-        } else {
-            setChangeCorrect(true)
-        }
-    }
-
     const changeDislike = () => {
         if (isDislike) {
             setDislike(false)
@@ -136,9 +223,7 @@ const UserReview = ({ review_user_id, assessment, id, product_id, date_publish, 
         }
     }
 
-    const deleteReview = () => {
-        dispatch(fetchDeleteReview({'product_id': product_id, 'review_id': id}))
-    }
+    
 
     return (
         <div className='userReview'>
@@ -148,7 +233,9 @@ const UserReview = ({ review_user_id, assessment, id, product_id, date_publish, 
                 <div className='userReview__name'>{first_name + " " + last_name}</div>
                 
                 <div className='userReview__review'>
-                    <div id={'userReview__value_' + id} className='userReview__value'>{value}</div>
+                    <div id={'userReview__value_' + id} className='userReview__value'>
+                            {value}
+                    </div>
                     {value.length > 300 ? 
                         <div onClick={() => openReview()} className='userReview__open_container'>
                         <div id={'userReview__open_review_' + id} className='userReview__open_review'>Раскрыть отзыв</div>
@@ -192,78 +279,12 @@ const UserReview = ({ review_user_id, assessment, id, product_id, date_publish, 
                         </div>
                     <div className='userReview__delimiter'></div>
                     {ProductBBL.defineDate(date_publish)}
-                    <div className='userReview__delimiter'></div>
 
-                    <div className='userReview__edit_section'>
-                        <img 
-                            onClick={() => changeReview()} 
-                            src={threeDots} 
-                            alt='edit' 
-                            className='userReview__threeDots' />
-                        <CSSTransition
-                            in={isChangeReview}
-                            unmountOnExit
-                            timeout={200}
-                            classNames='changeReview'
-                        >      
-                        <div className='transition-wrapper'>
-                            
-                            <CSSTransition
-                                in={!isDelete}
-                                classNames='popupDelete'
-                                timeout={0}
-                                unmountOnExit
-                            >
-                                <div id={'userReview__edit_popup_' + id} className='userReview__edit_popup'>
-                                    
-                                    <div className='userReview__edit_popup_container'>
-
-                                        <div className='userReview__subsection'>
-                                            <img className='userReview__edit' src={pencil} alt='edit'/>
-                                            <div 
-                                            onClick={() => changeCorrectReview()} 
-                                            className='userReview__text'>Изменить</div>
-                                        </div>
-                                        <div 
-                                        onClick={() => changeDeleteReview()} 
-                                        className='userReview__subsection'>
-                                            <img className='userReview__edit' src={junkBucket} alt='delete'/>
-                                            <div className='userReview__text'>Удалить</div>
-                                        </div>
-                                        
-                                    </div>
-
-                                    <div className='userReview__edit_triangle'></div>
-                                </div>
-                            </CSSTransition>
-
-                            <CSSTransition
-                                in={isDelete}
-                                timeout={0}
-                                classNames='popupChangeDeleteReview'
-                                unmountOnExit
-                            >
-                                <div id={'userReview__edit_popup_' + id} className='userReview__edit_popup'>
-                                    
-                                        <div className='userReview__edit_popup_container'>
-                                            <div className='userReview__delete_title'>Удалить отзыв?</div>
-                                            <div className='userReview__delete_container'>
-                                                <button 
-                                                    onClick={() => changeDeleteReview()} 
-                                                    className='userReview__delete_btn'>Нет</button>
-                                                <button
-                                                    onClick={() => deleteReview()}
-                                                    className='userReview__delete_btn yes'>Да</button>
-                                            </div>
-                                        </div>
-
-                                    <div className='userReview__edit_triangle'></div>
-                                </div>
-                            </CSSTransition>
-                            </div> 
-                                
-                        </CSSTransition>    
-                    </div>
+                    {GetUID() === review_user_id ?                   
+                    <LogicReview 
+                        id={id}
+                        product_id={product_id}/>
+                    : ''} 
                 </div>
             </div>
         </div>

@@ -1,6 +1,7 @@
 import React from 'react'
 import { setReviewPopUp } from '../../../store/slices/ExactProductSlice'
 import { useDispatch, useSelector } from 'react-redux'
+import { setIsOpen } from '../../../store/slices/PopupSlice'
 
 import photo from '../../../../static/images/reviewsWrite.png'
 import UserReview from './UserReviews';
@@ -25,7 +26,12 @@ const ProductReviews = ({ id }) => {
     const reviews = useSelector(state => state.exactProduct.reviews)
 
     const showReviewPopUp = () => {
-        dispatch(setReviewPopUp())
+        const isAuthenticated = localStorage.getItem('isAuthenticated')
+        if (isAuthenticated) {
+            dispatch(setReviewPopUp())
+        } else {
+            dispatch(setIsOpen())
+        }
     }
 
     return (

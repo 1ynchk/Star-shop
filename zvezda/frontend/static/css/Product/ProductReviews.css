@@ -87,6 +87,7 @@
 }
 
 .userReview__value {
+    white-space: pre-wrap;
     width: 100%;
     word-break: break-all;
     line-height: 22px;
@@ -374,6 +375,10 @@ svg path {
     transition: transform ease .2s;
 }
 
+.userReview__logic_wrapper {
+    display: flex;
+    align-items: center;
+}
 /* Review Add */
 
 .reviewAdd__overlay {

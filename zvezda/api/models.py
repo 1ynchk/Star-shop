@@ -54,7 +54,6 @@ class UsersRate(models.Model):
         return f'User: {self.user} | Product: {self.product}'
 
 class UserReview(models.Model):
-    # id = ULIDField(primary_key=True, default=ULID, editable=False)
     user_id = models.ForeignKey('Users', on_delete=models.CASCADE)
     value = models.CharField(max_length=2000, blank=False)
     date_publish = models.DateField(auto_now_add=True)

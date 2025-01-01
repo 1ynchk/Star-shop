@@ -96,21 +96,26 @@
     z-index: 1000;
 }
 
+.popup__login_holder {
+    height: 180px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
 
 .popup-content {
-    
     box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
     background-color: white;
     padding: 20px;
     border-radius: 8px;
-    width: 350px;
+    min-width: 300px;
+    width: 14%;
+
     height: 300px;
     position: relative;
     z-index: 1100;
     cursor: default;
 }
-
-
 
 .wrong {
     background-color: rgba(255, 0, 0, 0.281);
@@ -120,7 +125,9 @@
     color: rgba(255, 0, 0);
 }
 
-
+.popup__title {
+    font-size: 25px;
+}
 
 @keyframes popup-content_signup {
     0% {
@@ -128,13 +135,13 @@
     }
 
     100% {
-        height: 370px;
+        height: 380px;
     }
 }
 
 @keyframes popup-content_login {
     0% {
-        height: 370px;
+        height: 380px;
     }
 
     100% {
@@ -161,29 +168,46 @@
 }
 
 .form_section__container {
+    position: relative;
     display: flex;
     flex-direction: column;
+    min-width: 50%;
     max-height: 70px;
-    margin-bottom: 20px;
+}
+
+.popup__input_holder {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 250px;
+}
+
+.form_section__icon {
+    position: absolute;
+    top: 20px;
+    right: 10px;
+    width: 18px;
+    transition: .3s ease;
+}
+
+.form_section__icon:hover {
+    transform: scale(1.1);
 }
 
 .login_input {
     margin-top: 12px;
-    border: 1px solid rgb(50, 50, 50);
-    border-radius: 10px;
-    width: 90%;
-    height: 40px;
+    border: 1px solid rgba(50, 50, 50, 0.363);
+    height: 34px;
     padding: 0 10px;
 }
 
-.login_title {
-    font-size: 25px;
-    font-weight: 450;
+.form_section__icon.password {
+    cursor: pointer;
 }
 
 .button_section {
-    margin-top: 40px;
-    width: 95%;
+    margin-top: 20px;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -195,17 +219,17 @@
 }
 
 .sign_btn {
-    padding: 15px 30px;
+    padding: 15px 20px;
     width: fit-content;
     height: 30px;
     background-color: grey;
-    border-radius: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
     color: rgb(50, 50, 50);
     cursor: default;
 }
+
 
 .register_section > div {
     font-size: 13px;
@@ -322,3 +346,4 @@
     text-align: center;
     line-height: 20px;
 }
+
