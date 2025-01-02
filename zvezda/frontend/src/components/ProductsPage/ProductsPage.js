@@ -5,9 +5,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import {CSSTransition} from 'react-transition-group';
 
-import { fetchExactProduct } from '../../store/queries/PreciseProduct';
+import { fetchExactProduct } from '../../store/queries/Products/PreciseProduct';
 import { clearAssessment } from '../../store/slices/ExactProductSlice';
-import { fetchProductInfo } from '../../store/queries/ProductInfo';
+import { fetchProductInfo } from '../../store/queries/Products/ProductInfo';
 
 import { cleareExactProduct } from '../../store/slices/ExactProductSlice';
 import ProductReviews from './ProductsPageComponents/ProductReviews';

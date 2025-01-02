@@ -10,7 +10,7 @@ import Popup from './User/authentication/Popup.js';
 import Profile from './User/profile/profile.js';
 import Notification from './Notification.js';
 
-import { fetchIsUserLoginned } from '../store/queries/IsUserLoginned.js';
+import { fetchIsUserLoginned } from '../store/queries/User/Authorization/IsUserLoginned.js';
 import { setIsLogin } from '../store/slices/UsersSlice.js';
 
 export const App = () => {

@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchProfileInfoGet } from "../queries/User/getProfileInfo";
-import { fetchProfileInfoPost } from "../queries/User/postProfileInfo";
+import { fetchProfileInfoGet } from "../queries/User/Profile/getProfileInfo";
+import { fetchProfileInfoPost } from "../queries/User/Profile/postProfileInfo";
 
 const ProfileSlice = createSlice(
     {

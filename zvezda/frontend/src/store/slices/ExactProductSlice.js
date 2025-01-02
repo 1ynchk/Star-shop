@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { fetchExactProduct } from "../queries/PreciseProduct";
-import { fetchAssessment } from "../queries/Assessment";
-import { fetchProductInfo } from "../queries/ProductInfo";
-import { fetchReviewsRates } from "../queries/GetReviewsRates";
-import { fetchPostUserReview } from "../queries/PostUserReview"; 
-import { fetchDeleteReview } from "../queries/DeleteReview";
+import { fetchExactProduct } from "../queries/Products/PreciseProduct";
+import { fetchAssessment } from "../queries/Products/Assessment";
+import { fetchProductInfo } from "../queries/Products/ProductInfo";
+import { fetchReviewsRates } from "../queries/Reviews/GetReviewsRates";
+import { fetchPostUserReview } from "../queries/Reviews/PostUserReview"; 
+import { fetchDeleteReview } from "../queries/Reviews/DeleteReview";
 
 const exactProductSlice = createSlice(
     {

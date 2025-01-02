@@ -7,7 +7,7 @@ import dislike from '../../../../static/images/dislike.png'
 import { ProductBBL } from '../../../../bll/productPage/ProductPage';
 import { setIsLogin, setIsOpen } from '../../../store/slices/PopupSlice';
 import { setDislike, setLike } from '../../../store/slices/ExactProductSlice';
-import { fetchAssessment } from '../../../store/queries/Assessment';
+import { fetchAssessment } from '../../../store/queries/Products/Assessment';
 
 const ProductInfo = ({product, name, img_url, description, price, good_rates, bad_rates, amount}) => {
     const dispatch = useDispatch()

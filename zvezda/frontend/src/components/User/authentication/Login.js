@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { setSignUp, setIsLogin, setIsOpen } from '../../../store/slices/PopupSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { fetchUserDataLogin } from '../../../store/queries/UserLogin';
+import { fetchUserDataLogin } from '../../../store/queries/User/Authorization/UserLogin';
 
 import pswrd_icon from '../../../../static/images/password.png'
 import email from '../../../../static/images/email.png';

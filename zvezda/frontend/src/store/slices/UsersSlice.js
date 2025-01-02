@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {fetchUserDataRegister} from "../queries/UserRegister";
-import { fetchUserDataLogin } from "../queries/UserLogin";
-import { fetchIsUserLoginned } from "../queries/IsUserLoginned";
-import { fetchLogOut } from "../queries/Logout";
+import {fetchUserDataRegister} from "../queries/User/Authorization/UserRegister";
+import { fetchUserDataLogin } from "../queries/User/Authorization/UserLogin";
+import { fetchIsUserLoginned } from "../queries/User/Authorization/IsUserLoginned";
+import { fetchLogOut } from "../queries/User/Authorization/LogOut";
 
 const UsersSlice = createSlice(
     {

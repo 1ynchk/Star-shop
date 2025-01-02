@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 
 import { setReviewPopUp } from '../../../store/slices/ExactProductSlice'
-import { fetchPostUserReview } from '../../../store/queries/PostUserReview'
+import { fetchPostUserReview } from '../../../store/queries/Reviews/PostUserReview'
 
 const ReviewPopUp = ({product}) => {
 

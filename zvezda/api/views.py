@@ -1,11 +1,10 @@
-from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status 
-from rest_framework.pagination import PageNumberPagination
+from rest_framework.decorators import api_view
 
-from .models import Products, Users, UsersRate, ProductRate, ReviewRate, UserReview
+from .models import Products, Users, UsersRate, ReviewRate, UserReview
 from .serializer import (
     ProductsSerializer, 
     UsersRateSerializer,
@@ -17,84 +16,82 @@ from .serializer import (
     RefactoredExactProductReviews,
     )
 
-from django.db import connection
+''' ПРОДУКТ '''
 
-class ExactProductReviewsPagination(PageNumberPagination):
-    page_size = 3 
-    page_size_query_param = 'page_size'
-    max_page_size = 10000
+@api_view(http_method_names=['GET'])
+def get_exact_product(request):
+    '''Получение информации об определенном продукте'''
+    
+    articul = request.headers['articul']
+    user_id = request.user.id
 
-class ProductsView(APIView):
+    obj = Products.objects.select_related('rate', 'category', 'discount').get(articul=articul)
+    reviews = obj.reviews.select_related('user_id').all()
 
-    def get(self, request):
-        
-        if request.headers['type-query-product'] == 'exact':
-            articul = request.headers['articul']
-            user_id = request.user.id
+    if user_id is not None:
+        assessments = ReviewRate.objects.filter(product=obj.id, user=user_id)
+        if assessments:
+            assessments = ReviewRateSerializer(assessments, many=True).data
+        response = Response({
+            'data': RefactoredExactProduct(obj).data, 
+            'reviews': RefactoredExactProductReviews(reviews, many=True).data,
+            'assessments': assessments
+        },)
 
-            obj = Products.objects.select_related('rate', 'category', 'discount').get(articul=articul)
-            reviews = obj.reviews.select_related('user_id').all()
+    else:
+        response = Response({
+            'data': RefactoredExactProduct(obj).data, 
+            'reviews': RefactoredExactProductReviews(reviews, many=True).data,
+        },)
+    response['Cache-Control'] = 'no-store'
+    return response
 
-            if user_id is not None:
-                assessments = ReviewRate.objects.filter(product=obj.id, user=user_id)
-                if assessments:
-                    assessments = ReviewRateSerializer(assessments, many=True).data
+@api_view(http_method_names=['GET'])
+def get_main_page_products(request):
+    '''Получение продуктов для главной страницы'''
 
-                response = Response({
-                    'data': RefactoredExactProduct(obj).data, 
-                    'reviews': RefactoredExactProductReviews(reviews, many=True).data,
-                    'assessments': assessments
-                },)
+    query_set = Products.objects.select_related('discount').all()
 
-            else:
-                response = Response({
-                    'data': RefactoredExactProduct(obj).data, 
-                    'reviews': RefactoredExactProductReviews(reviews, many=True).data,
-                },)
-            response['Cache-Control'] = 'no-store'
-            return response
-        
-        if request.headers['type-query-product'] == 'main-page':
-            query_set = Products.objects.select_related('discount').all()
-
-            response = Response({"data": ProductsSerializer(query_set, many=True).data})
-            response['Cache-Control'] = 'no-store'
+    response = Response({"data": ProductsSerializer(query_set, many=True).data})
+    response['Cache-Control'] = 'no-store'
             
-            return response
-        
-    def post(self, request):
-        
-        if request.headers['type-post'] == 'assessment':
-            id_ = request.data.get('id')
-            assessment = request.data.get('assessment')
-            data = {'user_rate': assessment, 'product': id_, 'user': request.user.id}
-            try:
-                instance = UsersRate.objects.get(user=request.user.id, product=id_)
-                serializer = UsersRateSerializer(data=data, instance=instance)
-            except Exception:
-                serializer = UsersRateSerializer(data=data)
+    return response
 
-            if serializer.is_valid():
-                serializer.save()
-                return Response({'status': 'ok'})
-            else:
-                return Response({'status': 'error', 'comment': 'incorrect data'}, status=status.HTTP_400_BAD_REQUEST)
-            
+@api_view(http_method_names=['GET'])
+def get_exact_product_assessment(request):
+    '''Получение оценки пользователя'''
 
-        if request.headers['type-post'] == 'getAssessment':
-            id_ = request.data.get('id')
-            try:
-                obj = UsersRate.objects.get(product=id_, user=request.user.id)
-                rate = obj.user_rate
-            except Exception:
-                rate = None
-                response = Response({'status': 'ok', 'data': rate})
-                response['Cache-Control'] = 'no-store'
-                return response
-            else:
-                response = Response({'status': 'ok', 'data': rate})
-                response['Cache-Control'] = 'no-store'
-                return response
+    pk = request.query_params.get('id')
+    try:
+        obj = UsersRate.objects.get(product=pk, user=request.user.id)
+        rate = obj.user_rate
+    except Exception:
+        rate = None
+        response = Response({'status': 'ok', 'data': rate})
+        response['Cache-Control'] = 'no-store'
+        return response
+    else:
+        response = Response({'status': 'ok', 'data': rate})
+        response['Cache-Control'] = 'no-store'
+        return response
+
+@api_view(http_method_names=['POST'])
+def post_product_assessment(request):
+    '''Пост оценки продукта'''
+
+    pk = request.data.get('id')
+    assessment = request.data.get('assessment')
+    data = {'user_rate': assessment, 'product': pk, 'user': request.user.id}
+    try:
+        instance = UsersRate.objects.get(user=request.user.id, product=pk)
+        serializer = UsersRateSerializer(data=data, instance=instance)
+    except Exception:
+        serializer = UsersRateSerializer(data=data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response({'status': 'ok'})
+    else:
+        return Response({'status': 'error', 'comment': 'incorrect data'}, status=status.HTTP_400_BAD_REQUEST)
 
 class ReviewRateView(APIView):
 
@@ -140,7 +137,6 @@ class ReviewView(APIView):
                 return Response({'status': 'ok', 'data': data})
                 
     def delete(self, request): 
-        user = request.user
         product_id = request.data.get('product_id')
         review_id = request.data.get('review_id')
         try:
@@ -177,7 +173,6 @@ class UsersAuthorizationView(APIView):
             try:
                 obj = Users.objects.get(email=email)
             except Exception:
-
                 name = request.data.get('name')
                 surname = request.data.get('surname')
                 

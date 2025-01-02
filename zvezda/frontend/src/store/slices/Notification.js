@@ -1,6 +1,6 @@
 import { buildCreateSlice, createSlice } from "@reduxjs/toolkit";
 
-import { fetchPostUserReview } from "../queries/PostUserReview";
+import { fetchPostUserReview } from "../queries/Reviews/PostUserReview";
 
 import cross from '../../../static/images/cross.png'
 import arrow from '../../../static/images/arrow_in_circle.png'

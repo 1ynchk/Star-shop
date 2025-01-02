@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from 'axios'
-import { getCSRFToken } from "../../../bll/GetCSRFToken";
 
+import { getCSRFToken } from "../../../../bll/cookie/GetCSRFToken";
 
 export const fetchReviewsRates = createAsyncThunk('products/fetchReviewsRates', async ({ id, assessment, id_product}) => {
     const token = getCSRFToken()

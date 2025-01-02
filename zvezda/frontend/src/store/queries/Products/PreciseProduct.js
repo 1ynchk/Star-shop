@@ -3,9 +3,8 @@ import axios from 'axios';
 
 export const fetchExactProduct = createAsyncThunk('products/fetchExactProduct', async ({id, isLogined}) => {
     const apiProducts = axios.create({
-        baseURL: 'http://127.0.0.1:8000/api/products/',
+        baseURL: 'http://127.0.0.1:8000/api/products/exact-product/',
         headers: {
-            'type-query-product': 'exact',
             'articul': id,
             'isLogined': isLogined
         }})

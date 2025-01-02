@@ -8,8 +8,8 @@ import cartImg from '../../static/images/cart_img.png';
 import findImg from '../../static/images/find_img.png';
 
 import { setIsOpen } from '../store/slices/PopupSlice';
-import { fetchLogOut } from '../store/queries/Logout';
-import { getCSRFToken } from '../../bll/GetCSRFToken';
+import { fetchLogOut } from '../store/queries/User/Authorization/LogOut';
+import { getCSRFToken } from '../../bll/cookie/GetCSRFToken';
 import { NavLink } from 'react-router-dom';
 
 const JustProfile = () => {

@@ -1,14 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 
 import password from '../../../../static/images/password.png'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchProfileInfoGet } from '../../../store/queries/User/getProfileInfo'
-import { fetchProfileInfoPost } from '../../../store/queries/User/postProfileInfo'
+import { fetchProfileInfoGet } from '../../../store/queries/User/Profile/getProfileInfo'
+import { fetchProfileInfoPost } from '../../../store/queries/User/Profile/postProfileInfo'
 import { checkPassword, checkName, checkSurname, correlateEmail } from '../../../../bll/Profile/ProfileSettings'
 import { setIsChange } from '../../../store/slices/ProfileSlice'
-
-
-import confirmed_arrow from '../../../../static/images/arrow_confirmed.png'
 
 const Settings = () => {
     const dispatch = useDispatch()

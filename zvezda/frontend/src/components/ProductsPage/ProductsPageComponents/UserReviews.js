@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { CSSTransition } from 'react-transition-group';
 
 import { ProductBBL } from '../../../../bll/productPage/ProductPage'
-import { fetchReviewsRates } from '../../../store/queries/GetReviewsRates'
-import { fetchDeleteReview } from '../../../store/queries/DeleteReview';
+import { fetchReviewsRates } from '../../../store/queries/Reviews/GetReviewsRates'
+import { fetchDeleteReview } from '../../../store/queries/Reviews/DeleteReview';
 
 import like from '../../../../static/images/like.png'
 import dislike from '../../../../static/images/dislike.png'
@@ -13,7 +13,7 @@ import pencil from '../../../../static/images/pencil.png'
 import junkBucket from '../../../../static/images/junkBucket.png'
 import threeDots from '../../../../static/images/threeDots.png'
 
-import { GetUID } from '../../../../bll/GetUID';
+import { GetUID } from '../../../../bll/cookie/GetUID';
 
 const LogicReview = ({id, product_id}) => {
     const dispatch = useDispatch()

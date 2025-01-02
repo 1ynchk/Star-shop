@@ -4,8 +4,8 @@ import { CSSTransition } from 'react-transition-group';
 
 import User from '../../../../bll/users/UserAuthorization';
 import { setSignUp, setIsLogin } from '../../../store/slices/PopupSlice';
-import { fetchUserDataRegister } from '../../../store/queries/UserRegister';
-import { getCSRFToken } from '../../../../bll/GetCSRFToken';
+import { fetchUserDataRegister } from '../../../store/queries/User/Authorization/UserRegister';
+import { getCSRFToken } from '../../../../bll/cookie/GetCSRFToken';
 
 import profile_img from '../../../../static/images/profile_img.png'
 import email from '../../../../static/images/email.png'

@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-import { getCSRFToken } from "../../../bll/GetCSRFToken";
+import { getCSRFToken } from "../../../../bll/cookie/GetCSRFToken";
 
 export const fetchDeleteReview = createAsyncThunk('reviews/fetchDeleteReview', async({ product_id, review_id }) => {
 

@@ -1,9 +1,6 @@
 from django.db import models, transaction
 from django.contrib.auth.models import AbstractUser
 
-from ulid_django.models import ULIDField
-from ulid import ULID
-
 # * PRODUCTS
 
 class Category(models.Model):
