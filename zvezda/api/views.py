@@ -1,14 +1,12 @@
-from django.contrib.auth import authenticate, login, logout
-from rest_framework.views import APIView
+
 from rest_framework.response import Response
 from rest_framework import status 
 from rest_framework.decorators import api_view
 
-from .models import Products, Users, UsersRate, ReviewRate, UserReview
+from .models import Products, UsersRate, ReviewRate, UserReview
 from .serializer import (
     ProductsSerializer, 
     UsersRateSerializer,
-    GetUsersProfileInfo,
     ReviewRateSerializer,
     UserReviewCreate,
     UserReviewSerializer,
@@ -16,11 +14,25 @@ from .serializer import (
     RefactoredExactProductReviews,
     )
 
+from .queries import (get_raw_product_rate, add_raw_product_rate_mtm)
+
 from django.db import connection
 
+def my_decorator(func):
+
+    def inner(request, *args, **kwargs):
+        connection.queries.clear()
+        response = func(request, *args, **kwargs)
+        print(func.__name__, len(connection.queries))
+
+        return response
+    
+    return inner
+    
 ''' ПРОДУКТ '''
 
 @api_view(http_method_names=['GET'])
+@my_decorator
 def get_exact_product(request):
     '''Получение информации об определенном продукте'''
     
@@ -53,6 +65,7 @@ def get_exact_product(request):
     return response
 
 @api_view(http_method_names=['GET'])
+@my_decorator
 def get_main_page_products(request):
     '''Получение продуктов для главной страницы'''
 
@@ -63,6 +76,7 @@ def get_main_page_products(request):
     return response
 
 @api_view(http_method_names=['GET'])
+@my_decorator
 def get_exact_product_assessment(request):
     '''Получение оценки пользователя'''
 
@@ -83,6 +97,7 @@ def get_exact_product_assessment(request):
         return response
 
 @api_view(http_method_names=['POST'])
+@my_decorator
 def post_product_assessment(request):
     '''Пост оценки продукта'''
 
@@ -91,148 +106,79 @@ def post_product_assessment(request):
     data = {'user_rate': assessment, 'user': request.user.id}
 
     try:
-        obj = Products.objects.prefetch_related('rate').get(id=pk)
-        rate = obj.rate.get(user=request.user.id)
+        rate = get_raw_product_rate(pk, request.user.id)
         serializer = UsersRateSerializer(data=data, instance=rate)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'status': 'ok'})
+        else:
+            return Response({'status': 'error', 'comment': 'incorrect data'}, status=status.HTTP_400_BAD_REQUEST)
+
     except Exception:
-        serializer = UsersRateSerializer(data=data)
+        instance = UsersRate.objects.create(user=request.user, user_rate=assessment)
+        add_raw_product_rate_mtm(pk, instance.id)
+        return Response({'status': 'ok'})
+
+@api_view(http_method_names=['POST'])
+@my_decorator
+def post_review_assessment(request):
+    '''Добавление/обновление оценки отзыва'''
+
+    id_user = request.user.id
+    id_review = request.data.get('id_review')
+    id_product = request.data.get('id_product')
+    assessment = request.data.get('assessment')
+    data = {'assessment': assessment, 'product': id_product, 'review': id_review, 'user': id_user}
+    try:
+        obj = ReviewRate.objects.get(user_id=id_user, product_id=id_product, review_id=id_review)
+        serializer = ReviewRateSerializer(data=data, instance=obj)
+    except Exception:
+        serializer = ReviewRateSerializer(data=data)
     if serializer.is_valid():
         serializer.save()
         return Response({'status': 'ok'})
     else:
         return Response({'status': 'error', 'comment': 'incorrect data'}, status=status.HTTP_400_BAD_REQUEST)
 
-class ReviewRateView(APIView):
+@api_view(http_method_names=['POST'])
+@my_decorator
+def post_add_new_review(request):
+    '''Добавление нового отзыва'''
 
-    def post(self, request):
-        id_user = request.user.id
-        id_review = request.data.get('id_review')
-        id_product = request.data.get('id_product')
-        assessment = request.data.get('assessment')
-        data = {'assessment': assessment, 'product': id_product, 'review': id_review, 'user': id_user}
-        try:
-            obj = ReviewRate.objects.get(user_id=id_user, product_id=id_product, review_id=id_review)
-            serializer = ReviewRateSerializer(data=data, instance=obj)
-        except Exception:
-            serializer = ReviewRateSerializer(data=data)
-
-        if serializer.is_valid():
-            serializer.save()
-            return Response({'status': 'ok'})
+    value = request.data.get('value')
+    product_id = request.data.get('product_id')
+    user = request.user
+    try:
+        obj = Products.objects.get(id=product_id)
+    except Exception:
+        return Response({'status': 'error', 'comment': 'there is not such a product'}, status=status.HTTP_404_NOT_FOUND)
+    else:
+        instance = obj.reviews.select_related('user_id').filter(user_id_id=user, products=obj.id)
+        if instance:
+            return Response({'status': 'error', 
+                             'comment': 'there is already a review from this user'}, status=status.HTTP_406_NOT_ACCEPTABLE)
         else:
-            return Response({'status': 'error', 'comment': 'incorrect data'}, status=status.HTTP_400_BAD_REQUEST)
-    
-class ReviewView(APIView):
-
-    def post(self, request):
-        
-        value = request.data.get('value')
-        product_id = request.data.get('product_id')
-        user = request.user
-
-        try:
-            obj = Products.objects.get(id=product_id)
-        except Exception:
-            return Response({'status': 'error', 'comment': 'there is not such a product'}, status=status.HTTP_404_NOT_FOUND)
-        else:
-            instance = obj.reviews.select_related('user_id').filter(user_id_id=user, products=obj.id)
-            if instance:
-                return Response({'status': 'error', 
-                                 'comment': 'there is already a review from this user'}, status=status.HTTP_406_NOT_ACCEPTABLE)
-            else:
-                instance = UserReview.objects.create(user_id=user, value=value)
-                data = UserReviewSerializer(instance).data
-                obj.reviews.add(instance)
-                return Response({'status': 'ok', 'data': data})
-                
-    def delete(self, request): 
-        product_id = request.data.get('product_id')
-        review_id = request.data.get('review_id')
-        try:
-            obj = Products.objects.get(id=product_id)
-            review = obj.reviews.get(id=review_id)
-        except Exception:
-            return Response({'status': 'error', 'comment': 'there is not such a row'}, status=status.HTTP_404_NOT_FOUND)
-        else:
-            data = UserReviewCreate(review).data
-            review.delete()
+            instance = UserReview.objects.create(user_id=user, value=value)
+            data = UserReviewSerializer(instance).data
+            obj.reviews.add(instance)
             return Response({'status': 'ok', 'data': data})
-        
-class UsersAuthorizationView(APIView):
 
-    def get(self, request):
-        if request.user.is_authenticated:
-            user = Users.objects.get(id=request.user.id)
-            response = Response({'authenticated': True, 'avatar': user.avatar})
-            response.set_cookie(
-                key='UID',
-                value=user.id,
-                samesite='strict'
-            )
-            return response
-        else:
-            return Response({'authenticated': False})
-            
-    def post(self, request):
+@api_view(http_method_names=['DELETE'])
+@my_decorator
+def delete_delete_review(request):
+    '''Удаление отзыва'''
+    
+    product_id = request.data.get('product_id')
+    review_id = request.data.get('review_id')
+    try:
+        obj = Products.objects.get(id=product_id)
+        review = obj.reviews.get(id=review_id)
+    except Exception:
+        return Response({'status': 'error', 'comment': 'there is not such a row'}, status=status.HTTP_404_NOT_FOUND)
+    else:
+        data = UserReviewCreate(review).data
+        review.delete()
+        return Response({'status': 'ok', 'data': data})
 
-        if request.headers['type-post'] == 'register':
-            email = request.data.get('email')
-            password = request.data.get('password')
-            
-            try:
-                obj = Users.objects.get(email=email)
-            except Exception:
-                name = request.data.get('name')
-                surname = request.data.get('surname')
-                
-                user = Users(email=email)
-                user.set_password(password)
-                user.last_name = surname
-                user.first_name = name
-                user.save()
-                return Response({'status': 'ok'}, status=status.HTTP_202_ACCEPTED)
-            if obj is not None:
-                return Response({'status': 'error', 'comment': 'incorrect data'}, status=status.HTTP_400_BAD_REQUEST)
-        
-        if request.headers['type-post'] == 'login':
-            email = request.data.get('email')         
-            password = request.data.get('password')
-            user = authenticate(request=request, email=email, password=password)
-            if user is not None:
-                login(request, user)
+# ПОЛЬЗОВАТЕЛЬ #
 
-                return Response({'status': 'ok'}, status=status.HTTP_202_ACCEPTED)
-            else:
-                return Response({'status': 'error', 'comment': 'there is not such an user'}, status=status.HTTP_401_UNAUTHORIZED)
-
-        if request.headers['type-post'] == 'logout':
-            logout(request)
-            response = Response({'status': 'ok'})
-            response.delete_cookie('UID')
-            return response
-
-class UserInfoView(APIView):
-
-    def post(self, request):
-        pk = request.user.id
-        try:
-            instance = Users.objects.get(id=pk)
-        except Exception:
-            return Response({'status': 'error', 'comment': 'there is not such a user'}, status=status.HTTP_400_BAD_REQUEST)
-        else:
-            serializer = GetUsersProfileInfo(data=request.data, instance=instance)
-            if not serializer.is_valid():
-                return Response({'status': 'error', 'comment': 'incorrect data'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
-            else:
-                serializer.save()
-                return Response({'status': 'ok', 'data': serializer.data})
-            
-    def get(self, request):
-        pk = request.user.id
-        try:
-            obj = Users.objects.get(id=pk)
-        except Exception:
-            return Response({'status': 'error', 'comment': 'there is not such a user'}, status=status.HTTP_400_BAD_REQUEST)
-        else:
-            serializer = GetUsersProfileInfo(obj)
-            return Response({'status': 'ok', 'data': serializer.data})

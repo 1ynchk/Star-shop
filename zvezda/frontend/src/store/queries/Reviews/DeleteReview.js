@@ -16,7 +16,7 @@ export const fetchDeleteReview = createAsyncThunk('reviews/fetchDeleteReview', a
     )
 
     const data = await apiDelete.delete(
-        'http://127.0.0.1:8000/api/products/reviews/', {'data': {product_id, review_id}})
+        'http://127.0.0.1:8000/api_products/products/reviews/delete-review/', {'data': {product_id, review_id}})
 
     return data.data
     }

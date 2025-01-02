@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     "api",
+    'api_users',
     'frontend',
     "rest_framework",
     'django_extensions',
@@ -149,7 +150,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CSRF_TRUSTED_ORIGINS  = ['http://127.0.0.1:8000/']
 
-AUTH_USER_MODEL = 'api.Users'
+AUTH_USER_MODEL = 'api_users.Users'
 
 AWS_ACCESS_KEY_ID = os.getenv('S3_ACCESS_KEY')
 AWS_SECRET_ACCESS_KEY = os.getenv('S3_SECRET_ACCESS_KEY')

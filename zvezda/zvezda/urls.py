@@ -17,11 +17,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include 
 
-from api.urls import urlpatterns as api_patterns
+from api.urls import urlpatterns as api_products_patterns
 from frontend.urls import urlpatterns as frontend_patterns
+from api_users.urls import urlpatterns as api_users_patterns
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include(api_patterns)),
+    path('api_products/', include(api_products_patterns)),
+    path('api_users/', include(api_users_patterns)),
     path('', include(frontend_patterns))
 ]

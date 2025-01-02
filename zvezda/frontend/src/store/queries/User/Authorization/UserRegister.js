@@ -8,13 +8,12 @@ export const fetchUserDataRegister = createAsyncThunk('users/fetchUserDataRegist
         headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
-            'type-post': 'register',
             'X-CSRFToken': token
         },
-        
     })
     
-    const data = await apiUser.post('http://127.0.0.1:8000/api/users/', {email, password, name, surname})
+    const data = await apiUser.post('http://127.0.0.1:8000/api_users/users/registration/', 
+    {email, password, name, surname})
     
     return data.data
 })

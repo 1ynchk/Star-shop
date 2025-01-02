@@ -14,7 +14,7 @@ export const fetchProfileInfoPost = createAsyncThunk('profile/fetchProfileInfoPo
         }
     )
     
-    const data = await apiData.post('http://127.0.0.1:8000/api/users/profile_info', request_data)
+    const data = await apiData.post('http://127.0.0.1:8000/api_users/users/profile_info', request_data)
 
     return data.data
 })

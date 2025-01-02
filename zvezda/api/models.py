@@ -1,5 +1,4 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
 
 # * PRODUCTS
 
@@ -9,6 +8,9 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+    
+    class Meta:
+        db_table = 'api_category'
 
 class Discount(models.Model):
     name = models.CharField(null=False)
@@ -18,27 +20,40 @@ class Discount(models.Model):
 
     def __str__(self):
         return self.name
+    
+    class Meta:
+        db_table = 'api_discount'
 
 class UserReview(models.Model):
-    user_id = models.ForeignKey('Users', on_delete=models.CASCADE)
+
+    user_id = models.ForeignKey('api_users.Users', on_delete=models.CASCADE)
     value = models.CharField(max_length=2000, blank=False)
     date_publish = models.DateField(auto_now_add=True)
 
     def __str__(self):
         return self.user_id.email
+    
+    class Meta:
+        db_table = 'api_user_review'
 
 class ReviewRate(models.Model):
     review = models.ForeignKey(UserReview, on_delete=models.CASCADE)
-    user = models.ForeignKey('Users', on_delete=models.CASCADE)
+    user = models.ForeignKey('api_users.Users', on_delete=models.CASCADE)
     product = models.ForeignKey('Products', on_delete=models.CASCADE) 
     assessment = models.BooleanField(null=True)
 
+    class Meta:
+        db_table = 'api_review_rate'
+
 class UsersRate(models.Model):
-    user = models.ForeignKey('Users', on_delete=models.CASCADE, null=False)
+    user = models.ForeignKey('api_users.Users', on_delete=models.CASCADE, null=False)
     user_rate = models.BooleanField(null=True, default=None)
 
     def __str__(self):
         return f'User: {self.user} | Product: {self.product}'
+    
+    class Meta:
+        db_table = 'api_users_rate'
 
 class Products(models.Model):
     name = models.CharField(max_length=50, null=False)
@@ -55,17 +70,6 @@ class Products(models.Model):
 
     def __str__(self):
         return self.name
-
-# * USERS
-
-class Users(AbstractUser):
-    email = models.CharField(null=False, unique=True)
-    avatar = models.CharField(default='https://t4.ftcdn.net/jpg/04/83/90/95/360_F_483909569_OI4LKNeFgHwvvVju60fejLd9gj43dIcd.jpg')
-    username = models.CharField(unique=False, null=True, blank=True)
-
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username']
-
-
-    def __str__(self):
-        return self.email
+    
+    class Meta:
+        db_table = 'api_products'

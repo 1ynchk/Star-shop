@@ -12,7 +12,7 @@ export const fetchAssessment = createAsyncThunk('products/fetchAssessment', asyn
         }
     })
 
-    const data = await apiAssessment.post('http://127.0.0.1:8000/api/products/post-assessment/', 
+    const data = await apiAssessment.post('http://127.0.0.1:8000/api_products/products/post-assessment/', 
     {'assessment': assessment, 'id': id})
 
     return data.data

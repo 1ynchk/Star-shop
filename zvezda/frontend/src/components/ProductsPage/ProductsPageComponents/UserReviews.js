@@ -52,7 +52,6 @@ const LogicReview = ({id, product_id}) => {
             setIsDelete(true)
         }
     }
-
     
     return (
         <div className='userReview__logic_wrapper'>

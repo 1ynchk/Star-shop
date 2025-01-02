@@ -7,14 +7,14 @@ export const fetchProductInfo = createAsyncThunk('products/fetchProductInfo', as
     const token = getCSRFToken()
     
     const apiProduct = axios.create({
-        baseURL: 'http://127.0.0.1:8000/api/products/get-assessment/',
+        baseURL: 'http://127.0.0.1:8000/api_products/products/get-assessment/',
         headers: {
             'X-CSRFToken': token,
         }
     })
 
     console.log('helllloooo')
-    const data = await apiProduct.get('http://127.0.0.1:8000/api/products/get-assessment/', 
+    const data = await apiProduct.get('http://127.0.0.1:8000/api_products/products/get-assessment/', 
     {params: {'id': id}})
 
     return data.data

@@ -14,7 +14,7 @@ export const fetchPostUserReview = createAsyncThunk('products/fetchPostUserRevie
         }
     )
 
-    const data = await apiPostUserReview.post('http://127.0.0.1:8000/api/products/reviews/', 
+    const data = await apiPostUserReview.post('http://127.0.0.1:8000/api_products/products/reviews/add-review/', 
         {'product_id': product_id, 'value': value})
 
     return data.data
