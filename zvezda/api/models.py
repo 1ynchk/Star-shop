@@ -1,4 +1,4 @@
-from django.db import models, transaction
+from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 # * PRODUCTS
@@ -18,37 +18,6 @@ class Discount(models.Model):
 
     def __str__(self):
         return self.name
-    
-class ProductRate(models.Model):
-    product = models.OneToOneField('Products', on_delete=models.CASCADE)
-    good_rates = models.IntegerField(default=0)
-    bad_rates = models.IntegerField(default=0)
-
-    def __str__(self):
-        return f'Rating: {self.good_rates + self.bad_rates}'
-
-class UsersRate(models.Model):
-    user = models.ForeignKey('Users', on_delete=models.CASCADE, null=False)
-    product = models.ForeignKey('Products', on_delete=models.CASCADE)
-    user_rate = models.BooleanField(null=True, default=None)
-
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
-
-        with transaction.atomic():
-            product_rate, created = ProductRate.objects.get_or_create(product=self.product.id)
-
-            if self.user_rate == True:
-                product_rate.good_rates = UsersRate.objects.filter(product=self.product, user_rate=True).count()
-                product_rate.bad_rates = UsersRate.objects.filter(product=self.product, user_rate=False).count()
-            else:
-                product_rate.good_rates = UsersRate.objects.filter(product=self.product, user_rate=True).count()
-                product_rate.bad_rates = UsersRate.objects.filter(product=self.product, user_rate=False).count()
-
-            product_rate.save()
-
-    def __str__(self):
-        return f'User: {self.user} | Product: {self.product}'
 
 class UserReview(models.Model):
     user_id = models.ForeignKey('Users', on_delete=models.CASCADE)
@@ -64,6 +33,13 @@ class ReviewRate(models.Model):
     product = models.ForeignKey('Products', on_delete=models.CASCADE) 
     assessment = models.BooleanField(null=True)
 
+class UsersRate(models.Model):
+    user = models.ForeignKey('Users', on_delete=models.CASCADE, null=False)
+    user_rate = models.BooleanField(null=True, default=None)
+
+    def __str__(self):
+        return f'User: {self.user} | Product: {self.product}'
+
 class Products(models.Model):
     name = models.CharField(max_length=50, null=False)
     description = models.CharField(max_length=255, null=False)
@@ -72,21 +48,10 @@ class Products(models.Model):
     amount = models.IntegerField(default=0)
     date_add = models.DateField(auto_now_add=True)
     img_url = models.CharField(max_length=255, null=False, default='https://cdn-icons-png.flaticon.com/512/2175/2175188.png')
-    rate = models.OneToOneField('ProductRate', on_delete=models.SET_NULL, null=True, blank=True)
+    rate = models.ManyToManyField(UsersRate, blank=True, null=True)
     category = models.ForeignKey('Category', on_delete=models.SET_NULL, null=True, blank=True)
     discount = models.ForeignKey('Discount', on_delete=models.SET_NULL, null=True, blank=True)
     reviews = models.ManyToManyField(UserReview, blank=True)
-
-    def save(self, *args, **kwargs):
-        is_new = self.pk is None 
-
-        super().save(*args, **kwargs)
-
-        if is_new:
-            with transaction.atomic():
-                product_rate = ProductRate.objects.create(product=self)
-                self.rate = product_rate
-                super().save(update_fields=["rate"])
 
     def __str__(self):
         return self.name

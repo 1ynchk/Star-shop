@@ -52,8 +52,7 @@ const ProductsPage = (props) => {
                     description={product.description} 
                     price={product.price}
                     amount={product.amount}
-                    good_rates={product.rate.good_rates}
-                    bad_rates={product.rate.bad_rates}
+                    rate = {product.rate}
                 />
                 <ProductReviews
                     id={product.id}

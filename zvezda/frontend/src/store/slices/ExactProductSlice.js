@@ -65,7 +65,7 @@ const exactProductSlice = createSlice(
                                 }
                             }
                         }
-                        
+                        console.log(action.payload.data)
                         state.exactProduct = action.payload.data
                         state.reviews = action.payload.reviews
                     }

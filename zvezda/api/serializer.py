@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Products, Discount, ProductRate, Users, UsersRate, UserReview, ReviewRate
+from .models import Products, Discount, Users, UsersRate, UserReview, ReviewRate
 
 # REVIEWS #
 
@@ -56,29 +56,6 @@ class ProductsSerializer(serializers.ModelSerializer):
         model = Products
         fields = ('name', 'description', 'price', 'articul', 'img_url', 'discount')
 
-class ProductRate(serializers.ModelSerializer):
-    class Meta:
-        model = ProductRate
-        fields = '__all__'
-
-class RefactoredExactProduct(serializers.ModelSerializer):
-
-    discount = DiscountSerializer()
-    rate = ProductRate()
-
-    class Meta:
-        model = Products
-        fields = ('id', 
-                  'name', 
-                  'description', 
-                  'price', 
-                  'articul', 
-                  'img_url', 
-                  'discount', 
-                  'rate', 
-                  'amount', 
-                  )
-        
 class RefactoredExactProductReviews(serializers.ModelSerializer):
     user_id = UserInfoForReviews()
 
@@ -96,14 +73,31 @@ class UsersRateSerializer(serializers.ModelSerializer):
     
     def update(self, instance, validated_data):
         instance.user = validated_data.get('user', instance.user)
-        instance.product = validated_data.get('product', instance.product)
         instance.user_rate = validated_data.get('user_rate', instance.user_rate)
         instance.save()
         return instance
 
     class Meta:
         model = UsersRate
-        fields = '__all__'
+        fields = ('user_rate', 'user')
+
+class RefactoredExactProduct(serializers.ModelSerializer):
+
+    discount = DiscountSerializer()
+    rate = UsersRateSerializer(many=True)
+    
+    class Meta:
+        model = Products
+        fields = ('id', 
+                  'name', 
+                  'description', 
+                  'price', 
+                  'articul', 
+                  'img_url', 
+                  'discount',
+                  'amount',
+                  'rate'
+                  )
 
 class GetUsersProfileInfo(serializers.ModelSerializer):
     class Meta: 

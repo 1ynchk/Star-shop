@@ -9,7 +9,7 @@ import { setIsLogin, setIsOpen } from '../../../store/slices/PopupSlice';
 import { setDislike, setLike } from '../../../store/slices/ExactProductSlice';
 import { fetchAssessment } from '../../../store/queries/Products/Assessment';
 
-const ProductInfo = ({product, name, img_url, description, price, good_rates, bad_rates, amount}) => {
+const ProductInfo = ({product, name, img_url, description, price, rate, amount}) => {
     const dispatch = useDispatch()
     const isLogined = useSelector(state => state.users.isLogin)
     const isLike = useSelector(state => state.exactProduct.isLike)
@@ -56,7 +56,7 @@ const ProductInfo = ({product, name, img_url, description, price, good_rates, ba
                                 <div className='product__description_values'>{description}</div>
                             </div>
                             <div className='product__rate'>
-                                <div className='rate_value'>{ProductBBL.rate_circle(good_rates, bad_rates)}</div>
+                                <div className='rate_value'>{ProductBBL.rate_circle(rate)}</div>
                                 <div className='rate_buttons_section'>
                                     <button className='rate__reduce' title='Не нравится'>
                                         <img 

@@ -16,6 +16,8 @@ from .serializer import (
     RefactoredExactProductReviews,
     )
 
+from django.db import connection
+
 ''' ПРОДУКТ '''
 
 @api_view(http_method_names=['GET'])
@@ -25,7 +27,10 @@ def get_exact_product(request):
     articul = request.headers['articul']
     user_id = request.user.id
 
-    obj = Products.objects.select_related('rate', 'category', 'discount').get(articul=articul)
+    obj = Products.objects \
+        .select_related('category', 'discount') \
+        .prefetch_related('rate') \
+        .get(articul=articul)
     reviews = obj.reviews.select_related('user_id').all()
 
     if user_id is not None:
@@ -43,6 +48,7 @@ def get_exact_product(request):
             'data': RefactoredExactProduct(obj).data, 
             'reviews': RefactoredExactProductReviews(reviews, many=True).data,
         },)
+
     response['Cache-Control'] = 'no-store'
     return response
 
@@ -51,7 +57,6 @@ def get_main_page_products(request):
     '''Получение продуктов для главной страницы'''
 
     query_set = Products.objects.select_related('discount').all()
-
     response = Response({"data": ProductsSerializer(query_set, many=True).data})
     response['Cache-Control'] = 'no-store'
             
@@ -62,9 +67,11 @@ def get_exact_product_assessment(request):
     '''Получение оценки пользователя'''
 
     pk = request.query_params.get('id')
+
     try:
-        obj = UsersRate.objects.get(product=pk, user=request.user.id)
-        rate = obj.user_rate
+        obj = Products.objects.prefetch_related('rate').get(id=pk)
+        obj_rate = obj.rate.get(user=request.user.id)
+        rate = obj_rate.user_rate
     except Exception:
         rate = None
         response = Response({'status': 'ok', 'data': rate})
@@ -81,10 +88,12 @@ def post_product_assessment(request):
 
     pk = request.data.get('id')
     assessment = request.data.get('assessment')
-    data = {'user_rate': assessment, 'product': pk, 'user': request.user.id}
+    data = {'user_rate': assessment, 'user': request.user.id}
+
     try:
-        instance = UsersRate.objects.get(user=request.user.id, product=pk)
-        serializer = UsersRateSerializer(data=data, instance=instance)
+        obj = Products.objects.prefetch_related('rate').get(id=pk)
+        rate = obj.rate.get(user=request.user.id)
+        serializer = UsersRateSerializer(data=data, instance=rate)
     except Exception:
         serializer = UsersRateSerializer(data=data)
     if serializer.is_valid():

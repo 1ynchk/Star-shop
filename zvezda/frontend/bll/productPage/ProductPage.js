@@ -4,7 +4,9 @@ import arrow_confrimed from '../../static/images/arrow_confirmed.png'
 import cross from '../../static/images/cross.png'
 
 export class ProductBBL {
-    static rate_circle(good_rates, bad_rates) {
+    static rate_circle(rate) {
+        let good_rates = (rate.filter(el => el.user_rate == true)).length
+        let bad_rates = (rate.filter(el => el.user_rate == false)).length
         if (bad_rates + good_rates === 0) {
             const rate = 0
             return [<div key="rate_circle" className='rate_circle grey'>-</div>, 

@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.forms import  UserChangeForm
 
-from .models import Products, Category, Discount, Users, UsersRate, ProductRate, UserReview
+from .models import Products, Category, Discount, Users, UsersRate, UserReview
 
 # Register your models here.
 @admin.register(Products)
@@ -23,11 +23,6 @@ class AdminDiscount(admin.ModelAdmin):
 @admin.register(UsersRate)
 class AdminUserRate(admin.ModelAdmin):
     pass
-
-@admin.register(ProductRate)
-class AdminProductRate(admin.ModelAdmin):
-    pass
-
 
 class CustomUserChangeForm(UserChangeForm):
     class Meta:
