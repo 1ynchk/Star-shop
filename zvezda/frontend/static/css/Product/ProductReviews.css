@@ -1,6 +1,7 @@
+
 .productReview {
     margin-top: 80px;
-    width: 70%;
+    max-width: 70%;
 }
 
 .productReview__title {
@@ -84,6 +85,7 @@
 
 .userReview__section {
     margin-left: 15px;
+    width: 100%;
 }
 
 .userReview__value {
@@ -106,6 +108,17 @@
     max-height: 1000px;
 }
 
+.userReview__change {
+    display: none;
+    margin-top: 15px;
+    height: 80%;
+    width: 100%;
+    padding-bottom: 5px;
+    resize: none;
+    border-bottom: 1px solid rgb(50, 50, 50);
+    box-sizing: border-box;
+}
+
 .userReview__open_container {
     margin-top: 10px;
     display: flex; 
@@ -116,6 +129,30 @@
     cursor: pointer;
     transition: .3s ease;
     font-size: 15px;
+}
+
+
+.userReview__change_btns_container {
+    display: flex;
+    justify-content: space-between;
+    width: 140px;
+}
+
+.userReview__change_btn {
+    border-radius: 15px;
+    padding: 6px;
+}
+
+.userReview__change_btn.cancel:hover {
+    background-color: rgba(0, 0, 0, 0.15);
+}
+
+.userReview__change_btn.save {
+    background-color: grey;
+}
+
+.userReview__change_btn.save.active {
+    background-color: orange;
 }
 
 .userReview__open_container:hover {
@@ -399,7 +436,8 @@ svg path {
     position: absolute;
     background-color: white;
     height: 500px;
-    width: 800px;
+    max-width: 800px;
+    min-width: 350px;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
@@ -426,13 +464,15 @@ svg path {
 }
 
 .reviewAdd__product_section {
-    width: 70%;
+    height: auto;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
 .reviewAdd__name {
+    width: 70%;
     font-size: 19px;
 }
 

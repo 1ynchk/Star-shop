@@ -9,8 +9,6 @@ const Notification = () => {
     const dispatch = useDispatch()
     const notification = useSelector(state => state.notification.notification)
 
-    console.log(notification)
-
     const level = useSelector(state => state.notification.level)
     const image = useSelector(state => state.notification.image)
     const content = useSelector(state => state.notification.content)
@@ -18,7 +16,6 @@ const Notification = () => {
     useEffect(() => {
         const notif = document.getElementById('notification__banner')
             
-        console.log(level)
         switch (level) {
             case 'yellow':
                 notif.classList.add('yellow')

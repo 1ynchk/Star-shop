@@ -112,7 +112,7 @@ def post_product_assessment(request):
             serializer.save()
             return Response({'status': 'ok'})
         else:
-            return Response({'status': 'error', 'comment': 'incorrect data'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'status': 'error', 'comment': 'incorrect data'}, status=400)
 
     except Exception:
         instance = UsersRate.objects.create(user=request.user, user_rate=assessment)
@@ -138,7 +138,7 @@ def post_review_assessment(request):
         serializer.save()
         return Response({'status': 'ok'})
     else:
-        return Response({'status': 'error', 'comment': 'incorrect data'}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'status': 'error', 'comment': 'incorrect data'}, status=400)
 
 @api_view(http_method_names=['POST'])
 @my_decorator
@@ -151,12 +151,12 @@ def post_add_new_review(request):
     try:
         obj = Products.objects.get(id=product_id)
     except Exception:
-        return Response({'status': 'error', 'comment': 'there is not such a product'}, status=status.HTTP_404_NOT_FOUND)
+        return Response({'status': 'error', 'comment': 'there is not such a product'}, status=404)
     else:
         instance = obj.reviews.select_related('user_id').filter(user_id_id=user, products=obj.id)
         if instance:
             return Response({'status': 'error', 
-                             'comment': 'there is already a review from this user'}, status=status.HTTP_406_NOT_ACCEPTABLE)
+                             'comment': 'there is already a review from this user'}, status=406)
         else:
             instance = UserReview.objects.create(user_id=user, value=value)
             data = UserReviewSerializer(instance).data
@@ -174,11 +174,25 @@ def delete_delete_review(request):
         obj = Products.objects.get(id=product_id)
         review = obj.reviews.get(id=review_id)
     except Exception:
-        return Response({'status': 'error', 'comment': 'there is not such a row'}, status=status.HTTP_404_NOT_FOUND)
+        return Response({'status': 'error', 'comment': 'there is not such a row'}, status=404)
     else:
         data = UserReviewCreate(review).data
         review.delete()
         return Response({'status': 'ok', 'data': data})
 
-# ПОЛЬЗОВАТЕЛЬ #
+@api_view(http_method_names=['PUT'])
+def update_user_review(request):
+    '''Обновление отзыва'''
 
+    value = request.query_params.get('value')
+    review_id = request.query_params.get('review_id')
+    user_id = request.user.id
+
+    try:
+        obj = UserReview.objects.get(user=user_id, id=review_id)
+    except Exception:
+        return Response({'status': 'error', 'comment': 'there is not such a review'}, status=404)
+    
+    obj.value = value
+    obj.save()
+    return Response({'status': 'ok', 'data': UserReviewSerializer(obj).data})

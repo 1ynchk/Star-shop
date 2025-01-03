@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 
 import { setReviewPopUp } from '../../../store/slices/ExactProductSlice'
@@ -14,8 +14,9 @@ const ReviewPopUp = ({product}) => {
         dispatch(setReviewPopUp())
     }
 
-    const fetchReview = () => {
-        const value = document.getElementById('reviewAddInput').value
+    const fetchReview = (e) => {
+        e.preventDefault()
+        const value = e.target.elements.reviewAddInput.value
 
         dispatch(fetchPostUserReview({'product_id': product.id, 'value': value}))
         showReviewPopUp()
@@ -35,7 +36,7 @@ const ReviewPopUp = ({product}) => {
             setIsFilled(true)
         }
     }
-    
+
     return (
         <div className='reviewAdd'>
             <div onClick={() => showReviewPopUp()} className='reviewAdd__overlay'></div>
@@ -58,26 +59,27 @@ const ReviewPopUp = ({product}) => {
                         <div className='reviewAdd__count_words'>{symbolsCount}/300 символов</div>
                     </div>
                     
-                    <textarea 
-                        id='reviewAddInput'
-                        type='text' 
-                        className='reviewAdd__input'
-                        onChange={() => onChangeInput()}/>
+                    
                 </div>
 
-                <button 
-                    id='reviewAdd_button'
-                    disabled={!isFilled}
-                    className='reviewAdd__button'
-                    onClick={() => fetchReview()}
-                    >
-                    Отправить отзыв
-                </button>
+                <form onSubmit={fetchReview}>
+                    <textarea 
+                        id='reviewAddInput'
+                        className='reviewAdd__input'
+                        onChange={() => onChangeInput()} />
+                    <button 
+                        id='reviewAdd_button'
+                        disabled={!isFilled}
+                        className='reviewAdd__button'
+                        type='submit'>
+                        Отправить отзыв
+                    </button>
+                </form>
 
                 <div 
                     onClick={() => showReviewPopUp()} 
                     className='reviewAdd__cross'>X</div>
-            </div>
+                </div>
                         
         </div>
     )

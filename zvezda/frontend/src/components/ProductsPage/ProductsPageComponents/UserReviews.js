@@ -25,14 +25,6 @@ const LogicReview = ({id, product_id}) => {
         dispatch(fetchDeleteReview({'product_id': product_id, 'review_id': id}))
     }
 
-    const changeCorrectReview = () => {
-        if (isChangeCorrect) {
-            setChangeCorrect(false)
-        } else {
-            setChangeCorrect(true)
-        }
-    }
-
     const changeReview = () => {
         if (isChangeReview) {
             setChangeReview(false)
@@ -52,16 +44,74 @@ const LogicReview = ({id, product_id}) => {
             setIsDelete(true)
         }
     }
+
+    useEffect(() => {
+        
+        const expanderId = 'userReview__open_container_' + id
+        const expander = document.getElementById(expanderId)
+        
+        const reviewId = 'userReview__value_' + id
+        const review = document.getElementById(reviewId)
+
+        const reviewTextAreaId = 'userReview__change_' + id
+        const reviewTextArea = document.getElementById(reviewTextAreaId)
+
+        if (isChangeCorrect) {
+            setChangeReview(false)
+
+            expander.style.display = 'none'
+            review.style.display = 'none'
+            reviewTextArea.style.display = 'block'
+
+        } else {
+            expander.style.display = 'flex'
+            review.style.display = 'block'
+            reviewTextArea.style.display = 'none'
+        }
+        
+    }, [isChangeCorrect])
+
+    const changeCorrectReview = () => {
+        if (isChangeCorrect) {
+            setChangeCorrect(false)
+        } else {
+            setChangeCorrect(true)
+        }
+    }
+
+    console.log(isChangeCorrect)
     
     return (
         <div className='userReview__logic_wrapper'>
             <div className='userReview__delimiter'></div>
         <div className='userReview__edit_section'>
+            <CSSTransition
+                in={isChangeCorrect}
+                timeout={0}
+                unmountOnExit
+            >
+                <div className='userReview__change_btns_container'>
+                    <button 
+                        className='userReview__change_btn cancel'
+                        onClick={() => changeCorrectReview()}
+                    >
+                        Отмена</button>
+                    <button className='userReview__change_btn save'>Сохранить</button>
+                </div>
+            </CSSTransition>
+            <CSSTransition
+                in={!isChangeCorrect}
+                timeout={0}
+                unmountOnExit
+            >
+
             <img 
                 onClick={() => changeReview()} 
                 src={threeDots} 
                 alt='edit' 
                 className='userReview__threeDots' />
+            </CSSTransition>
+
             <CSSTransition
                 in={isChangeReview}
                 unmountOnExit
@@ -125,19 +175,17 @@ const LogicReview = ({id, product_id}) => {
                     </CSSTransition>    
                 </div>
         </div>
-        
     )
-        
 }
+
+import { RateSystem } from '../../../../bll/react-components/product-page/rate_system';
 
 const UserReview = ({ review_user_id, assessment, id, product_id, date_publish, avatar, last_name, first_name, value }) => {
 
     const [isOpennedReviews, setOpennedReview] = useState(false)
     const dispatch = useDispatch()
     const isLogined = useSelector(state => state.users.isLogin)
-    const [isLike, setLike] = useState(false)
-    const [isDislike, setDislike] = useState(false)
-    const [isChanged, setChange] = useState(false)
+    const {changeDislike, setChange, changeLike, setLike, setDislike} = RateSystem('review', id, product_id)
 
     useEffect(() => {
         if (assessment != null) {
@@ -153,33 +201,6 @@ const UserReview = ({ review_user_id, assessment, id, product_id, date_publish, 
     }, [assessment])
 
     useEffect(() => {
-        const btn_dislike_id = 'dislike_btn_review_' + id
-        const btn_like_id = 'like_btn_review_' + id
-        const btn_dislike = document.getElementById(btn_dislike_id)
-        const btn_like = document.getElementById(btn_like_id)
-
-        if(isDislike && isLike) {
-            setLike(false)
-            setDislike(false)
-        } else {
-            isDislike ? btn_dislike.classList.add('active') : btn_dislike.classList.remove('active')
-            isLike ? btn_like.classList.add('active') : btn_like.classList.remove('active')
-        } 
-        if (isLike && !isDislike && isChanged) {
-            dispatch(fetchReviewsRates({'assessment': true, 'id': id, 'id_product': product_id}))
-            setChange(true)
-        } 
-        if (!isLike && isDislike && isChanged) {
-            dispatch(fetchReviewsRates({'assessment': false, 'id': id, 'id_product': product_id}))
-            setChange(true);
-        }
-        if (!isLike && !isDislike && isChanged ) {
-            dispatch(fetchReviewsRates({'assessment': null, 'id': id, 'id_product': product_id}))
-        }
-       
-    }, [isDislike, isLike])
-
-    useEffect(() => {
         const reviewContentId = 'userReview__value_' + id 
         const reviewContent = document.getElementById(reviewContentId)
         if (value.length > 300) {
@@ -192,22 +213,6 @@ const UserReview = ({ review_user_id, assessment, id, product_id, date_publish, 
             reviewContent.classList.remove('open')
         }
     }, [isOpennedReviews])
-
-    const changeDislike = () => {
-        if (isDislike) {
-            setDislike(false)
-        } else {
-            setDislike(true)
-        }
-    }
-
-    const changeLike = () => {
-        if (isLike) {
-            setLike(false)
-        } else {
-            setLike(true)
-        }
-    }
 
     const openReview = () => {
         const reviewOpenId = 'userReview__open_review_' + id
@@ -222,8 +227,6 @@ const UserReview = ({ review_user_id, assessment, id, product_id, date_publish, 
         }
     }
 
-    
-
     return (
         <div className='userReview'>
                 <img src={avatar} alt='user' className='userReview__image' />
@@ -231,12 +234,20 @@ const UserReview = ({ review_user_id, assessment, id, product_id, date_publish, 
             <div className='userReview__section'>
                 <div className='userReview__name'>{first_name + " " + last_name}</div>
                 
-                <div className='userReview__review'>
-                    <div id={'userReview__value_' + id} className='userReview__value'>
-                            {value}
-                    </div>
+                        <div id={'userReview__value_' + id} className='userReview__value'>
+                                {value}
+                        </div>
+
+                        <textarea 
+                            defaultValue={value} 
+                            id={'userReview__change_' + id} 
+                            className='userReview__change'/>
+                    
                     {value.length > 300 ? 
-                        <div onClick={() => openReview()} className='userReview__open_container'>
+                        <div 
+                        id={'userReview__open_container_' + id} 
+                        onClick={() => openReview()} 
+                        className='userReview__open_container'>
                         <div id={'userReview__open_review_' + id} className='userReview__open_review'>Раскрыть отзыв</div>
                             <CSSTransition
                             in={isOpennedReviews}
@@ -250,8 +261,6 @@ const UserReview = ({ review_user_id, assessment, id, product_id, date_publish, 
                         ''                        
                     }
                     
-                </div>
-                
                 <div className='userReview__info'>
                     <div className='rate_buttons_section_review'>
                         <button className='rate__reduce' title='Не нравится'>
@@ -282,7 +291,9 @@ const UserReview = ({ review_user_id, assessment, id, product_id, date_publish, 
                     {GetUID() === review_user_id ?                   
                     <LogicReview 
                         id={id}
-                        product_id={product_id}/>
+                        product_id={product_id}
+                        value = {value}
+                    />
                     : ''} 
                 </div>
             </div>

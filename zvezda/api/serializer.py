@@ -20,7 +20,7 @@ class UserInfoForReviews(serializers.ModelSerializer):
 class UserReviewSerializer(serializers.ModelSerializer):
 
     user_id = UserInfoForReviews()
-    
+
     class Meta:
         model = UserReview
         fields = ('id', 'value', 'user_id', 'date_publish')
