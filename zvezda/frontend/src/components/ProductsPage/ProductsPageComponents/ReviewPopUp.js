@@ -1,41 +1,15 @@
-import React, { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import React from 'react'
 
-import { setReviewPopUp } from '../../../store/slices/ExactProductSlice'
-import { fetchPostUserReview } from '../../../store/queries/Reviews/PostUserReview'
+import { ReviewValidation } from './../../../../bll/react-components/product-page/review-validation';
 
 const ReviewPopUp = ({product}) => {
 
-    const [isFilled, setIsFilled] = useState(false)
-    const [symbolsCount, setSymbolsCount] = useState(0)
-    const dispatch = useDispatch()
-
-    const showReviewPopUp = () => {
-        dispatch(setReviewPopUp())
-    }
-
-    const fetchReview = (e) => {
-        e.preventDefault()
-        const value = e.target.elements.reviewAddInput.value
-
-        dispatch(fetchPostUserReview({'product_id': product.id, 'value': value}))
-        showReviewPopUp()
-    }
-
-    const onChangeInput = () => {
-        const reviewValue = document.getElementById('reviewAddInput')
-        const button = document.getElementById('reviewAdd_button')
-
-        setSymbolsCount(reviewValue.value.length)
-
-        if (reviewValue.value.length < 300) {
-            button.classList.remove('active')
-            setIsFilled(false)
-        } else {
-            button.classList.add('active')
-            setIsFilled(true)
-        }
-    }
+    const {
+        isFilled, 
+        symbolsCount,
+        fetchReview, 
+        onChangeInput, 
+        showReviewPopUp} = ReviewValidation('add', product.id)
 
     return (
         <div className='reviewAdd'>
@@ -59,10 +33,8 @@ const ReviewPopUp = ({product}) => {
                         <div className='reviewAdd__count_words'>{symbolsCount}/300 символов</div>
                     </div>
                     
-                    
                 </div>
 
-                <form onSubmit={fetchReview}>
                     <textarea 
                         id='reviewAddInput'
                         className='reviewAdd__input'
@@ -71,10 +43,9 @@ const ReviewPopUp = ({product}) => {
                         id='reviewAdd_button'
                         disabled={!isFilled}
                         className='reviewAdd__button'
-                        type='submit'>
+                        onClick={() => fetchReview()}>
                         Отправить отзыв
                     </button>
-                </form>
 
                 <div 
                     onClick={() => showReviewPopUp()} 

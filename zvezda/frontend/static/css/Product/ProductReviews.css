@@ -111,7 +111,7 @@
 .userReview__change {
     display: none;
     margin-top: 15px;
-    height: 80%;
+    height: 70%;
     width: 100%;
     padding-bottom: 5px;
     resize: none;
@@ -148,10 +148,12 @@
 }
 
 .userReview__change_btn.save {
+    cursor: default;
     background-color: grey;
 }
 
 .userReview__change_btn.save.active {
+    cursor: pointer;
     background-color: orange;
 }
 

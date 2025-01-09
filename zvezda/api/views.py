@@ -188,8 +188,10 @@ def update_user_review(request):
     review_id = request.query_params.get('review_id')
     user_id = request.user.id
 
+    print(review_id, user_id)
+
     try:
-        obj = UserReview.objects.get(user=user_id, id=review_id)
+        obj = UserReview.objects.get(user_id=user_id, id=review_id)
     except Exception:
         return Response({'status': 'error', 'comment': 'there is not such a review'}, status=404)
     

@@ -6,6 +6,9 @@ import { fetchProductInfo } from "../queries/Products/ProductInfo";
 import { fetchReviewsRates } from "../queries/Reviews/GetReviewsRates";
 import { fetchPostUserReview } from "../queries/Reviews/PostUserReview"; 
 import { fetchDeleteReview } from "../queries/Reviews/DeleteReview";
+import { fetchUpdateReview } from './../queries/Reviews/UpdateReview';
+
+import { GetUID } from "../../../bll/cookie/GetUID";
 
 const exactProductSlice = createSlice(
     {
@@ -14,8 +17,7 @@ const exactProductSlice = createSlice(
         initialState: {
             exactProduct: "",
             reviews: [],
-            isLike: false,
-            isDislike: false,
+            assessment: null,
             rate: 0,
             reviewPopUp: false
         },
@@ -26,24 +28,9 @@ const exactProductSlice = createSlice(
             },
 
             clearAssessment(state, action) {
-                state.isLike = false
-                state.isDislike = false
+                state.assessment = null
             },
 
-            setLike(state, action) {
-                if (state.isLike) {
-                    state.isLike = false
-                } else {
-                    state.isLike = true
-                } 
-            },
-            setDislike(state, action) {
-                if (state.isDislike) {
-                    state.isDislike = false
-                } else {
-                    state.isDislike = true
-                } 
-            },
             setReviewPopUp(state, action) {
                 if (state.reviewPopUp) {
                     state.reviewPopUp = false
@@ -65,9 +52,16 @@ const exactProductSlice = createSlice(
                                 }
                             }
                         }
-                        console.log(action.payload.data)
                         state.exactProduct = action.payload.data
-                        state.reviews = action.payload.reviews
+                        state.reviews = action.payload.reviews.sort((a, b) => {
+                            if (a.user_id.id === GetUID() && b.user_id.id !== GetUID()) {
+                                return -1 
+                            }
+                            if (b.user_id.id === GetUID() && a.user_id.id !== GetUID()) {
+                                return 1 
+                            }
+                            return 0
+                        })
                     }
                 )
                 .addCase(
@@ -78,9 +72,9 @@ const exactProductSlice = createSlice(
                 .addCase(
                     fetchProductInfo.fulfilled, (state, action) => {
                         if (action.payload.data === true) {
-                            state.isLike = true
+                            state.assessment = true
                         } else if (action.payload.data === false) {
-                            state.isDislike = true
+                            state.assessment = false
                         }
                     }
                 )
@@ -91,7 +85,6 @@ const exactProductSlice = createSlice(
                 )
                 .addCase(
                     fetchPostUserReview.fulfilled, (state, action) => {
-
                         state.reviews = [action.payload.data, ...state.reviews]
                     }
                 )
@@ -101,14 +94,21 @@ const exactProductSlice = createSlice(
                         state.reviews = state.reviews.filter(el => el.id != action.payload.data.id)
                     }
                 )
+                .addCase(
+                    fetchUpdateReview.fulfilled, (state, action) => {
+                        for (const i in state.reviews) {
+                            if (state.reviews[i].id == action.payload.data.id) {
+                                state.reviews[i].value = action.payload.data.value
+                            }
+                        }
+                    }
+                )
         }
     }
 )
 
 export const { 
     cleareExactProduct, 
-    setDislike, 
-    setLike, 
     clearAssessment, 
     setReviewPopUp } = exactProductSlice.actions;
 
