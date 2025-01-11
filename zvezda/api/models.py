@@ -91,3 +91,4 @@ class Books(Products):
     binding = models.CharField(max_length=155, choices=binding_choices)
     pub_year = models.IntegerField()
     count_pages = models.IntegerField()
+
