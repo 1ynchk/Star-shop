@@ -4,12 +4,9 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.css';
 import { Navigation } from 'swiper/modules';
 
-import { useSelector, useDispatch } from 'react-redux';
-import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
 const SalesHits = ({ products }) => {
-    const dispatch = useDispatch()
     
     return (
         <Swiper

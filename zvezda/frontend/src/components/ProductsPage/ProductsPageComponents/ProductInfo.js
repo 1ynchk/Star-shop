@@ -8,7 +8,7 @@ import { setIsOpen } from '../../../store/slices/PopupSlice';
 
 import { RateSystem } from '../../../../bll/react-components/product-page/rate_system';
 
-const ProductInfo = ({product, name, img_url, description, rate, amount}) => {
+const ProductInfo = ({product, name, img_url, description, amount, rate}) => {
     
     return (
         <div className='product'>
@@ -25,7 +25,9 @@ const ProductInfo = ({product, name, img_url, description, rate, amount}) => {
                                 <div className='product__description_values'>{description}</div>
                             </div>
                             <div className='product__rate'>
-                                <div className='rate_value'>{ProductBBL.rate_circle(rate)}</div>
+                                <div className='rate_value'>
+                                    {ProductBBL.rate_circle(rate)}
+                                </div>
                                 <RateSection product={product} />
                             </div>
                         </div>
@@ -38,7 +40,7 @@ const ProductInfo = ({product, name, img_url, description, rate, amount}) => {
                             <div className='product__add_to_cart_container'>
                                 <button className='product__add_to_cart'>
                                     ДОБАВИТЬ В КОРЗИНУ
-                                </button>
+                                </button> 
                             </div>
                         </div>
                     </div>

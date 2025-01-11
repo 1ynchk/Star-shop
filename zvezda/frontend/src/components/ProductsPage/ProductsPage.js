@@ -14,13 +14,14 @@ import ProductReviews from './ProductsPageComponents/ProductReviews';
 import ProductInfo from './ProductsPageComponents/ProductInfo';
 import ReviewPopUp from './ProductsPageComponents/ReviewPopUp';
 
-const ProductsPage = (props) => {
+const ProductsPage = () => {
     const { id } = useParams();
     const dispatch = useDispatch()
     const isLogined = useSelector(state => state.users.isLogin)
     const product = useSelector(state => state.exactProduct.exactProduct)
     const reviewPopUp = useSelector(state => state.exactProduct.reviewPopUp)
-
+    const rate = useSelector(state => state.exactProduct.rate)
+    
     useEffect(() => {
         dispatch(fetchExactProduct({ 'id': id, 'isLogined': isLogined }))
     }, [id]);
@@ -52,8 +53,9 @@ const ProductsPage = (props) => {
                     description={product.description} 
                     price={product.price}
                     amount={product.amount}
-                    rate = {product.rate}
-                />
+                    rate={rate}
+                    />                
+                    
                 <ProductReviews
                     id={product.id}
                 />

@@ -25,7 +25,6 @@ export const RateSystem = (type, id, product_id) => {
                 dispatch(fetchReviewsRates({'assessment': null, 'id': id, 'id_product': product_id}))
                 break
             case type_request == 'product' && assessment == true:
-                console.log('like')
                 dispatch(fetchAssessment({'assessment': true, 'id': product_id}))
                 break
             case type_request == 'product' && assessment == false:
@@ -52,7 +51,7 @@ export const RateSystem = (type, id, product_id) => {
             return [btn_dislike, btn_like]
         }
     }
-
+    
     useEffect(() => {
         
         const [btn_dislike, btn_like] = getButtons(type)

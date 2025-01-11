@@ -5,6 +5,7 @@ import cross from '../../static/images/cross.png'
 
 export class ProductBBL {
     static rate_circle(rate) {
+        console.log(rate)
         let good_rates = (rate.filter(el => el.user_rate == true)).length
         let bad_rates = (rate.filter(el => el.user_rate == false)).length
         if (bad_rates + good_rates === 0) {

@@ -140,11 +140,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
-MEDIA_URL = 'media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
-
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -152,10 +150,10 @@ CSRF_TRUSTED_ORIGINS  = ['http://127.0.0.1:8000/']
 
 AUTH_USER_MODEL = 'api_users.Users'
 
-AWS_ACCESS_KEY_ID = os.getenv('S3_ACCESS_KEY')
-AWS_SECRET_ACCESS_KEY = os.getenv('S3_SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME = 'c82d6b81-22d934f4-5d12-4efa-8ee4-222faa5ae22b'
+
+AWS_ACCESS_KEY_ID = ''
+AWS_SECRET_ACCESS_KEY = ''
+AWS_STORAGE_BUCKET_NAME = ''
 AWS_S3_REGION_NAME = 'ru-1' 
-AWS_S3_ENDPOINT_URL = "https://swift.timeweb.cloud"
-AWS_S3_SIGNATURE_VERSION = 's3v4'
-AWS_QUERYSTRING_AUTH = False
+AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.timeweb.cloud"
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'

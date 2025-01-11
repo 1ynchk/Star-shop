@@ -50,12 +50,16 @@ class UsersRate(models.Model):
     user_rate = models.BooleanField(null=True, default=None)
 
     def __str__(self):
-        return f'User: {self.user} | Product: {self.product}'
+        return f'User: {self.user}'
     
     class Meta:
         db_table = 'api_users_rate'
 
 class Products(models.Model):
+
+    class Meta: 
+        abstract = True
+    
     name = models.CharField(max_length=50, null=False)
     description = models.CharField(max_length=255, null=False)
     price = models.DecimalField(decimal_places=2, max_digits=9)
@@ -63,6 +67,7 @@ class Products(models.Model):
     amount = models.IntegerField(default=0)
     date_add = models.DateField(auto_now_add=True)
     img_url = models.CharField(max_length=255, null=False, default='https://cdn-icons-png.flaticon.com/512/2175/2175188.png')
+    second_url = models.ImageField(upload_to='products/')
     rate = models.ManyToManyField(UsersRate, blank=True, null=True)
     category = models.ForeignKey('Category', on_delete=models.SET_NULL, null=True, blank=True)
     discount = models.ForeignKey('Discount', on_delete=models.SET_NULL, null=True, blank=True)
@@ -73,3 +78,16 @@ class Products(models.Model):
     
     class Meta:
         db_table = 'api_products'
+        
+class Books(Products):
+
+    binding_choices = [
+        ('Т', 'Твердый'), 
+        ('М', 'Мягкий')
+    ]
+     
+    publisher = models.CharField(max_length=155)
+    series = models.CharField(max_length=155, blank=True, null=True)
+    binding = models.CharField(max_length=155, choices=binding_choices)
+    pub_year = models.IntegerField()
+    count_pages = models.IntegerField()

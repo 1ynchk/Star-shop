@@ -18,8 +18,8 @@ const exactProductSlice = createSlice(
             exactProduct: "",
             reviews: [],
             assessment: null,
-            rate: 0,
-            reviewPopUp: false
+            reviewPopUp: false,
+            rate: []
         },
 
         reducers: {
@@ -55,20 +55,26 @@ const exactProductSlice = createSlice(
                         state.exactProduct = action.payload.data
                         state.reviews = action.payload.reviews.sort((a, b) => {
                             if (a.user_id.id === GetUID() && b.user_id.id !== GetUID()) {
-                                return -1 
+                                return 0 
                             }
                             if (b.user_id.id === GetUID() && a.user_id.id !== GetUID()) {
-                                return 1 
+                                return 2 
                             }
-                            return 0
+                            return 1
                         })
+                        state.rate = action.payload.data.rate
                     }
                 )
                 .addCase(
                     fetchAssessment.fulfilled, (state, action) => {
-
+                    let assessment = action.payload.assessment
+                        for (let i in state.rate) {
+                            if (state.rate[i].user == GetUID()) {
+                                    state.rate[i].user_rate = assessment
+                                    }   
+                                }
                     }
-                )
+                )    
                 .addCase(
                     fetchProductInfo.fulfilled, (state, action) => {
                         if (action.payload.data === true) {

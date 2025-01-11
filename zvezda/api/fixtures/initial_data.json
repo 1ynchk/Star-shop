@@ -1,4 +1,102 @@
 [
+
+
+    {
+        "model": "api.Category",
+        "pk": 1,
+        "fields": {
+            "name": "Книги с автографом",
+            "slug": "knigi-s-avtografom"
+        }
+    },
+    {
+        "model": "api.Category",
+        "pk": 2,
+        "fields": {
+            "name": "Художественная литература",
+            "slug": "hudozhestvennaya-literatura"
+        }
+    },
+    {
+        "model": "api.Category",
+        "pk": 3,
+        "fields": {
+            "name": "Детские книги",
+            "slug": "detskie-knigi"
+        }
+    },
+    {
+        "model": "api.Category",
+        "pk": 4,
+        "fields": {
+            "name": "Товары для детей",
+            "slug": "tovary-dlya-detei"
+        }
+    },
+    {
+        "model": "api.Category",
+        "pk": 5,
+        "fields": {
+            "name": "Книги для подростков",
+            "slug": "knigi-dlya-podrostkov"
+        }
+    },
+    {
+        "model": "api.Category",
+        "pk": 6,
+        "fields": {
+            "name": "Бизнес литература",
+            "slug": "biznes-literatura"
+        }
+    },
+    {
+        "model": "api.Category",
+        "pk": 7,
+        "fields": {
+            "name": "Самообразование и развитие",
+            "slug": "samoobrazovanie-i-razvitie"
+        }
+    },
+    {
+        "model": "api.Category",
+        "pk": 8,
+        "fields": {
+            "name": "Хобби и досуг",
+            "slug": "hobbi-i-dosug"
+        }
+    },
+    {
+        "model": "api.Category",
+        "pk": 9,
+        "fields": {
+            "name": "Учебная литература",
+            "slug": "uchebnaya-literatura"
+        }
+    },
+    {
+        "model": "api.Category",
+        "pk": 10,
+        "fields": {
+            "name": "Педагогика и воспитание",
+            "slug": "pedagogika-i-vospitanie"
+        }
+    },
+    {
+        "model": "api.Category",
+        "pk": 11,
+        "fields": {
+            "name": "Научно-популярная литература",
+            "slug": "nauchno-populyarnaya-literatura"
+        }
+    },
+    {
+        "model": "api.Category",
+        "pk": 12,
+        "fields": {
+            "name": "Публицистика",
+            "slug": "publitsistika"
+        }
+    },
     {
         "model": "api.Products",
         "pk": 1,
