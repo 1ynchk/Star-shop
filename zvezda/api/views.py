@@ -38,7 +38,7 @@ def get_exact_product(request):
     
     articul = request.headers['articul']
     user_id = request.user.id
-
+ 
     obj = Products.objects \
         .select_related('category', 'discount') \
         .prefetch_related('rate') \
@@ -110,14 +110,14 @@ def post_product_assessment(request):
         serializer = UsersRateSerializer(data=data, instance=rate)
         if serializer.is_valid():
             serializer.save()
-            return Response({'status': 'ok'})
+            return Response({'status': 'ok', 'assessment': assessment})
         else:
             return Response({'status': 'error', 'comment': 'incorrect data'}, status=400)
 
     except Exception:
         instance = UsersRate.objects.create(user=request.user, user_rate=assessment)
         add_raw_product_rate_mtm(pk, instance.id)
-        return Response({'status': 'ok'})
+        return Response({'status': 'ok', 'assessment': assessment})
 
 @api_view(http_method_names=['POST'])
 @my_decorator

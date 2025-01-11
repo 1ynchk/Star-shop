@@ -10,8 +10,8 @@ class CustomUserChangeForm(UserChangeForm):
         model = Users
         fields = ('email',)
 
+@admin.register(Users)
 class CustomUserAdmin(admin.ModelAdmin):
-    model = Users
+    list_display  = ['email', 'last_name', 'first_name']
+    
     form = CustomUserChangeForm
-
-admin.site.register(Users, CustomUserAdmin)

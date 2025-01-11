@@ -40,9 +40,11 @@ export const LogicReview = (
     }
 
     useEffect(() => {
+        let expander = ''
+
         if (value.length > 320) {
             const expanderId = 'userReview__open_container_' + id
-            const expander = document.getElementById(expanderId)
+            expander = document.getElementById(expanderId)
         }
         
         const reviewId = 'userReview__value_' + id
@@ -54,12 +56,17 @@ export const LogicReview = (
         if (isChangeCorrect) {
             setChangeReview(false)
 
-            value.length > 320 ? expander.style.display = 'none' : ''
+            if (value.length > 320) {
+                expander.style.display = 'none'
+            }
+
             review.style.display = 'none'
             reviewTextArea.style.display = 'block'
 
         } else {
-            value.length > 320 ? expander.style.display = 'flex' : ''
+            if (value.length > 320) {
+                expander.style.display = 'flex'
+            }
             review.style.display = 'block'
             reviewTextArea.style.display = 'none'
         }
