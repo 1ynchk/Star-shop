@@ -1,6 +1,5 @@
 
 from rest_framework.response import Response
-from rest_framework import status 
 from rest_framework.decorators import api_view
 
 from .models import Products, UsersRate, ReviewRate, UserReview
@@ -36,7 +35,8 @@ def my_decorator(func):
 def get_exact_product(request):
     '''Получение информации об определенном продукте'''
     
-    articul = request.headers['articul']
+    articul = request.query_params.get('articul')
+    type = request.query_params.get('type')
     user_id = request.user.id
  
     obj = Products.objects \
@@ -104,14 +104,16 @@ def post_product_assessment(request):
     pk = request.data.get('id')
     assessment = request.data.get('assessment')
     data = {'user_rate': assessment, 'user': request.user.id}
-
+    print('first stage')
     try:
         rate = get_raw_product_rate(pk, request.user.id)
         serializer = UsersRateSerializer(data=data, instance=rate)
+        print('second stage')
         if serializer.is_valid():
             serializer.save()
             return Response({'status': 'ok', 'assessment': assessment})
         else:
+            print('third stage')
             return Response({'status': 'error', 'comment': 'incorrect data'}, status=400)
 
     except Exception:

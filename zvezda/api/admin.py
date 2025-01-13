@@ -1,9 +1,15 @@
 from django.contrib import admin
 from django.utils.html import format_html
 
-from .models import Products, Category, Discount, UsersRate, UserReview
+from .models import Products, Category,  UsersRate, UserReview, Books, Chancellery, BooksAuthors
+
 
 # Register your models here.
+
+
+@admin.register(Chancellery)
+class AdminChancellery(admin.ModelAdmin):
+    pass
 
 @admin.register(Products)
 class AdminProducts(admin.ModelAdmin):
@@ -32,7 +38,13 @@ class AdminProducts(admin.ModelAdmin):
             "<img style='width: 25px; background-color: #ffffff; padding: 3px;' src={} />", 
             obj.img_url
             )
+@admin.register(BooksAuthors)
+class AdminAuthors(AdminProducts):
+    pass
 
+@admin.register(Books)
+class AdminBooks(AdminProducts):
+    pass 
 
 admin.site.register(UserReview)
 

@@ -55,7 +55,7 @@ class ProductsSerializer(serializers.ModelSerializer):
 
     class Meta: 
         model = Products
-        fields = ('name', 'description', 'price', 'articul', 'img_url', 'discount')
+        fields = ('name', 'description', 'price', 'articul', 'img_url', 'discount', 'type')
 
 class RefactoredExactProductReviews(serializers.ModelSerializer):
     user_id = UserInfoForReviews()

@@ -26,7 +26,6 @@ const MainBody = (props) => {
             dispatch(clearProducts()); 
         };
     }, [dispatch]);
-    
         return (
             <div className='mainbody'>
                 <div className='mainbody_section'>

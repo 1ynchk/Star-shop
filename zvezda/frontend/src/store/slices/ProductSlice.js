@@ -18,12 +18,10 @@ const productSlice = createSlice({
             .addCase(
                 fetchProducts.fulfilled, (state, action) => {
                     state.products = action.payload.data
-                    console.log(state.products)
                 }
             )
             .addCase(
                 fetchProducts.rejected, (state) => {
-                    console.log('Error')
                 }
             )            
     }

@@ -7,7 +7,7 @@ import { Navigation } from 'swiper/modules';
 import { NavLink } from 'react-router-dom';
 
 const SalesHits = ({ products }) => {
-    
+    console.log(products)
     return (
         <Swiper
         modules={[Navigation]}
@@ -23,7 +23,10 @@ const SalesHits = ({ products }) => {
                 <SwiperSlide key={el.articul} className='swiper_card'>
                     <div className='product_card_wrapper'>
                     <div className='product_card'>
-                <NavLink to={'/products/' + el.articul}>
+                <NavLink  to={{
+                    pathname: '/products/' + el.articul,
+                    search: '?t=' + el.type
+                }}>
                     <div className='product_card__img_container'>
                         <img className='product_card__img' src={el.img_url} alt='product card' />
                     </div>
@@ -43,8 +46,6 @@ const SalesHits = ({ products }) => {
                     </div>
                     </div>
                 
-                
-                    
                     <div className='product_card__btn_container'>
                         <button className='product_card__btn' onClick={() => console.log('sss')}>В корзину</button>
                     </div>

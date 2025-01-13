@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import {CSSTransition} from 'react-transition-group';
@@ -21,15 +21,18 @@ const ProductsPage = () => {
     const product = useSelector(state => state.exactProduct.exactProduct)
     const reviewPopUp = useSelector(state => state.exactProduct.reviewPopUp)
     const rate = useSelector(state => state.exactProduct.rate)
+
+    const queryParams = new URLSearchParams(location.search) 
+    const type = queryParams.get('t')
     
     useEffect(() => {
-        dispatch(fetchExactProduct({ 'id': id, 'isLogined': isLogined }))
+        dispatch(fetchExactProduct({ 'id': id, 'type':  type}))
     }, [id]);
 
     useEffect(() => {
         if (isLogined) {
             dispatch(clearAssessment())
-            dispatch(fetchProductInfo({'id': product.id}))
+            dispatch(fetchProductInfo({'id': product.id, 'type': type}))
         }
     }, [product.id])
 

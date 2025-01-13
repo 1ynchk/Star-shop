@@ -1,6 +1,5 @@
 [
-
-
+    
     {
         "model": "api.Category",
         "pk": 1,
@@ -98,9 +97,10 @@
         }
     },
     {
-        "model": "api.Products",
-        "pk": 1,
+        "model": "api.products",
+        "pk": 21,
         "fields": {
+            "type": "c",
             "name": "Ластик",
             "description": "Белый, 2 СМ",
             "price": 10.00,
@@ -111,9 +111,10 @@
         }
     },
     {
-        "model": "api.Products",
-        "pk": 2,
+        "model": "api.products",
+        "pk": 22,
         "fields": {
+            "type": "c",
             "name": "Клей ПВА, Человек-паук",
             "description": "45г",
             "price": 45.00,
@@ -124,9 +125,10 @@
         }
     },
     {
-        "model": "api.Products",
-        "pk": 3,
+        "model": "api.products",
+        "pk": 23,
         "fields": {
+            "type": "c",
             "name": "Блокнот А7, Человек-паук",
             "description": "64 листа, в твёрдой обложке",
             "price": 200.00,
@@ -137,9 +139,10 @@
         }
     },
     {
-        "model": "api.Products",
-        "pk": 4,
+        "model": "api.products",
+        "pk": 24,
         "fields": {
+            "type": "c",
             "name": "Ножницы детские Человек-паук",
             "description": "13 см, с защитным колпачком",
             "price": 120.00,
@@ -150,9 +153,10 @@
         }
     },
     {
-        "model": "api.Products",
-        "pk": 5,
+        "model": "api.products",
+        "pk": 25,
         "fields": {
+            "type": "c",
             "name": "Тетрадь 48 листов в клетку Человек-паук",
             "description": "Картонная обложка",
             "price": 60.00,
@@ -163,9 +167,10 @@
         }
     },
     {
-        "model": "api.Products",
-        "pk": 6,
+        "model": "api.products",
+        "pk": 26,
         "fields": {
+            "type": "c",
             "name": "Бумага цветная, А4 18 листов Человек-паук",
             "description": "10 цветов, Немелованная, односторонняя, на скрепке",
             "price": 70.00,
@@ -176,9 +181,10 @@
         }
     },
     {
-        "model": "api.Products",
-        "pk": 7,
+        "model": "api.products",
+        "pk": 27,
         "fields": {
+            "type": "c",
             "name": "Пенал мягкий Человек-паук",
             "description": "1 отделение, 95х205 мм",
             "price": 250.00,
@@ -189,9 +195,10 @@
         }
     },
     {
-        "model": "api.Products",
-        "pk": 8,
+        "model": "api.products",
+        "pk": 28,
         "fields": {
+            "type": "c",
             "name": "Бумага цветная, А4, 16 листов Принцессы",
             "description": "8 цветов, немелованная, односторонняя, на скрепке, 48 г/м²",
             "price": 100.00,
@@ -202,9 +209,10 @@
         }
     },
     {
-        "model": "api.Products",
-        "pk": 9,
+        "model": "api.products",
+        "pk": 29,
         "fields": {
+            "type": "c",
             "name": "Спортивный рюкзак TEXTURA",
             "description": "наружный карман, цвет чёрный/хаки",
             "price": 600.00,
@@ -215,9 +223,10 @@
         }
     },
     {
-        "model": "api.Products",
-        "pk": 10,
+        "model": "api.products",
+        "pk": 30,
         "fields": {
+            "type": "c",
             "name": "Рюкзак школьный на молнии бордовый",
             "description": "наружный карман, цвет бордовый",
             "price": 2000.00,
@@ -226,135 +235,1316 @@
             "img_url": "https://cdn-icons-png.flaticon.com/512/2175/2175188.png",
             "date_add": "2024-10-24"
         }
+    }, 
+    {
+    "model": "api.chancellery",
+    "pk": 31,
+    "fields": {
+        "products_ptr_id": 31
+    }
+},
+{
+    "model": "api.products",
+    "pk": 31,
+    "fields": {
+        "type": "c",
+        "name": "Корректор-лента",
+        "description": "5 м х 5 мм, корпус МИКС",
+        "price": 39.00,
+        "amount": 3,
+        "articul": "711072",
+        "img_url": "https://cdn-icons-png.flaticon.com/512/2175/2175188.png",
+        "date_add": "2024-10-24"
+    }
+},
+{
+    "model": "api.chancellery",
+    "pk": 32,
+    "fields": {
+        "products_ptr_id": 32
+    }
+},
+{
+    "model": "api.products",
+    "pk": 32,
+    "fields": {
+        "type": "c",
+        "name": "Степлер",
+        "description": "до 7 листов, МИНИ, МИКС",
+        "price": 160.00,
+        "amount": 5,
+        "articul": "711070",
+        "img_url": "https://cdn-icons-png.flaticon.com/512/2175/2175188.png",
+        "date_add": "2024-10-24"
+    }
+},
+{
+    "model": "api.chancellery",
+    "pk": 33,
+    "fields": {
+        "products_ptr_id": 33
+    }
+},
+{
+    "model": "api.products",
+    "pk": 33,
+    "fields": {
+        "type": "c",
+        "name": "Стакан-непроливайка Calligrata",
+        "description": "210 мл МИКС",
+        "price": 150.00,
+        "amount": 2,
+        "articul": "6255761",
+        "img_url": "https://cdn-icons-png.flaticon.com/512/2175/2175188.png",
+        "date_add": "2024-10-24"
+    }
+},
+{
+    "model": "api.chancellery",
+    "pk": 34,
+    "fields": {
+        "products_ptr_id": 34
+    }
+},
+{
+    "model": "api.products",
+    "pk": 34,
+    "fields": {
+        "type": "c",
+        "name": "Кисть для рисования набор 6 шт.",
+        "description": "белка Jan Vermeer",
+        "price": 90.00,
+        "amount": 5,
+        "articul": "6116515",
+        "img_url": "https://cdn-icons-png.flaticon.com/512/2175/2175188.png",
+        "date_add": "2024-10-24"
+    }
+},
+{
+    "model": "api.chancellery",
+    "pk": 35,
+    "fields": {
+        "products_ptr_id": 35
+    }
+},
+{
+    "model": "api.products",
+    "pk": 35,
+    "fields": {
+        "type": "c",
+        "name": "Нож канцелярский МИКС",
+        "description": "лезвие 18 мм, корпус пластик, фиксатор, блистер",
+        "price": 60.00,
+        "amount": 6,
+        "articul": "550228",
+        "img_url": "https://cdn-icons-png.flaticon.com/512/2175/2175188.png",
+        "date_add": "2024-10-24"
+    }
+},
+{
+    "model": "api.chancellery",
+    "pk": 36,
+    "fields": {
+        "products_ptr_id": 36
+    }
+},
+{
+    "model": "api.products",
+    "pk": 36,
+    "fields": {
+        "type": "c",
+        "name": "Тетрадь на спирали, 80 листов в клетку, ErichKraus",
+        "description": "пластиковая обложка, блок офсет 100% белизна, с принтом",
+        "price": 300.00,
+        "amount": 5,
+        "articul": "5433498",
+        "img_url": "https://cdn-icons-png.flaticon.com/512/2175/2175188.png",
+        "date_add": "2024-10-24"
+    }
+},
+{
+    "model": "api.chancellery",
+    "pk": 37,
+    "fields": {
+        "products_ptr_id": 37
+    }
+},
+{
+    "model": "api.products",
+    "pk": 37,
+    "fields": {
+        "type": "c",
+        "name": "Ручка шариковая, автоматическая",
+        "description": "0.5 мм, стержень синий, корпус прозрачный с резиновым держателем",
+        "price": 20.00,
+        "amount": 20,
+        "articul": "2687405",
+        "img_url": "https://cdn-icons-png.flaticon.com/512/2175/2175188.png",
+        "date_add": "2024-10-24"
+    }
+},
+{
+    "model": "api.chancellery",
+    "pk": 38,
+    "fields": {
+        "products_ptr_id": 38
+    }
+},
+{
+    "model": "api.products",
+    "pk": 38,
+    "fields": {
+        "type": "c",
+        "name": "Тетрадь 12 листов в косую лин. \"Зелёная обложка\"",
+        "description": "бумажная обложка, блок №2 КПК, белизна 75% (серые листы), плотность 58-63 г/м2",
+        "price": 25.00,
+        "amount": 15,
+        "articul": "2677087",
+        "img_url": "https://cdn-icons-png.flaticon.com/512/2175/2175188.png",
+        "date_add": "2024-10-24"
+    }
+},
+{
+    "model": "api.chancellery",
+    "pk": 39,
+    "fields": {
+        "products_ptr_id": 39
+    }
+},
+{
+    "model": "api.products",
+    "pk": 39,
+    "fields": {
+        "type": "c",
+        "name": "Ножницы канцелярские 13 см МИКС",
+        "description": "травмобезопасные, пластиковые ручки, закруглённые концы, МИКС",
+        "price": 60.00,
+        "amount": 6,
+        "articul": "1935424",
+        "img_url": "https://cdn-icons-png.flaticon.com/512/2175/2175188.png",
+        "date_add": "2024-10-24"
+    }
+},
+{
+    "model": "api.chancellery",
+    "pk": 40,
+    "fields": {
+        "products_ptr_id": 40
+    }
+},
+{
+    "model": "api.products",
+    "pk": 40,
+    "fields": {
+        "type": "c",
+        "name": "Пенал школьный на молнии Calligrata \"Аниме\"",
+        "description": "2 отделения, розовый",
+        "price": 250.00,
+        "amount": 5,
+        "articul": "10185925",
+        "img_url": "https://cdn-icons-png.flaticon.com/512/2175/2175188.png",
+        "date_add": "2024-10-24"
+    }
+},
+    {
+        "model": "api.books",
+        "pk": 1,
+        "fields": {
+            "products_ptr_id": 1,
+            "author": 1,
+            "publisher": "Издательство А",
+            "series": "Серия 1",
+            "binding": "Т",
+            "pub_year": 2022,
+            "count_pages": 320
+        }
     },
     {
-        "model": "api.Products",
+        "model": "api.products",
+        "pk": 1,
+        "fields": {
+            "type": "b", 
+            "name": "Лучшие люди города",
+            "description": "Описание книги Лучшие люди города",
+            "price": 10.00,
+            "amount": 5,
+            "articul": "111111111",
+            "img_url": "https://cdn-icons-png.flaticon.com/512/2175/2175188.png",
+            "date_add": "2024-10-24"
+        }
+    },
+    {
+        "model": "api.books",
+        "pk": 2,
+        "fields": {
+            "products_ptr_id": 2,
+            "author": 2,
+            "publisher": "Издательство Б",
+            "series": "",
+            "binding": "М",
+            "pub_year": 2021,
+            "count_pages": 280
+        }
+    },
+    {
+        "model": "api.products",
+        "pk": 2,
+        "fields": {
+            "type": "b",
+            "name": "Тот, кто ловит мотыльков",
+            "description": "Описание книги Тот, кто ловит мотыльков",
+            "price": 12.50,
+            "amount": 3,
+            "articul": "222222222",
+            "img_url": "https://cdn-icons-png.flaticon.com/512/2175/2175188.png",
+            "date_add": "2024-10-24"
+        }
+    },
+    {
+        "model": "api.books",
+        "pk": 3,
+        "fields": {
+            "products_ptr_id": 3,
+            "author": 3,
+            "publisher": "Издательство В",
+            "series": "Серия 2",
+            "binding": "Т",
+            "pub_year": 2023,
+            "count_pages": 350
+        }
+    },
+    {
+        "model": "api.products",
+        "pk": 3,
+        "fields": {
+            "type": "b",
+            "name": "Слова, которые нам не говорили",
+            "description": "Описание книги Слова, которые нам не говорили",
+            "price": 15.00,
+            "amount": 4,
+            "articul": "333333333",
+            "img_url": "https://cdn-icons-png.flaticon.com/512/2175/2175188.png",
+            "date_add": "2024-10-24"
+        }
+    },
+    {
+        "model": "api.books",
+        "pk": 4,
+        "fields": {
+            "products_ptr_id": 4,
+            "author": 4,
+            "publisher": "Издательство Г",
+            "series": "Серия 3",
+            "binding": "М",
+            "pub_year": 2020,
+            "count_pages": 310
+        }
+    },
+    {
+        "model": "api.products",
+        "pk": 4,
+        "fields": {
+            "type": "b",
+            "name": "Четыре касты. Кто вы?",
+            "description": "Описание книги Четыре касты. Кто вы?",
+            "price": 9.99,
+            "amount": 2,
+            "articul": "444444444",
+            "img_url": "https://cdn-icons-png.flaticon.com/512/2175/2175188.png",
+            "date_add": "2024-10-24"
+        }
+    },
+    {
+        "model": "api.books",
+        "pk": 5,
+        "fields": {
+            "products_ptr_id": 5,
+            "author": 5,
+            "publisher": "Издательство Д",
+            "series": "Серия 4",
+            "binding": "Т",
+            "pub_year": 2019,
+            "count_pages": 400
+        }
+    },
+    {
+        "model": "api.products",
+        "pk": 5,
+        "fields": {
+            "type": "b",
+            "name": "Ловушка для счастья 2.0. Как изменить?",
+            "description": "Описание книги Ловушка для счастья 2.0. Как изменить?",
+            "price": 13.50,
+            "amount": 6,
+            "articul": "555555555",
+            "img_url": "https://cdn-icons-png.flaticon.com/512/2175/2175188.png",
+            "date_add": "2024-10-24"
+        }
+    },
+    {
+        "model": "api.books",
+        "pk": 6,
+        "fields": {
+            "products_ptr_id": 6,
+            "author": 6,
+            "publisher": "Издательство Е",
+            "series": "",
+            "binding": "Т",
+            "pub_year": 2018,
+            "count_pages": 340
+        }
+    },
+    {
+        "model": "api.products",
+        "pk": 6,
+        "fields": {
+            "type": "b",
+            "name": "Шесть дней",
+            "description": "Описание книги Шесть дней",
+            "price": 14.00,
+            "amount": 2,
+            "articul": "666666666",
+            "img_url": "https://cdn-icons-png.flaticon.com/512/2175/2175188.png",
+            "date_add": "2024-10-24"
+        }
+    },
+    {
+        "model": "api.books",
+        "pk": 7,
+        "fields": {
+            "products_ptr_id": 7,
+            "author": 7,
+            "publisher": "Издательство Ж",
+            "series": "Серия 5",
+            "binding": "Т",
+            "pub_year": 2015,
+            "count_pages": 450
+        }
+    },
+    {
+        "model": "api.products",
+        "pk": 7,
+        "fields": {
+            "type": "b",
+            "name": "Sapiens. Краткая история",
+            "description": "Описание книги Sapiens. Краткая история",
+            "price": 20.00,
+            "amount": 10,
+            "articul": "777777777",
+            "img_url": "https://cdn-icons-png.flaticon.com/512/2175/2175188.png",
+            "date_add": "2024-10-24"
+        }
+    },
+    {
+        "model": "api.books",
+        "pk": 8,
+        "fields": {
+            "products_ptr_id": 8,
+            "author": 8,
+            "publisher": "Издательство З",
+            "series": "Серия 6",
+            "binding": "М",
+            "pub_year": 2021,
+            "count_pages": 270
+        }
+    },
+    {
+        "model": "api.products",
+        "pk": 8,
+        "fields": {
+            "type": "b",
+            "name": "Блокнот фуд-фотографа",
+            "description": "Описание книги Блокнот фуд-фотографа",
+            "price": 18.75,
+            "amount": 8,
+            "articul": "888888888",
+            "img_url": "https://cdn-icons-png.flaticon.com/512/2175/2175188.png",
+            "date_add": "2024-10-24"
+        }
+    },
+    {
+        "model": "api.books",
+        "pk": 9,
+        "fields": {
+            "products_ptr_id": 9,
+            "author": 9,
+            "publisher": "Издательство И",
+            "series": "",
+            "binding": "Т",
+            "pub_year": 2020,
+            "count_pages": 320
+        }
+    },
+    {
+        "model": "api.products",
+        "pk": 9,
+        "fields": {
+            "type": "b",
+            "name": "Что убьет твой бизнес?",
+            "description": "Описание книги Что убьет твой бизнес?",
+            "price": 22.00,
+            "amount": 7,
+            "articul": "999999999",
+            "img_url": "https://cdn-icons-png.flaticon.com/512/2175/2175188.png",
+            "date_add": "2024-10-24"
+        }
+    },
+    {
+        "model": "api.books",
+        "pk": 10,
+        "fields": {
+            "products_ptr_id": 10,
+            "author": 10,
+            "publisher": "Издательство К",
+            "series": "Серия 7",
+            "binding": "М",
+            "pub_year": 2023,
+            "count_pages": 290
+        }
+    },
+    {
+        "model": "api.products",
+        "pk": 10,
+        "fields": {
+            "type": "b",
+            "name": "Я хочу стать стилистом",
+            "description": "Описание книги Я хочу стать стилистом",
+            "price": 11.50,
+            "amount": 5,
+            "articul": "101010101",
+            "img_url": "https://cdn-icons-png.flaticon.com/512/2175/2175188.png",
+            "date_add": "2024-10-24"
+        }
+    },
+    {
+        "model": "api.books",
         "pk": 11,
         "fields": {
-            "name": "Корректор-лента",
-            "description": "5 м х 5 мм, корпус МИКС",
-            "price": 39.00,
-            "amount": 3,
-            "articul": "711072",
-            "img_url": "https://cdn-icons-png.flaticon.com/512/2175/2175188.png",
-            "date_add": "2024-10-24"
+            "products_ptr_id": 11,
+            "author": 11,
+            "publisher": "Издательство Л",
+            "series": "Серия 8",
+            "binding": "Твердый переплет",
+            "pub_year": 2021,
+            "count_pages": 310
         }
     },
     {
-        "model": "api.Products",
+        "model": "api.products",
+        "pk": 11,
+        "fields": {
+            "type": "b",
+            "name": "Ее проклятие. Его истинная",
+            "description": "Описание книги Ее проклятие. Его истинная",
+            "price": 14.50,
+            "amount": 3,
+            "articul": "111111112",
+            "img_url": "https://cdn-icons-png.flaticon.com/512/2175/2175188.png",
+            "date_add": "2024-11-01"
+        }
+    },
+    {
+        "model": "api.books",
         "pk": 12,
         "fields": {
-            "name": "Степлер",
-            "description": "до 7 листов, МИНИ, МИКС",
-            "price": 160.00,
-            "amount": 5,
-            "articul": "711070",
-            "img_url": "https://cdn-icons-png.flaticon.com/512/2175/2175188.png",
-            "date_add": "2024-10-24"
+            "products_ptr_id": 12,
+            "author": 12,
+            "publisher": "Издательство М",
+            "series": "",
+            "binding": "Мягкая обложка",
+            "pub_year": 2019,
+            "count_pages": 280
         }
     },
     {
-        "model": "api.Products",
+        "model": "api.products",
+        "pk": 12,
+        "fields": {
+            "type": "b",
+            "name": "Китайские новеллы о чудесах",
+            "description": "Описание книги Китайские новеллы о чудесах",
+            "price": 18.00,
+            "amount": 6,
+            "articul": "111111113",
+            "img_url": "https://cdn-icons-png.flaticon.com/512/2175/2175188.png",
+            "date_add": "2024-11-01"
+        }
+    },
+    {
+        "model": "api.books",
         "pk": 13,
         "fields": {
-            "name": "Стакан-непроливайка Calligrata",
-            "description": "210 мл МИКС",
-            "price": 150.00,
-            "amount": 2,
-            "articul": "6255761",
-            "img_url": "https://cdn-icons-png.flaticon.com/512/2175/2175188.png",
-            "date_add": "2024-10-24"
+            "products_ptr_id": 13,
+            "author": 13,
+            "publisher": "Издательство Н",
+            "series": "Серия 9",
+            "binding": "Твердый переплет",
+            "pub_year": 2020,
+            "count_pages": 300
         }
     },
     {
-        "model": "api.Products",
+        "model": "api.products",
+        "pk": 13,
+        "fields": {
+            "type": "b",
+            "name": "Мифы шумеров",
+            "description": "Описание книги Мифы шумеров",
+            "price": 20.00,
+            "amount": 4,
+            "articul": "111111114",
+            "img_url": "https://cdn-icons-png.flaticon.com/512/2175/2175188.png",
+            "date_add": "2024-11-01"
+        }
+    },
+    {
+        "model": "api.books",
         "pk": 14,
         "fields": {
-            "name": "Кисть для рисования набор 6 шт.",
-            "description": "белка Jan Vermeer",
-            "price": 90.00,
-            "amount": 5,
-            "articul": "6116515",
-            "img_url": "https://cdn-icons-png.flaticon.com/512/2175/2175188.png",
-            "date_add": "2024-10-24"
+            "products_ptr_id": 14,
+            "author": 14,
+            "publisher": "Издательство О",
+            "series": "",
+            "binding": "Мягкая обложка",
+            "pub_year": 2018,
+            "count_pages": 350
         }
     },
     {
-        "model": "api.Products",
+        "model": "api.products",
+        "pk": 14,
+        "fields": {
+            "type": "b",
+            "name": "Великолепные Эмберсоны",
+            "description": "Описание книги Великолепные Эмберсоны",
+            "price": 22.50,
+            "amount": 5,
+            "articul": "111111115",
+            "img_url": "https://cdn-icons-png.flaticon.com/512/2175/2175188.png",
+            "date_add": "2024-11-01"
+        }
+    },
+    {
+        "model": "api.books",
         "pk": 15,
         "fields": {
-            "name": "Нож канцелярский МИКС",
-            "description": "лезвие 18 мм, корпус пластик, фиксатор, блистер",
-            "price": 60.00,
-            "amount": 6,
-            "articul": "550228",
-            "img_url": "https://cdn-icons-png.flaticon.com/512/2175/2175188.png",
-            "date_add": "2024-10-24"
+            "products_ptr_id": 15,
+            "author": 15,
+            "publisher": "Издательство П",
+            "series": "Серия 10",
+            "binding": "Твердый переплет",
+            "pub_year": 2023,
+            "count_pages": 400
         }
     },
     {
-        "model": "api.Products",
+        "model": "api.products",
+        "pk": 15,
+        "fields": {
+            "type": "b",
+            "name": "Славянские мифы и предания",
+            "description": "Описание книги Славянские мифы и предания",
+            "price": 19.00,
+            "amount": 7,
+            "articul": "111111116",
+            "img_url": "https://cdn-icons-png.flaticon.com/512/2175/2175188.png",
+            "date_add": "2024-11-01"
+        }
+    },
+    {
+        "model": "api.books",
         "pk": 16,
         "fields": {
-            "name": "Тетрадь на спирали, 80 листов в клетку, ErichKraus",
-            "description": "пластиковая обложка, блок офсет 100% белизна, с принтом",
-            "price": 300.00,
-            "amount": 5,
-            "articul": "5433498",
-            "img_url": "https://cdn-icons-png.flaticon.com/512/2175/2175188.png",
-            "date_add": "2024-10-24"
+            "products_ptr_id": 16,
+            "author": 16,
+            "publisher": "Издательство Р",
+            "series": "",
+            "binding": "Мягкая обложка",
+            "pub_year": 2022,
+            "count_pages": 320
         }
     },
     {
-        "model": "api.Products",
+        "model": "api.products",
+        "pk": 16,
+        "fields": {
+            "type": "b",
+            "name": "Для тебя стану плохим",
+            "description": "Описание книги Для тебя стану плохим",
+            "price": 15.50,
+            "amount": 2,
+            "articul": "111111117",
+            "img_url": "https://cdn-icons-png.flaticon.com/512/2175/2175188.png",
+            "date_add": "2024-11-01"
+        }
+    },
+    {
+        "model": "api.books",
         "pk": 17,
         "fields": {
-            "name": "Ручка шариковая, автоматическая",
-            "description": "0.5 мм, стержень синий, корпус прозрачный с резиновым держателем",
-            "price": 20.00,
-            "amount": 20,
-            "articul": "2687405",
-            "img_url": "https://cdn-icons-png.flaticon.com/512/2175/2175188.png",
-            "date_add": "2024-10-24"
+            "products_ptr_id": 17,
+            "author": 17,
+            "publisher": "Издательство С",
+            "series": "Серия 11",
+            "binding": "Твердый переплет",
+            "pub_year": 2021,
+            "count_pages": 270
         }
     },
     {
-        "model": "api.Products",
+        "model": "api.products",
+        "pk": 17,
+        "fields": {
+            "type": "b",
+            "name": "Оленья кавалерия",
+            "description": "Описание книги Оленья кавалерия",
+            "price": 17.00,
+            "amount": 3,
+            "articul": "111111118",
+            "img_url": "https://cdn-icons-png.flaticon.com/512/2175/2175188.png",
+            "date_add": "2024-11-01"
+        }
+    },
+    {
+        "model": "api.books",
         "pk": 18,
         "fields": {
-            "name": "Тетрадь 12 листов в косую лин. \"Зелёная обложка\"",
-            "description": "бумажная обложка, блок №2 КПК, белизна 75% (серые листы), плотность 58-63 г/м2",
-            "price": 25.00,
-            "amount": 15,
-            "articul": "2677087",
-            "img_url": "https://cdn-icons-png.flaticon.com/512/2175/2175188.png",
-            "date_add": "2024-10-24"
+            "products_ptr_id": 18,
+            "author": 18,
+            "publisher": "Издательство Т",
+            "series": "",
+            "binding": "Мягкая обложка",
+            "pub_year": 2017,
+            "count_pages": 250
         }
     },
     {
-        "model": "api.Products",
+        "model": "api.products",
+        "pk": 18,
+        "fields": {
+            "type": "b",
+            "name": "Сказка о снежной принцессе",
+            "description": "Описание книги Сказка о снежной принцессе",
+            "price": 13.25,
+            "amount": 6,
+            "articul": "111111119",
+            "img_url": "https://cdn-icons-png.flaticon.com/512/2175/2175188.png",
+            "date_add": "2024-11-01"
+        }
+    },
+    {
+        "model": "api.books",
         "pk": 19,
         "fields": {
-            "name": "Ножницы канцелярские 13 см МИКС",
-            "description": "травмобезопасные, пластиковые ручки, закруглённые концы, МИКС",
-            "price": 60.00,
-            "amount": 6,
-            "articul": "1935424",
-            "img_url": "https://cdn-icons-png.flaticon.com/512/2175/2175188.png",
-            "date_add": "2024-10-24"
+            "products_ptr_id": 19,
+            "author": 19,
+            "publisher": "Издательство У",
+            "series": "Серия 12",
+            "binding": "Твердый переплет",
+            "pub_year": 2020,
+            "count_pages": 330
         }
     },
     {
-        "model": "api.Products",
+        "model": "api.products",
+        "pk": 19,
+        "fields": {
+            "type": "b",
+            "name": "Божья кара",
+            "description": "Описание книги Божья кара",
+            "price": 21.00,
+            "amount": 4,
+            "articul": "111111120",
+            "img_url": "https://cdn-icons-png.flaticon.com/512/2175/2175188.png",
+            "date_add": "2024-11-01"
+        }
+    },
+    {
+        "model": "api.books",
         "pk": 20,
         "fields": {
-            "name": "Пенал школьный на молнии Calligrata \"Аниме\"",
-            "description": "2 отделения, розовый",
-            "price": 250.00,
-            "amount": 5,
-            "articul": "10185925",
+            "products_ptr_id": 20,
+            "author": 20,
+            "publisher": "Издательство Ф",
+            "series": "",
+            "binding": "Мягкая обложка",
+            "pub_year": 2019,
+            "count_pages": 290
+        }
+    },
+    {
+        "model": "api.products",
+        "pk": 20,
+        "fields": {
+            "type": "b",
+            "name": "Дьявол из Огайо",
+            "description": "Описание книги Дьявол из Огайо",
+            "price": 16.00,
+            "amount": 8,
+            "articul": "111111121",
             "img_url": "https://cdn-icons-png.flaticon.com/512/2175/2175188.png",
-            "date_add": "2024-10-24"
+            "date_add": "2024-11-01"
+        }
+    },
+    {
+        "model": "api.chancellery",
+        "pk": 1,
+        "fields": {
+            "products_ptr_id": 1
+        }
+    },
+    {
+        "model": "api.chancellery",
+        "pk": 2,
+        "fields": {
+            "products_ptr_id": 2
+        }
+    },
+    {
+        "model": "api.chancellery",
+        "pk": 3,
+        "fields": {
+            "products_ptr_id": 3
+        }
+    },
+    {
+        "model": "api.chancellery",
+        "pk": 4,
+        "fields": {
+            "products_ptr_id": 4
+        }
+    },
+    {
+        "model": "api.chancellery",
+        "pk": 5,
+        "fields": {
+            "products_ptr_id": 5
+        }
+    },
+    {
+        "model": "api.chancellery",
+        "pk": 6,
+        "fields": {
+            "products_ptr_id": 6
+        }
+    },
+    {
+        "model": "api.chancellery",
+        "pk": 7,
+        "fields": {
+            "products_ptr_id": 7
+        }
+    },
+    {
+        "model": "api.chancellery",
+        "pk": 8,
+        "fields": {
+            "products_ptr_id": 8
+        }
+    },
+    {
+        "model": "api.chancellery",
+        "pk": 9,
+        "fields": {
+            "products_ptr_id": 9
+        }
+    },
+    {
+        "model": "api.chancellery",
+        "pk": 10,
+        "fields": {
+            "products_ptr_id": 10
+        }
+    }, 
+        
+    {
+        "model": "api.BooksAuthors",
+        "pk": 1,
+        "fields": {
+            "name": "Иван Иванов"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 2,
+        "fields": {
+            "name": "Петр Петров"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 3,
+        "fields": {
+            "name": "Мария Смирнова"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 4,
+        "fields": {
+            "name": "Алексей Сидоров"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 5,
+        "fields": {
+            "name": "Наталья Васильева"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 6,
+        "fields": {
+            "name": "Дмитрий Кузнецов"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 7,
+        "fields": {
+            "name": "Сергей Соколов"
+        }
+    }, 
+    {
+        "model": "api.BooksAuthors",
+        "pk": 8,
+        "fields": {
+            "name": "Екатерина Павлова"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 9,
+        "fields": {
+            "name": "Анна Морозова"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 10,
+        "fields": {
+            "name": "Юрий Князев"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 11,
+        "fields": {
+            "name": "Александра Иванова"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 12,
+        "fields": {
+            "name": "Ли Вэньцзян"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 13,
+        "fields": {
+            "name": "Виктор Петров"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 14,
+        "fields": {
+            "name": "Буттар Скотт"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 15,
+        "fields": {
+            "name": "Мария Соколова"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 16,
+        "fields": {
+            "name": "Игорь Князев"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 17,
+        "fields": {
+            "name": "Алексей Михайлов"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 18,
+        "fields": {
+            "name": "Светлана Полякова"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 19,
+        "fields": {
+            "name": "Дмитрий Орлов"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 20,
+        "fields": {
+            "name": "Полина Васильева"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 21,
+        "fields": {
+            "name": "Ольга Семенова"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 22,
+        "fields": {
+            "name": "Елена Тихомирова"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 23,
+        "fields": {
+            "name": "Василий Пушкин"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 24,
+        "fields": {
+            "name": "Ирина Чернова"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 25,
+        "fields": {
+            "name": "Сергей Козлов"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 26,
+        "fields": {
+            "name": "Анна Белова"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 27,
+        "fields": {
+            "name": "Денис Сидоров"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 28,
+        "fields": {
+            "name": "Наталья Орлова"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 29,
+        "fields": {
+            "name": "Петр Ильин"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 30,
+        "fields": {
+            "name": "Ксения Лебедева"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 31,
+        "fields": {
+            "name": "Артем Захаров"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 32,
+        "fields": {
+            "name": "Виктория Нечаева"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 33,
+        "fields": {
+            "name": "Михаил Григорьев"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 34,
+        "fields": {
+            "name": "Екатерина Соколова"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 35,
+        "fields": {
+            "name": "Роман Иванов"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 36,
+        "fields": {
+            "name": "Лидия Кузнецова"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 37,
+        "fields": {
+            "name": "Максим Орлов"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 38,
+        "fields": {
+            "name": "Юлия Васильева"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 39,
+        "fields": {
+            "name": "Олег Смирнов"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 40,
+        "fields": {
+            "name": "Елена Лебедева"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 41,
+        "fields": {
+            "name": "Александр Волков"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 42,
+        "fields": {
+            "name": "Татьяна Орлова"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 43,
+        "fields": {
+            "name": "Григорий Матвеев"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 44,
+        "fields": {
+            "name": "Анна Лисова"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 45,
+        "fields": {
+            "name": "Валерий Сергеев"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 46,
+        "fields": {
+            "name": "Светлана Иванова"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 47,
+        "fields": {
+            "name": "Денис Григорьев"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 48,
+        "fields": {
+            "name": "Екатерина Морозова"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 49,
+        "fields": {
+            "name": "Максим Фролов"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 50,
+        "fields": {
+            "name": "Ольга Романова"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 51,
+        "fields": {
+            "name": "Андрей Михайлов"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 52,
+        "fields": {
+            "name": "Ольга Федорова"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 53,
+        "fields": {
+            "name": "Дмитрий Крылов"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 54,
+        "fields": {
+            "name": "Валентина Кузнецова"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 55,
+        "fields": {
+            "name": "Роман Петров"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 56,
+        "fields": {
+            "name": "Людмила Белова"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 57,
+        "fields": {
+            "name": "Иван Соколов"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 58,
+        "fields": {
+            "name": "Анна Королева"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 59,
+        "fields": {
+            "name": "Павел Иванов"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 60,
+        "fields": {
+            "name": "Екатерина Григорьева"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 61,
+        "fields": {
+            "name": "Алексей Смирнов"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 62,
+        "fields": {
+            "name": "Мария Кузнецова"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 63,
+        "fields": {
+            "name": "Виктор Федоров"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 64,
+        "fields": {
+            "name": "Ольга Зайцева"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 65,
+        "fields": {
+            "name": "Иван Матвеев"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 66,
+        "fields": {
+            "name": "Елена Васильева"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 67,
+        "fields": {
+            "name": "Дмитрий Орлов"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 68,
+        "fields": {
+            "name": "Анна Сидорова"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 69,
+        "fields": {
+            "name": "Роман Николаев"
+        }
+    },
+    {
+        "model": "api.BooksAuthors",
+        "pk": 70,
+        "fields": {
+            "name": "Людмила Григорьева"
         }
     }
 ]
