@@ -48,7 +48,6 @@
 }
 
 .header__profile_info {
-    width: 15%;
     display: flex;
     justify-content: space-between;
 }
@@ -63,7 +62,6 @@
 
 .header__searchbar {
     border-radius: 10px;
-
     font-size: 20px;
     padding: 20px;
     height: 30px;
@@ -77,6 +75,11 @@
     transition: .3s ease;
 }
 
+.header__favourite_img {
+    width: 35px;
+    
+}
+
 .header__profile_info_img:hover {
     transform: scale(1.1);
 }
@@ -85,6 +88,12 @@
     font-size: 17px;
     font-weight: 300;
     color: rgb(50, 50, 50);
+}
+
+.header__loginned_user {
+    display: flex;
+    justify-content: space-between;
+    width: 250px;
 }
 
 .header__profile_info_container {

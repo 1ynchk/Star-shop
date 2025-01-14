@@ -17,3 +17,23 @@ class Users(AbstractUser):
     
     class Meta:
         db_table = 'api_users'
+
+class Favourite(models.Model):
+    user = models.ForeignKey(Users, on_delete=models.CASCADE)
+    product = models.ForeignKey('api.Products', on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = 'api_favourite'
+
+    def __str__(self):
+        return f'{self.user} | {self.product}'
+    
+class Cart(models.Model):
+    user = models.ForeignKey(Users, on_delete=models.CASCADE)
+    product = models.ForeignKey('api.Products', on_delete=models.CASCADE)
+
+    class Meta: 
+        db_table = 'api_cart'
+
+    def __str__(self):
+        return f'{self.user} | {self.product}'

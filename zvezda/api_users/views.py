@@ -4,10 +4,10 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
-from .models import Users
+from .models import Users, Cart, Favourite
 # Create your views here.
 
-from .serializer import GetUsersProfileInfo
+from .serializer import GetUsersProfileInfo, CartSerializer
 
 # АУТЕНТИФИКАЦИЯ #
 
@@ -97,3 +97,11 @@ class UserInfoView(APIView):
         else:
             serializer = GetUsersProfileInfo(obj)
             return Response({'status': 'ok', 'data': serializer.data})
+        
+# КОРЗИНА #
+
+@api_view(http_method_names=['GET'])
+def get_user_cart(request):
+    queryset = Cart.objects.filter(user_id=request.user.id)
+
+    return Response({'status': 'ok', 'data': CartSerializer(queryset, many=True).data}) 

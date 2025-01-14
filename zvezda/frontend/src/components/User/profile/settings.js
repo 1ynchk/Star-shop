@@ -18,7 +18,6 @@ const Settings = () => {
     const email = useSelector(state => state.profile.email)
     const password_1 = ''
     const password_2 = ''
-    const error_ = useSelector(state => state.profile.error)
 
     useEffect(() => {
         dispatch(fetchProfileInfoGet())

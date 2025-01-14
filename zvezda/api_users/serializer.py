@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Users
+from .models import Users, Cart, Favourite
 
 class GetUsersProfileInfo(serializers.ModelSerializer):
     class Meta: 
@@ -21,3 +21,10 @@ class GetUsersProfileInfo(serializers.ModelSerializer):
             instance.set_password(password)
         instance.save()
         return instance
+    
+class CartSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Cart
+        fields = ['user', 'product']
+

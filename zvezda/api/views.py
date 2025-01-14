@@ -2,7 +2,7 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
-from .models import Products, UsersRate, ReviewRate, UserReview
+from .models import Products, UsersRate, ReviewRate, UserReview, Category
 from .serializer import (
     ProductsSerializer, 
     UsersRateSerializer,
@@ -10,7 +10,8 @@ from .serializer import (
     UserReviewCreate,
     UserReviewSerializer,
     RefactoredExactProduct,
-    RefactoredExactProductReviews,
+    RefactoredExactProductReviews, 
+    CategorySerializer
     )
 
 from .queries import (get_raw_product_rate, add_raw_product_rate_mtm)
@@ -104,16 +105,13 @@ def post_product_assessment(request):
     pk = request.data.get('id')
     assessment = request.data.get('assessment')
     data = {'user_rate': assessment, 'user': request.user.id}
-    print('first stage')
     try:
         rate = get_raw_product_rate(pk, request.user.id)
         serializer = UsersRateSerializer(data=data, instance=rate)
-        print('second stage')
         if serializer.is_valid():
             serializer.save()
             return Response({'status': 'ok', 'assessment': assessment})
         else:
-            print('third stage')
             return Response({'status': 'error', 'comment': 'incorrect data'}, status=400)
 
     except Exception:
@@ -190,7 +188,6 @@ def update_user_review(request):
     review_id = request.query_params.get('review_id')
     user_id = request.user.id
 
-    print(review_id, user_id)
 
     try:
         obj = UserReview.objects.get(user_id=user_id, id=review_id)
@@ -199,4 +196,10 @@ def update_user_review(request):
     
     obj.value = value
     obj.save()
-    return Response({'status': 'ok', 'data': UserReviewSerializer(obj).data})
+    return Response({'status': 'ok', 'data': UserReviewSerializer(obj).data}) 
+
+@api_view(http_method_names=['GET'])
+def get_categories(request):
+    categories = Category.objects.all()
+
+    return Response({'status': 'ok', 'data': CategorySerializer(categories, many=True).data})

@@ -3,6 +3,7 @@ import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.css';
 import { Navigation } from 'swiper/modules';
+import heart from '../../../../static/images/heart.png'
 
 import { NavLink } from 'react-router-dom';
 
@@ -48,6 +49,9 @@ const SalesHits = ({ products }) => {
                 
                     <div className='product_card__btn_container'>
                         <button className='product_card__btn' onClick={() => console.log('sss')}>В корзину</button>
+                        <button className='product_card_btn_favourite'>
+                            <img className='product_card_btn_favourite_img' src={heart} />
+                        </button>
                     </div>
                 </div>
             </SwiperSlide>

@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Products, Discount, UsersRate, UserReview, ReviewRate
+from .models import Products, Discount, UsersRate, UserReview, ReviewRate, Category
 from api_users.models import Users
 
 # REVIEWS #
@@ -101,4 +101,12 @@ class UsersAuthorizationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Users
-        fields = ('email', 'password')
+        fields = ('email', 'password') 
+
+# CATALOG 
+
+class CategorySerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Category
+        fields = '__all__'

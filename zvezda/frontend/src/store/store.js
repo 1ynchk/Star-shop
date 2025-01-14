@@ -6,6 +6,7 @@ import popupReducer from './slices/PopupSlice.js'
 import usersReducer from './slices/UsersSlice.js'
 import profileReducer from './slices/ProfileSlice.js'
 import notificationReducer from './slices/Notification.js'
+import SliceReducer from './slices/CatalogSlice.js'
 
 const reducers = combineReducers(
     {
@@ -14,7 +15,8 @@ const reducers = combineReducers(
         popup: popupReducer,
         users: usersReducer,
         profile: profileReducer,
-        notification: notificationReducer
+        notification: notificationReducer,
+        catalog: SliceReducer
     }
 )
 

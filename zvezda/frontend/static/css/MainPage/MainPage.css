@@ -42,14 +42,27 @@
 
 /* SALESHITS */
 
+.product_card_btn_favourite {
+    height: 35px;
+    width: 35px;
+    border-radius: 5px;
+    border: 1px solid rgb(50, 50, 50, 0.5);
+    transition: .3s ease;
+}
+
+.product_card_btn_favourite_img {
+    height: 70%;
+    width: 70%;
+}
+
 .product_card {
     max-width: 200px;
     transform: scale(1.0);
     transition: 0.5s;
 }
 
-.product_card:hover {
-    transform: scale(1.03);
+.product_card_btn_favourite:hover {
+    background-color: rgba(255, 166, 0, 0.50);
 }
 
 .product_card__img_container {
@@ -96,16 +109,17 @@
 
 .product_card__btn_container {
     margin-right: 10px;
-    margin-top: 15px;
+    margin-top: 8px;
     display: flex;
-    justify-content: end;
+    justify-content: space-between;
+    height: 35px;
 }
 
 .product_card__btn {
-    border-radius: 10px;
+    border-radius: 5px;
     width: fit-content;
     background-color: orange;
-    padding: 10px 15px;
+    padding: 10px 50px;
     transition-duration: 0.5s;
 }
 
